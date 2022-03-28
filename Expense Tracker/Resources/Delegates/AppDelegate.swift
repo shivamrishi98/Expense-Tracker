@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navVC.navigationBar.backgroundColor = .clear
         navVC.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navVC.navigationBar.shadowImage = UIImage()
+        navVC.navigationBar.prefersLargeTitles = true
+        navVC.navigationBar.tintColor = .label
         window.rootViewController = navVC
         self.window = window
         self.window?.makeKeyAndVisible()

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		961BEEE627EDE2C4003A1D11 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEE527EDE2C4003A1D11 /* Extensions.swift */; };
+		961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEE827EEEFB0003A1D11 /* EmptyView.swift */; };
+		961BEEEC27EF0901003A1D11 /* EmptyViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEEB27EF0901003A1D11 /* EmptyViewLabel.swift */; };
 		9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708B27EDA956005DB20D /* AppDelegate.swift */; };
 		9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708D27EDA956005DB20D /* SceneDelegate.swift */; };
 		9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9647709427EDA956005DB20D /* Expense_Tracker.xcdatamodeld */; };
@@ -17,9 +20,13 @@
 		964770AF27EDD2F2005DB20D /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770AE27EDD2F2005DB20D /* ExpenseListViewController.swift */; };
 		964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B027EDD2FF005DB20D /* AboutViewController.swift */; };
 		964770B327EDD32C005DB20D /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B227EDD32C005DB20D /* AddExpenseViewController.swift */; };
+		964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B727EDD7DF005DB20D /* InputTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		961BEEE527EDE2C4003A1D11 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		961BEEE827EEEFB0003A1D11 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		961BEEEB27EF0901003A1D11 /* EmptyViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewLabel.swift; sourceTree = "<group>"; };
 		9647708827EDA956005DB20D /* Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9647708B27EDA956005DB20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9647708D27EDA956005DB20D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +39,7 @@
 		964770AE27EDD2F2005DB20D /* ExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
 		964770B027EDD2FF005DB20D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		964770B227EDD32C005DB20D /* AddExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
+		964770B727EDD7DF005DB20D /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		961BEEE727EEEBE3003A1D11 /* Textfields */ = {
+			isa = PBXGroup;
+			children = (
+				964770B727EDD7DF005DB20D /* InputTextField.swift */,
+			);
+			path = Textfields;
+			sourceTree = "<group>";
+		};
+		961BEEEA27EF08E0003A1D11 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				961BEEEB27EF0901003A1D11 /* EmptyViewLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
 		9647707F27EDA955005DB20D = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +103,7 @@
 			children = (
 				964770A327EDD115005DB20D /* Delegates */,
 				9647709727EDA957005DB20D /* Assets.xcassets */,
+				961BEEE527EDE2C4003A1D11 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -96,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				964770A527EDD131005DB20D /* Storyboard */,
+				964770B527EDD7AD005DB20D /* Others */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -133,6 +159,24 @@
 				964770B227EDD32C005DB20D /* AddExpenseViewController.swift */,
 			);
 			path = Expense;
+			sourceTree = "<group>";
+		};
+		964770B527EDD7AD005DB20D /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				961BEEEA27EF08E0003A1D11 /* Labels */,
+				961BEEE727EEEBE3003A1D11 /* Textfields */,
+				964770B627EDD7B3005DB20D /* Buttons */,
+				961BEEE827EEEFB0003A1D11 /* EmptyView.swift */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		964770B627EDD7B3005DB20D /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,11 +251,15 @@
 			files = (
 				964770AF27EDD2F2005DB20D /* ExpenseListViewController.swift in Sources */,
 				964770AB27EDD281005DB20D /* HomeViewController.swift in Sources */,
+				961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */,
 				9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */,
 				964770B327EDD32C005DB20D /* AddExpenseViewController.swift in Sources */,
 				964770AD27EDD2E0005DB20D /* ExpenseDetailedViewController.swift in Sources */,
+				961BEEE627EDE2C4003A1D11 /* Extensions.swift in Sources */,
 				9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */,
 				964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */,
+				961BEEEC27EF0901003A1D11 /* EmptyViewLabel.swift in Sources */,
+				964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */,
 				9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
