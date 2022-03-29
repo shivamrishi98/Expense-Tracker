@@ -7,9 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9619ACDE27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619ACDD27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift */; };
+		9619ACE027F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619ACDF27F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift */; };
+		9619ACE227F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619ACE127F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift */; };
+		9619ACE427F30C9600CB0F40 /* TableHeaderViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619ACE327F30C9600CB0F40 /* TableHeaderViewLabel.swift */; };
 		961BEEE627EDE2C4003A1D11 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEE527EDE2C4003A1D11 /* Extensions.swift */; };
 		961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEE827EEEFB0003A1D11 /* EmptyView.swift */; };
 		961BEEEC27EF0901003A1D11 /* EmptyViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEEB27EF0901003A1D11 /* EmptyViewLabel.swift */; };
+		961BEEEE27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEED27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift */; };
+		961BEEF027F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEEF27F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift */; };
+		961BEEF527F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEF427F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift */; };
+		961BEEF727F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEF627F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift */; };
+		961BEEF927F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEF827F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift */; };
+		961BEEFB27F1A617003A1D11 /* ExpenseTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEFA27F1A617003A1D11 /* ExpenseTypeLabel.swift */; };
+		961BEEFF27F23969003A1D11 /* ExpenseTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */; };
 		9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708B27EDA956005DB20D /* AppDelegate.swift */; };
 		9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708D27EDA956005DB20D /* SceneDelegate.swift */; };
 		9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9647709427EDA956005DB20D /* Expense_Tracker.xcdatamodeld */; };
@@ -19,14 +30,25 @@
 		964770AD27EDD2E0005DB20D /* ExpenseDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770AC27EDD2E0005DB20D /* ExpenseDetailedViewController.swift */; };
 		964770AF27EDD2F2005DB20D /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770AE27EDD2F2005DB20D /* ExpenseListViewController.swift */; };
 		964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B027EDD2FF005DB20D /* AboutViewController.swift */; };
-		964770B327EDD32C005DB20D /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B227EDD32C005DB20D /* AddExpenseViewController.swift */; };
+		964770B327EDD32C005DB20D /* AddExpenseScreenOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */; };
 		964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B727EDD7DF005DB20D /* InputTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9619ACDD27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDatePickerTableViewCell.swift; sourceTree = "<group>"; };
+		9619ACDF27F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTextfieldTableViewCell.swift; sourceTree = "<group>"; };
+		9619ACE127F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseScreenTwoTableHeaderView.swift; sourceTree = "<group>"; };
+		9619ACE327F30C9600CB0F40 /* TableHeaderViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderViewLabel.swift; sourceTree = "<group>"; };
 		961BEEE527EDE2C4003A1D11 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		961BEEE827EEEFB0003A1D11 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		961BEEEB27EF0901003A1D11 /* EmptyViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewLabel.swift; sourceTree = "<group>"; };
+		961BEEED27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseScreenTwoViewController.swift; sourceTree = "<group>"; };
+		961BEEEF27F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleCollectionReusableView.swift; sourceTree = "<group>"; };
+		961BEEF427F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		961BEEF627F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTypeCollectionViewCell.swift; sourceTree = "<group>"; };
+		961BEEF827F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		961BEEFA27F1A617003A1D11 /* ExpenseTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTypeLabel.swift; sourceTree = "<group>"; };
+		961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTypeView.swift; sourceTree = "<group>"; };
 		9647708827EDA956005DB20D /* Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9647708B27EDA956005DB20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9647708D27EDA956005DB20D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -38,7 +60,7 @@
 		964770AC27EDD2E0005DB20D /* ExpenseDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailedViewController.swift; sourceTree = "<group>"; };
 		964770AE27EDD2F2005DB20D /* ExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
 		964770B027EDD2FF005DB20D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		964770B227EDD32C005DB20D /* AddExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
+		964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseScreenOneViewController.swift; sourceTree = "<group>"; };
 		964770B727EDD7DF005DB20D /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,6 +75,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9619ACD727F2D1EA00CB0F40 /* Add Expense */ = {
+			isa = PBXGroup;
+			children = (
+				9619ACD927F2DE4000CB0F40 /* Screen 1 */,
+				9619ACDA27F2DE4900CB0F40 /* Screen 2 */,
+			);
+			path = "Add Expense";
+			sourceTree = "<group>";
+		};
+		9619ACD827F2D20000CB0F40 /* Add Expense */ = {
+			isa = PBXGroup;
+			children = (
+				964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */,
+				961BEEED27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift */,
+			);
+			path = "Add Expense";
+			sourceTree = "<group>";
+		};
+		9619ACD927F2DE4000CB0F40 /* Screen 1 */ = {
+			isa = PBXGroup;
+			children = (
+				961BEEF827F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift */,
+				961BEEF427F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift */,
+				961BEEF627F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift */,
+			);
+			path = "Screen 1";
+			sourceTree = "<group>";
+		};
+		9619ACDA27F2DE4900CB0F40 /* Screen 2 */ = {
+			isa = PBXGroup;
+			children = (
+				9619ACDF27F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift */,
+				9619ACDD27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift */,
+			);
+			path = "Screen 2";
+			sourceTree = "<group>";
+		};
 		961BEEE727EEEBE3003A1D11 /* Textfields */ = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				961BEEEB27EF0901003A1D11 /* EmptyViewLabel.swift */,
+				961BEEFA27F1A617003A1D11 /* ExpenseTypeLabel.swift */,
+				9619ACE327F30C9600CB0F40 /* TableHeaderViewLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -154,9 +215,9 @@
 		964770B427EDD34C005DB20D /* Expense */ = {
 			isa = PBXGroup;
 			children = (
+				9619ACD827F2D20000CB0F40 /* Add Expense */,
 				964770AC27EDD2E0005DB20D /* ExpenseDetailedViewController.swift */,
 				964770AE27EDD2F2005DB20D /* ExpenseListViewController.swift */,
-				964770B227EDD32C005DB20D /* AddExpenseViewController.swift */,
 			);
 			path = Expense;
 			sourceTree = "<group>";
@@ -164,10 +225,14 @@
 		964770B527EDD7AD005DB20D /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				9619ACD727F2D1EA00CB0F40 /* Add Expense */,
 				961BEEEA27EF08E0003A1D11 /* Labels */,
 				961BEEE727EEEBE3003A1D11 /* Textfields */,
 				964770B627EDD7B3005DB20D /* Buttons */,
 				961BEEE827EEEFB0003A1D11 /* EmptyView.swift */,
+				961BEEEF27F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift */,
+				9619ACE127F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift */,
+				961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -250,15 +315,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				964770AF27EDD2F2005DB20D /* ExpenseListViewController.swift in Sources */,
+				961BEEF927F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift in Sources */,
+				961BEEFF27F23969003A1D11 /* ExpenseTypeView.swift in Sources */,
+				961BEEF027F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift in Sources */,
+				961BEEFB27F1A617003A1D11 /* ExpenseTypeLabel.swift in Sources */,
 				964770AB27EDD281005DB20D /* HomeViewController.swift in Sources */,
+				9619ACE427F30C9600CB0F40 /* TableHeaderViewLabel.swift in Sources */,
 				961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */,
 				9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */,
-				964770B327EDD32C005DB20D /* AddExpenseViewController.swift in Sources */,
+				9619ACE227F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift in Sources */,
+				964770B327EDD32C005DB20D /* AddExpenseScreenOneViewController.swift in Sources */,
 				964770AD27EDD2E0005DB20D /* ExpenseDetailedViewController.swift in Sources */,
+				961BEEF727F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift in Sources */,
 				961BEEE627EDE2C4003A1D11 /* Extensions.swift in Sources */,
+				961BEEEE27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift in Sources */,
+				9619ACE027F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift in Sources */,
 				9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */,
+				9619ACDE27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift in Sources */,
 				964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */,
 				961BEEEC27EF0901003A1D11 /* EmptyViewLabel.swift in Sources */,
+				961BEEF527F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift in Sources */,
 				964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */,
 				9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */,
 			);

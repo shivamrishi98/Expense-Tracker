@@ -48,6 +48,8 @@ final class HomeViewController: UIViewController {
     }
     
     @objc private func didTapAdd() {
+        let vc = AddExpenseScreenOneViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func fetchTransactions() {

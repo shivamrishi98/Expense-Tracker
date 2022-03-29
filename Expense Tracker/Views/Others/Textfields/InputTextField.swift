@@ -12,12 +12,15 @@ final class InputTextField: UITextField {
     // MARK: - Properties
     
     enum FieldType {
-        case name
+        case title
+        case none
         
         var title:String {
             switch self {
-            case .name:
-                return "Name"
+            case .title:
+                return "Title"
+            case .none:
+                return ""
             }
         }
     }
@@ -53,11 +56,15 @@ final class InputTextField: UITextField {
         leftViewMode = .always
         autocorrectionType = .no
         autocapitalizationType = .none
+        spellCheckingType = .no
         textColor = .label
+        
         switch type {
-        case .name:
+        case .title:
             textContentType = .name
             keyboardType = .default
+        case .none:
+            break
         }
     }
     

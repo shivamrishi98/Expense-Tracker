@@ -37,3 +37,38 @@ extension UIView {
         return top + height
     }
 }
+
+// MARK: - Extension - Dateformatter
+
+extension DateFormatter {
+    static let dateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.calendar = .current
+        formatter.locale = .current
+        formatter.dateStyle = .full
+        formatter.timeStyle = .long
+        return formatter
+    }()
+    static let displayDateFormatter:DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.calendar = .current
+        formatter.locale = .current
+        formatter.dateStyle = .full
+        formatter.timeStyle = .long
+        return formatter
+    }()
+}
+
+extension String {
+    static func formattedDate(date:Date) -> String {
+        return DateFormatter.displayDateFormatter.string(from: date)
+    }
+}
+
+extension Date {
+    static func formattString(date:String) -> Date {
+        return DateFormatter.dateFormatter.date(from: date) ?? Date()
+    }
+}
