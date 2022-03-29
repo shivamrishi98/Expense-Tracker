@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9605036227F367080081EAC6 /* HomeHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605036127F367080081EAC6 /* HomeHeaderCollectionReusableView.swift */; };
+		9605036427F36C640081EAC6 /* TransactionListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605036327F36C640081EAC6 /* TransactionListCollectionViewCell.swift */; };
+		9605036627F378590081EAC6 /* BalanceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605036527F378590081EAC6 /* BalanceCollectionViewCell.swift */; };
 		9619ACDE27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619ACDD27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift */; };
 		9619ACE027F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619ACDF27F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift */; };
 		9619ACE227F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9619ACE127F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift */; };
@@ -35,6 +38,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9605036127F367080081EAC6 /* HomeHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		9605036327F36C640081EAC6 /* TransactionListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListCollectionViewCell.swift; sourceTree = "<group>"; };
+		9605036527F378590081EAC6 /* BalanceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCollectionViewCell.swift; sourceTree = "<group>"; };
 		9619ACDD27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		9619ACDF27F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTextfieldTableViewCell.swift; sourceTree = "<group>"; };
 		9619ACE127F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseScreenTwoTableHeaderView.swift; sourceTree = "<group>"; };
@@ -75,6 +81,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9605036727F395990081EAC6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9605036127F367080081EAC6 /* HomeHeaderCollectionReusableView.swift */,
+				9605036327F36C640081EAC6 /* TransactionListCollectionViewCell.swift */,
+				9605036527F378590081EAC6 /* BalanceCollectionViewCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		9619ACD727F2D1EA00CB0F40 /* Add Expense */ = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +122,7 @@
 		9619ACDA27F2DE4900CB0F40 /* Screen 2 */ = {
 			isa = PBXGroup;
 			children = (
+				9619ACE127F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift */,
 				9619ACDF27F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift */,
 				9619ACDD27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift */,
 			);
@@ -225,13 +242,13 @@
 		964770B527EDD7AD005DB20D /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				9605036727F395990081EAC6 /* Home */,
 				9619ACD727F2D1EA00CB0F40 /* Add Expense */,
 				961BEEEA27EF08E0003A1D11 /* Labels */,
 				961BEEE727EEEBE3003A1D11 /* Textfields */,
 				964770B627EDD7B3005DB20D /* Buttons */,
 				961BEEE827EEEFB0003A1D11 /* EmptyView.swift */,
 				961BEEEF27F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift */,
-				9619ACE127F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift */,
 				961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */,
 			);
 			path = Others;
@@ -323,10 +340,12 @@
 				9619ACE427F30C9600CB0F40 /* TableHeaderViewLabel.swift in Sources */,
 				961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */,
 				9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */,
+				9605036627F378590081EAC6 /* BalanceCollectionViewCell.swift in Sources */,
 				9619ACE227F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift in Sources */,
 				964770B327EDD32C005DB20D /* AddExpenseScreenOneViewController.swift in Sources */,
 				964770AD27EDD2E0005DB20D /* ExpenseDetailedViewController.swift in Sources */,
 				961BEEF727F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift in Sources */,
+				9605036227F367080081EAC6 /* HomeHeaderCollectionReusableView.swift in Sources */,
 				961BEEE627EDE2C4003A1D11 /* Extensions.swift in Sources */,
 				961BEEEE27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift in Sources */,
 				9619ACE027F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift in Sources */,
@@ -337,6 +356,7 @@
 				961BEEF527F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift in Sources */,
 				964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */,
 				9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */,
+				9605036427F36C640081EAC6 /* TransactionListCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

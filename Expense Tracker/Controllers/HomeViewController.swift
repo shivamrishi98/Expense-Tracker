@@ -9,26 +9,57 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    private let transactions = [String]()
+    // MARK: - Properties
+    
+    private let transactions = ["",""]
     
     // MARK: - UI
     
     private let emptyView = EmptyView()
     
+    private let collectionView: UICollectionView = {
+        let layout = UICollectionViewCompositionalLayout { section, _ in
+            return HomeViewController.layout(for: section)
+        }
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: layout)
+        collectionView.backgroundColor = .secondarySystemBackground
+        collectionView.register(
+            UICollectionViewCell.self,
+            forCellWithReuseIdentifier: "cell")
+        collectionView.register(
+            BalanceCollectionViewCell.self,
+            forCellWithReuseIdentifier: BalanceCollectionViewCell.identifier)
+        collectionView.register(
+            TransactionListCollectionViewCell.self,
+            forCellWithReuseIdentifier: TransactionListCollectionViewCell.identifier)
+        collectionView.register(
+            HomeHeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HomeHeaderCollectionReusableView.identifier)
+        collectionView.register(
+            HeaderTitleCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HeaderTitleCollectionReusableView.identifier)
+        return collectionView
+    }()
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Home"
+        title = "Dashboard"
         view.backgroundColor = .systemBackground
         setupBarButtonItems()
-        view.addSubview(emptyView)
+        view.addSubviews(emptyView,collectionView)
         fetchTransactions()
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        collectionView.frame = view.bounds
         emptyView.frame = CGRect(
             x: 0,
             y: view.safeAreaInsets.top,
@@ -66,3 +97,161 @@ final class HomeViewController: UIViewController {
         }
     }
 }
+
+// MARK: - Extension - UICollectionView
+
+extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 2
+        case 1:
+            return min(transactions.count, 5)
+        default:
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.section {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: BalanceCollectionViewCell.identifier,
+                for: indexPath) as? BalanceCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.configure()
+            return cell
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: TransactionListCollectionViewCell.identifier,
+                for: indexPath) as? TransactionListCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.configure()
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+            cell.backgroundColor = .systemOrange
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch indexPath.section {
+        case 0:
+            guard kind == UICollectionView.elementKindSectionHeader,
+                  let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: HomeHeaderCollectionReusableView.identifier,
+                    for: indexPath) as? HomeHeaderCollectionReusableView else {
+                return UICollectionReusableView()
+            }
+            header.backgroundColor = .secondarySystemBackground
+            header.configure()
+            return header
+        default:
+            guard kind == UICollectionView.elementKindSectionHeader,
+                  let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: HeaderTitleCollectionReusableView.identifier,
+                    for: indexPath) as? HeaderTitleCollectionReusableView else {
+                return UICollectionReusableView()
+            }
+            header.backgroundColor = .secondarySystemBackground
+            header.configure(
+                with: "Recent Transactions",
+                showViewAll: (transactions.count > 5) ? true : false)
+            header.delegate = self
+            return header
+        }
+    }
+
+}
+
+// MARK: - Extension - HeaderTitleCollectionReusableViewDelegate
+
+extension HomeViewController: HeaderTitleCollectionReusableViewDelegate {
+
+    func headerTitleCollectionReusableViewDidTapViewAll(_ cell: HeaderTitleCollectionReusableView) {
+        debugPrint("View All Tapped!")
+    }
+
+}
+
+// MARK: - Extension - HomeViewController
+
+extension HomeViewController {
+    
+    private static func createSection(
+        with widthDimension: NSCollectionLayoutDimension,
+        heightDimension: NSCollectionLayoutDimension,
+        count:Int
+    ) -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: widthDimension,
+                                             heightDimension: heightDimension)
+       let item = NSCollectionLayoutItem(layoutSize: itemSize)
+       
+       item.contentInsets = NSDirectionalEdgeInsets(top: 2,
+                                                    leading: 2,
+                                                    bottom: 2,
+                                                    trailing: 2)
+       
+       let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                              heightDimension: heightDimension)
+       let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                      subitem: item,
+                                                      count: count)
+       
+       let section = NSCollectionLayoutSection(group: group)
+       return section
+   }
+   
+   private static func layout(for section: Int) -> NSCollectionLayoutSection {
+       
+       let sectionOneSupplementaryViews = [
+           NSCollectionLayoutBoundarySupplementaryItem(
+               layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .absolute(100)),
+               elementKind: UICollectionView.elementKindSectionHeader,
+               alignment: .top
+           )
+       ]
+       
+       let supplementaryViews = [
+           NSCollectionLayoutBoundarySupplementaryItem(
+               layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                  heightDimension: .absolute(40)),
+               elementKind: UICollectionView.elementKindSectionHeader,
+               alignment: .top
+           )
+       ]
+       
+       switch section {
+       case 0:
+           let section = createSection(with: .fractionalWidth(0.5),
+                                       heightDimension: .absolute(150),
+                                       count: 2)
+           section.boundarySupplementaryItems = sectionOneSupplementaryViews
+           return section
+       case 1:
+           let section = createSection(with: .fractionalWidth(1),
+                                       heightDimension: .absolute(70),
+                                       count: 1)
+           section.boundarySupplementaryItems = supplementaryViews
+           return section
+       default:
+           let section = createSection(with: .fractionalWidth(0.5),
+                                       heightDimension: .absolute(50),
+                                       count: 1)
+           return section
+       }
+   }
+   
+}
+
