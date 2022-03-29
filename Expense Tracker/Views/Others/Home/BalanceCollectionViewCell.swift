@@ -70,7 +70,7 @@ final class BalanceCollectionViewCell: UICollectionViewCell {
         balanceLabel.frame = CGRect(x: 10,
                                     y: typeLabel.bottom + 5,
                                     width: contentView.width-20,
-                                    height: balanceLabel.height)
+                                    height: balanceLabel.height-5)
         
     }
     
