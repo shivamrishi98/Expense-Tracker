@@ -93,5 +93,7 @@ extension TransactionExpenseTypeListViewController: UITableViewDataSource,UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let vc = ExpenseDetailedViewController(model: "")
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

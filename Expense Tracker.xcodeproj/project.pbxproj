@@ -37,6 +37,7 @@
 		964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B727EDD7DF005DB20D /* InputTextField.swift */; };
 		96D7C5D627F4231400C1F22B /* TransactionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */; };
 		96D7C5D827F4257300C1F22B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D727F4257300C1F22B /* ChartView.swift */; };
+		96D7C5DA27F4279400C1F22B /* ExpenseDetailedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		964770B727EDD7DF005DB20D /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 		96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListTableViewCell.swift; sourceTree = "<group>"; };
 		96D7C5D727F4257300C1F22B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailedTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +257,7 @@
 				961BEEEF27F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift */,
 				961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */,
 				96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */,
+				96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */,
 				9619ACDE27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift in Sources */,
 				964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */,
+				96D7C5DA27F4279400C1F22B /* ExpenseDetailedTableViewCell.swift in Sources */,
 				961BEEEC27EF0901003A1D11 /* EmptyViewLabel.swift in Sources */,
 				961BEEF527F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift in Sources */,
 				964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */,

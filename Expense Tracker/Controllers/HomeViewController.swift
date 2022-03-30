@@ -177,6 +177,9 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         case 0:
             let vc = TransactionExpenseTypeListViewController(type: .income)
             navigationController?.pushViewController(vc, animated: true)
+        case 1:
+            let vc = ExpenseDetailedViewController(model: "")
+            navigationController?.pushViewController(vc, animated: true)
         default:
             break
         }
