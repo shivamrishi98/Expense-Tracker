@@ -38,6 +38,7 @@
 		96D7C5D627F4231400C1F22B /* TransactionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */; };
 		96D7C5D827F4257300C1F22B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D727F4257300C1F22B /* ChartView.swift */; };
 		96D7C5DA27F4279400C1F22B /* ExpenseDetailedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */; };
+		96D7C5DC27F4339F00C1F22B /* TransactionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5DB27F4339F00C1F22B /* TransactionListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListTableViewCell.swift; sourceTree = "<group>"; };
 		96D7C5D727F4257300C1F22B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailedTableViewCell.swift; sourceTree = "<group>"; };
+		96D7C5DB27F4339F00C1F22B /* TransactionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				9619ACD827F2D20000CB0F40 /* Add Expense */,
 				964770AC27EDD2E0005DB20D /* ExpenseDetailedViewController.swift */,
 				964770AE27EDD2F2005DB20D /* TransactionExpenseTypeListViewController.swift */,
+				96D7C5DB27F4339F00C1F22B /* TransactionListViewController.swift */,
 			);
 			path = Expense;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				964770AF27EDD2F2005DB20D /* TransactionExpenseTypeListViewController.swift in Sources */,
+				96D7C5DC27F4339F00C1F22B /* TransactionListViewController.swift in Sources */,
 				961BEEF927F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift in Sources */,
 				961BEEFF27F23969003A1D11 /* ExpenseTypeView.swift in Sources */,
 				96D7C5D827F4257300C1F22B /* ChartView.swift in Sources */,

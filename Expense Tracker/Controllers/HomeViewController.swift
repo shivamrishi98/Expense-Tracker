@@ -11,7 +11,9 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let transactions = ["",""]
+    private let transactions = ["","","","","",""]
+    
+    
     
     // MARK: - UI
     
@@ -192,7 +194,8 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
 extension HomeViewController: HeaderTitleCollectionReusableViewDelegate {
 
     func headerTitleCollectionReusableViewDidTapViewAll(_ cell: HeaderTitleCollectionReusableView) {
-        debugPrint("View All Tapped!")
+        let vc = TransactionListViewController(transactions: transactions)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }
