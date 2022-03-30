@@ -35,6 +35,7 @@
 		964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B027EDD2FF005DB20D /* AboutViewController.swift */; };
 		964770B327EDD32C005DB20D /* AddExpenseScreenOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */; };
 		964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B727EDD7DF005DB20D /* InputTextField.swift */; };
+		96870E1127F47ED8006EDB53 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870E1027F47ED8006EDB53 /* DatabaseManager.swift */; };
 		96D7C5D627F4231400C1F22B /* TransactionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */; };
 		96D7C5D827F4257300C1F22B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D727F4257300C1F22B /* ChartView.swift */; };
 		96D7C5DA27F4279400C1F22B /* ExpenseDetailedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */; };
@@ -72,6 +73,7 @@
 		964770B027EDD2FF005DB20D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseScreenOneViewController.swift; sourceTree = "<group>"; };
 		964770B727EDD7DF005DB20D /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
+		96870E1027F47ED8006EDB53 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListTableViewCell.swift; sourceTree = "<group>"; };
 		96D7C5D727F4257300C1F22B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailedTableViewCell.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				964770A227EDD10A005DB20D /* Resources */,
 				964770A727EDD151005DB20D /* Managers */,
+				96870E1227F48092006EDB53 /* Services */,
 				964770A427EDD12B005DB20D /* Views */,
 				964770A627EDD140005DB20D /* Controllers */,
 				9647709C27EDA957005DB20D /* Info.plist */,
@@ -233,6 +236,7 @@
 		964770A727EDD151005DB20D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				96870E1027F47ED8006EDB53 /* DatabaseManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -271,6 +275,13 @@
 				96D7C5D727F4257300C1F22B /* ChartView.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		96870E1227F48092006EDB53 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,6 +381,7 @@
 				96D7C5DA27F4279400C1F22B /* ExpenseDetailedTableViewCell.swift in Sources */,
 				961BEEEC27EF0901003A1D11 /* EmptyViewLabel.swift in Sources */,
 				961BEEF527F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift in Sources */,
+				96870E1127F47ED8006EDB53 /* DatabaseManager.swift in Sources */,
 				964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */,
 				9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */,
 				9605036427F36C640081EAC6 /* TransactionListCollectionViewCell.swift in Sources */,
