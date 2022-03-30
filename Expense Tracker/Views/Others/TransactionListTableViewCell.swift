@@ -1,17 +1,17 @@
 //
-//  TransactionListCollectionViewCell.swift
+//  TransactionListTableViewCell.swift
 //  Expense Tracker
 //
-//  Created by Shivam Rishi on 29/03/22.
+//  Created by Shivam Rishi on 30/03/22.
 //
 
 import UIKit
 
-final class TransactionListCollectionViewCell: UICollectionViewCell {
-    
+final class TransactionListTableViewCell: UITableViewCell {
+
     // MARK: - Properties
     
-    static let identifier = "TransactionListCollectionViewCell"
+    static let identifier = "TransactionListTableViewCell"
     
     // MARK: - UI
     
@@ -59,12 +59,12 @@ final class TransactionListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Init
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .systemBackground
         contentView.addSubviews(iconImageView,titleLabel,categoryLabel,totalBalanceLabel,createdAtLabel)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError()
     }
@@ -122,4 +122,5 @@ final class TransactionListCollectionViewCell: UICollectionViewCell {
         createdAtLabel.text = "Mar 29, 2022"
     }
     
+
 }

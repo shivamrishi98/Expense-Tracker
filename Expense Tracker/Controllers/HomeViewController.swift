@@ -171,6 +171,16 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             return header
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            let vc = TransactionExpenseTypeListViewController(type: .income)
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            break
+        }
+    }
 
 }
 
