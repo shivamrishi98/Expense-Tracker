@@ -29,9 +29,12 @@ class ExpenseTextfieldTableViewCell:UITableViewCell,UITextFieldDelegate {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         contentView.addSubview(textfield)
         textfield.delegate = self
-        selectionStyle = .none
+        textfield.addTarget(self,
+                            action: #selector(textfieldValueChange(_:)),
+                            for: .editingChanged)
     }
 
     required init?(coder: NSCoder) {
@@ -78,6 +81,15 @@ class ExpenseTextfieldTableViewCell:UITableViewCell,UITextFieldDelegate {
                                                 didUpdateField: model)
         textfield.resignFirstResponder()
     }
+    
+      @objc private func textfieldValueChange(_ textfield: UITextField) {
+          model?.value = textfield.text
+          guard let model = model else {
+              return
+          }
+          delegate?.expenseTextfieldTableViewCell(self,
+                                                  didUpdateField: model)
+      }
     
     // MARK: - Public
     

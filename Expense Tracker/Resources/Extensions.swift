@@ -46,8 +46,7 @@ extension DateFormatter {
         formatter.timeZone = TimeZone.current
         formatter.calendar = .current
         formatter.locale = .current
-        formatter.dateStyle = .full
-        formatter.timeStyle = .long
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         return formatter
     }()
     static let displayDateFormatter:DateFormatter = {
@@ -55,13 +54,15 @@ extension DateFormatter {
         formatter.timeZone = TimeZone.current
         formatter.calendar = .current
         formatter.locale = .current
-        formatter.dateStyle = .full
-        formatter.timeStyle = .long
+        formatter.dateFormat = "MMM dd, YYYY"
         return formatter
     }()
 }
 
 extension String {
+    static func formattedToOriginal(date:Date) -> String {
+        return DateFormatter.dateFormatter.string(from: date)
+    }
     static func formattedDate(date:Date) -> String {
         return DateFormatter.displayDateFormatter.string(from: date)
     }

@@ -37,7 +37,7 @@ class ExpenseDatePickerTableViewCell:UITableViewCell {
     }
     
     @objc private func didChangeValue(_ picker:UIDatePicker) {
-        model?.value = String.formattedDate(date: picker.date)
+        model?.value = String.formattedToOriginal(date: picker.date)
         guard let model = model else {
             return
         }

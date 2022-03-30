@@ -58,14 +58,6 @@ final class InputTextField: UITextField {
         autocapitalizationType = .none
         spellCheckingType = .no
         textColor = .label
-        
-        switch type {
-        case .title:
-            textContentType = .name
-            keyboardType = .default
-        case .none:
-            break
-        }
     }
     
 }

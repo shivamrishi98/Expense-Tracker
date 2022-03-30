@@ -30,6 +30,8 @@ final class ExpenseTextfieldCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.addSubview(titleTextfield)
         titleTextfield.delegate = self
+        titleTextfield.addTarget(self,
+                                 action: #selector(textfieldValueChange(_:)), for: .editingChanged)
     }
     
     required init?(coder: NSCoder) {
@@ -50,6 +52,17 @@ final class ExpenseTextfieldCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         titleTextfield.text = nil
         titleTextfield.placeholder = InputTextField.FieldType.title.title
+    }
+    
+    // MARK: - Private
+    
+    @objc private func textfieldValueChange(_ textfield: UITextField) {
+        title = textfield.text
+        guard let title = title else {
+            return
+        }
+        delegate?.expenseTextfieldCollectionViewCell(self,
+                                                 didUpdateField: title)
     }
     
     // MARK: - Public

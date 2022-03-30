@@ -100,7 +100,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
         case .expense:
             category = selectedExpenseCategory.title
         }
-        let model = AddExpenseScreenOneModel(title: title ?? "",
+        let model = AddExpenseScreenOneModel(title: title,
                                              type: selectedType.title,
                                              category: category)
         let vc = AddExpenseScreenTwoViewController(addExpenseScreenOneModel: model)
