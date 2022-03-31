@@ -20,6 +20,8 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     private let addExpenseScreenOneModel:AddExpenseScreenOneModel
     private var sections = [[AddExpenseScreenTwoFormModel]]()
     
+    private let transactionManager = TransactionManager()
+    
     // MARK: - UI
     
     private let tableView:UITableView = {
@@ -80,15 +82,20 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     @objc private func didTapSave() {
         let screenTwoSectionOneModel = sections[0]
         let screenTwoSectionTwoModel = sections[1]
-        let model = AddExpenseModel(
+        let model = Transaction(
+            id: UUID(),
             title: addExpenseScreenOneModel.title,
             type: addExpenseScreenOneModel.type,
             category: addExpenseScreenOneModel.category,
             amount: Double(screenTwoSectionOneModel[0].value ?? "") ?? 0.0,
-            note: screenTwoSectionOneModel[1].value ?? "",
-            createdAt: Date.formattString(date: screenTwoSectionTwoModel[0].value ?? ""),
-            updatedAt: Date.formattString(date: screenTwoSectionTwoModel[0].value ?? ""))
-        debugPrint(model)
+            note: screenTwoSectionOneModel[1].value ?? nil,
+            transactionDate: Date.formattString(date: screenTwoSectionTwoModel[0].value ?? ""),
+            createdAt: Date(),
+            updatedAt: Date())
+        UserDefaults.standard.set(addExpenseScreenOneModel.iconName, forKey: addExpenseScreenOneModel.category)
+        transactionManager.create(transaction: model)
+        NotificationCenter.default.post(name: .refreshTransactions,
+                                        object: nil)
         navigationController?.popToRootViewController(animated: true)
     }
     

@@ -13,6 +13,11 @@ final class ExpenseDetailedTableViewCell: UITableViewCell {
     
     static let identifier = "ExpenseDetailedTableViewCell"
     
+    struct ViewModel {
+        let name:String
+        let value:String?
+    }
+    
     // MARK: - UI
     
     private let nameLabel:UILabel = {
@@ -69,9 +74,9 @@ final class ExpenseDetailedTableViewCell: UITableViewCell {
     
     // MARK: - Public
     
-    public func configure() {
-        nameLabel.text = "Title"
-        valueLabel.text = "Transportation"
+    public func configure(with viewModel:ViewModel) {
+        nameLabel.text = viewModel.name
+        valueLabel.text = viewModel.value ?? "nil"
     }
     
 

@@ -42,15 +42,15 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
             var iconName:String {
                 switch self {
                 case .salary:
-                    return "person.circle"
+                    return "wallet.pass"
                 case .refunds:
-                    return "person.circle"
+                    return "arrow.triangle.2.circlepath.circle"
                 case .rental:
-                    return "person.circle"
+                    return "house.circle"
                 case .dividends:
-                    return "person.circle"
+                    return "chart.xyaxis.line"
                 case .others:
-                    return "person.circle"
+                    return "square.grid.2x2"
                 case .none:
                     return ""
                 }
@@ -126,27 +126,27 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
             var iconName:String {
                 switch self {
                 case .transportation:
-                    return "person.circle"
+                    return "bus"
                 case .food:
-                    return "person.circle"
+                    return "fork.knife.circle"
                 case .bills:
                     return "person.circle"
                 case .entertainment:
-                    return "person.circle"
+                    return "gamecontroller"
                 case .shopping:
-                    return "person.circle"
+                    return "bag.circle"
                 case .insurance:
-                    return "person.circle"
+                    return "checkmark.shield"
                 case .tax:
-                    return "person.circle"
+                    return "newspaper.circle"
                 case .cigarette:
-                    return "person.circle"
+                    return "pencil.circle"
                 case .health:
-                    return "person.circle"
+                    return "heart.text.square"
                 case .sport:
-                    return "person.circle"
+                    return "sportscourt"
                 case .baby:
-                    return "person.circle"
+                    return "bed.double.circle"
                 case .pet:
                     return "person.circle"
                 case .beauty:

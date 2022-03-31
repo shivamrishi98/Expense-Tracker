@@ -11,7 +11,7 @@ class TransactionListViewController: UIViewController {
 
     // MARK: - Properties
     
-    private let transactions:[String]
+    private let transactions:[Transaction]
     
     // MARK: - UI
     
@@ -24,7 +24,7 @@ class TransactionListViewController: UIViewController {
     
     // MARK: - Init
     
-    init(transactions:[String]) {
+    init(transactions:[Transaction]) {
         self.transactions = transactions
         super.init(nibName: nil, bundle: nil)
     }
@@ -69,7 +69,8 @@ extension TransactionListViewController: UITableViewDataSource,UITableViewDelega
             for: indexPath) as? TransactionListTableViewCell else {
             fatalError()
         }
-        cell.configure()
+        let transaction = transactions[indexPath.row]
+        cell.configure(with: transaction)
         return cell
     }
     
@@ -83,7 +84,8 @@ extension TransactionListViewController: UITableViewDataSource,UITableViewDelega
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let vc = ExpenseDetailedViewController(model: "")
+        let transaction = transactions[indexPath.row]
+        let vc = ExpenseDetailedViewController(transaction: transaction)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

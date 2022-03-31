@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - EXTENSION - UIView
+// MARK: - Extension - UIView
 
 extension UIView {
     func addSubviews(_ views:UIView...) {
@@ -59,17 +59,41 @@ extension DateFormatter {
     }()
 }
 
+// MARK: - Extension - String
+
 extension String {
     static func formattedToOriginal(date:Date) -> String {
         return DateFormatter.dateFormatter.string(from: date)
     }
-    static func formattedDate(date:Date) -> String {
+    static func formatted(date:Date) -> String {
         return DateFormatter.displayDateFormatter.string(from: date)
     }
+    static func formatted(number:Double) -> String {
+        return NumberFormatter.currencyFormatter.string(from: NSNumber(value: number)) ?? "nil"
+    }
 }
+
+// MARK: - Extension - Date
 
 extension Date {
     static func formattString(date:String) -> Date {
         return DateFormatter.dateFormatter.date(from: date) ?? Date()
     }
+}
+
+// MARK: - Extension - Notification.Name
+
+extension Notification.Name {
+    static let refreshTransactions = Notification.Name("refreshTransactions")
+}
+
+// MARK: - Extension - NumberFormatter
+
+extension NumberFormatter {
+    static let currencyFormatter:NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = .current
+        return formatter
+    }()
 }

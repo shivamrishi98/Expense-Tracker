@@ -8,11 +8,11 @@
 import Foundation
 import CoreData
 
-final class DatabaseManager {
+final class PersistentStorage {
     
     private init() { }
     
-    static let shared = DatabaseManager()
+    static let shared = PersistentStorage()
     
     // MARK: - Core Data stack
 
@@ -40,4 +40,18 @@ final class DatabaseManager {
             }
         }
     }
+    
+    func fetchManagedObject<T: NSManagedObject>(managedObject: T.Type) -> [T]? {
+        do {
+            guard let result = try PersistentStorage.shared.context.fetch(
+                managedObject.fetchRequest()) as? [T] else {
+                return nil
+            }
+            return result
+        } catch {
+            debugPrint(error)
+            return nil
+        }
+    }
+    
 }

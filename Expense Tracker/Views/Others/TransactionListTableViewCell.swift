@@ -114,12 +114,16 @@ final class TransactionListTableViewCell: UITableViewCell {
     
     // MARK: - Public
     
-    public func configure() {
-        iconImageView.image = UIImage(systemName: "car")
-        titleLabel.text = "Title"
-        categoryLabel.text = "Transportation"
-        totalBalanceLabel.text = "+Rs1234"
-        createdAtLabel.text = "Mar 29, 2022"
+    public func configure(with transaction: Transaction) {
+        let iconName = UserDefaults.standard.string(forKey: transaction.category ?? "")
+        iconImageView.image = UIImage(systemName: iconName ?? "")
+        titleLabel.text = transaction.title
+        categoryLabel.text = transaction.category
+        let expenseType:Bool = (transaction.type == ExpenseTypeCollectionViewCell.ExpenseType.expense.title)
+        let balancePrefix = expenseType ? "-" : "+"
+        totalBalanceLabel.textColor = expenseType ? .systemRed : .systemGreen
+        totalBalanceLabel.text =  balancePrefix + String.formatted(number: transaction.amount)
+        createdAtLabel.text = String.formatted(date: transaction.transactionDate ?? Date())
     }
     
 

@@ -11,9 +11,10 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let transactions = ["","","","","",""]
-    
-    
+    private var transactions = [Transaction]()
+    private let transactionManager = TransactionManager()
+    private var balanceViewModels = [BalanceCollectionViewCell.ViewModel]()
+    private var transactionsObserver:NSObjectProtocol?
     
     // MARK: - UI
     
@@ -25,6 +26,7 @@ final class HomeViewController: UIViewController {
         }
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
+        collectionView.isHidden = true
         collectionView.backgroundColor = .secondarySystemBackground
         collectionView.register(
             UICollectionViewCell.self,
@@ -54,9 +56,10 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupBarButtonItems()
         view.addSubviews(emptyView,collectionView)
-        fetchTransactions()
         collectionView.delegate = self
         collectionView.dataSource = self
+        setupObserver()
+        fetchTransactions()
     }
     
     override func viewDidLayoutSubviews() {
@@ -85,7 +88,25 @@ final class HomeViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    private func setupObserver() {
+        transactionsObserver = NotificationCenter.default.addObserver(
+            forName: .refreshTransactions,
+            object: nil,
+            queue: .main) { [weak self] _ in
+                self?.fetchTransactions()
+            }
+    }
+    
     private func fetchTransactions() {
+        transactions.removeAll()
+        balanceViewModels.removeAll()
+        if let transactions = transactionManager.fetchTransactions() {
+            self.transactions = transactions
+            balanceViewModels.append(.init(type: ExpenseTypeCollectionViewCell.ExpenseType.income,
+                                           balance: transactionManager.fetchBalance(of: .income)))
+            balanceViewModels.append(.init(type: ExpenseTypeCollectionViewCell.ExpenseType.expense,
+                                           balance: transactionManager.fetchBalance(of: .expense)))
+        }
         DispatchQueue.main.async { [weak self] in
             self?.updateUI()
         }
@@ -94,9 +115,12 @@ final class HomeViewController: UIViewController {
     private func updateUI() {
         if transactions.isEmpty {
             emptyView.isHidden = false
+            collectionView.isHidden = true
         } else {
             emptyView.isHidden = true
+            collectionView.isHidden = false
         }
+        collectionView.reloadData()
     }
 }
 
@@ -127,7 +151,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                 for: indexPath) as? BalanceCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.configure()
+            cell.configure(with: balanceViewModels[indexPath.item])
             return cell
         case 1:
             guard let cell = collectionView.dequeueReusableCell(
@@ -135,7 +159,8 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                 for: indexPath) as? TransactionListCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            cell.configure()
+            let transaction = transactions[indexPath.item]
+            cell.configure(with: transaction)
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
@@ -155,7 +180,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                 return UICollectionReusableView()
             }
             header.backgroundColor = .secondarySystemBackground
-            header.configure()
+            header.configure(with: transactionManager.fetchTotalBalance())
             return header
         default:
             guard kind == UICollectionView.elementKindSectionHeader,
@@ -177,10 +202,11 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            let vc = TransactionExpenseTypeListViewController(type: .income)
+            let vc = TransactionExpenseTypeListViewController(type: balanceViewModels[indexPath.item].type)
             navigationController?.pushViewController(vc, animated: true)
         case 1:
-            let vc = ExpenseDetailedViewController(model: "")
+            let transaction = transactions[indexPath.item]
+            let vc = ExpenseDetailedViewController(transaction: transaction)
             navigationController?.pushViewController(vc, animated: true)
         default:
             break

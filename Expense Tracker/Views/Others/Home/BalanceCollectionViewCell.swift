@@ -13,6 +13,11 @@ final class BalanceCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "BalanceCollectionViewCell"
     
+    struct ViewModel {
+        let type:ExpenseTypeCollectionViewCell.ExpenseType
+        let balance:Double
+    }
+    
     // MARK: - UI
     
     private let iconImageView:UIImageView = {
@@ -83,11 +88,12 @@ final class BalanceCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public
     
-    public func configure() {
-        iconImageView.image = UIImage(systemName: "arrow.up.circle")
-        typeLabel.text = "Income".uppercased()
-        balanceLabel.text = "Rs1234.00"
-        iconImageView.tintColor = (typeLabel.text == "INCOME") ? .systemGreen : .systemRed
+    public func configure(with viewModel:ViewModel) {
+        let expenseType:Bool = (viewModel.type.title == ExpenseTypeCollectionViewCell.ExpenseType.expense.title)
+        iconImageView.tintColor = expenseType ? .systemRed : .systemGreen
+        iconImageView.image = viewModel.type == .income ? UIImage(systemName: "arrow.up.circle") : UIImage(systemName: "arrow.down.circle")
+        typeLabel.text = viewModel.type.title.uppercased()
+        balanceLabel.text = String.formatted(number: viewModel.balance)
     }
     
 }

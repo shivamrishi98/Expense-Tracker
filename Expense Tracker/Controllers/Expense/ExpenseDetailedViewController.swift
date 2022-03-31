@@ -10,7 +10,9 @@ import UIKit
 class ExpenseDetailedViewController: UIViewController {
 
     // MARK: - Properties
-    private let model:String
+    private let transactionManager = TransactionManager()
+    private let transaction:Transaction
+    private var viewModels = [ExpenseDetailedTableViewCell.ViewModel]()
     
     // MARK: - UI
     
@@ -24,8 +26,8 @@ class ExpenseDetailedViewController: UIViewController {
     }()
     
     // MARK: - Init
-    init(model:String) {
-        self.model = model
+    init(transaction:Transaction) {
+        self.transaction = transaction
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,6 +45,7 @@ class ExpenseDetailedViewController: UIViewController {
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        createViewModels()
     }
     
     override func viewDidLayoutSubviews() {
@@ -64,10 +67,25 @@ class ExpenseDetailedViewController: UIViewController {
     }
     
     @objc private func didTapDelete() {
-        navigationController?.popToRootViewController(animated: true)
+        guard transactionManager.delete(with: transaction.id!) else {
+            return
+        }
+        NotificationCenter.default.post(name: .refreshTransactions,
+                                        object: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func didTapEdit() {
+    }
+    
+    private func createViewModels() {
+        viewModels.append(.init(name: "Title", value: transaction.title))
+        viewModels.append(.init(name: "Type", value: transaction.type))
+        viewModels.append(.init(name: "Category", value: transaction.category))
+        viewModels.append(.init(name: "Amount", value: String.formatted(number: transaction.amount)))
+        viewModels.append(.init(name: "Note", value: transaction.note))
+        viewModels.append(.init(name: "Transaction Date",
+                                value: String.formatted(date: transaction.transactionDate ?? Date())))
     }
 }
 
@@ -76,7 +94,7 @@ class ExpenseDetailedViewController: UIViewController {
 extension ExpenseDetailedViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -85,7 +103,8 @@ extension ExpenseDetailedViewController: UITableViewDelegate,UITableViewDataSour
             for: indexPath) as? ExpenseDetailedTableViewCell else {
             return UITableViewCell()
         }
-        cell.configure()
+        let viewModel = viewModels[indexPath.row]
+        cell.configure(with: viewModel)
         return cell
     }
     

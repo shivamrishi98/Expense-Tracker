@@ -66,8 +66,8 @@ class HomeHeaderCollectionReusableView: UICollectionReusableView {
     
     // MARK: - Public
     
-    public func configure() {
-        totalBalanceLabel.text = "Rs 1234.00"
+    public func configure(with balance: Double) {
+        totalBalanceLabel.text = String.formatted(number: balance)
     }
     
 }

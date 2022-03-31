@@ -7,6 +7,18 @@
 
 import UIKit
 
+struct Transaction {
+    let id:UUID?
+    let title:String?
+    let type:String?
+    let category:String?
+    let amount:Double
+    let note:String?
+    let transactionDate:Date?
+    let createdAt:Date?
+    let updatedAt:Date?
+}
+
 struct AddExpenseModel {
     let title:String
     let type:String
@@ -21,6 +33,7 @@ struct AddExpenseScreenOneModel {
     let title:String
     let type:String
     let category:String
+    let iconName:String
 }
 
 final class AddExpenseScreenOneViewController: UIViewController {
@@ -94,15 +107,19 @@ final class AddExpenseScreenOneViewController: UIViewController {
             return
         }
         var category = ""
+        var categoryIconName = ""
         switch selectedType {
         case .income:
             category = selectedIncomeCategory.title
+            categoryIconName = selectedIncomeCategory.iconName
         case .expense:
             category = selectedExpenseCategory.title
+            categoryIconName = selectedExpenseCategory.iconName
         }
         let model = AddExpenseScreenOneModel(title: title,
                                              type: selectedType.title,
-                                             category: category)
+                                             category: category,
+                                             iconName: categoryIconName)
         let vc = AddExpenseScreenTwoViewController(addExpenseScreenOneModel: model)
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -124,7 +141,7 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
             return types.count
         case 2:
             return (selectedType == .expense) ? expenseCategories.count : incomeCategories.count
-        default:
+        default: 
             return 0
         }
     }
