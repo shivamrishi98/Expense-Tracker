@@ -202,7 +202,9 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            let vc = TransactionExpenseTypeListViewController(type: balanceViewModels[indexPath.item].type)
+            let viewModel = balanceViewModels[indexPath.item]
+            let vc = TransactionExpenseTypeListViewController(type: viewModel.type,
+                                                              balance: viewModel.balance)
             navigationController?.pushViewController(vc, animated: true)
         case 1:
             let transaction = transactions[indexPath.item]

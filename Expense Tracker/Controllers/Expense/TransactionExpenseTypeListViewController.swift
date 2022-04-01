@@ -12,11 +12,17 @@ final class TransactionExpenseTypeListViewController: UIViewController {
     // MARK: - Properties
     private let transactionManager = TransactionManager()
     private let type:ExpenseTypeCollectionViewCell.ExpenseType
+    private let balance:Double
     private var transactions = [Transaction]()
+    private var pieDataEntries:[String: Double] = [:]
     
     // MARK: - UI
     
-    private let chartView = ChartView()
+    private let chartView:ChartView = {
+        let chartView = ChartView()
+        chartView.backgroundColor = .secondarySystemBackground
+        return chartView
+    }()
     private let emptyView = EmptyView()
     
     private let tableView:UITableView = {
@@ -29,8 +35,9 @@ final class TransactionExpenseTypeListViewController: UIViewController {
     
     // MARK: - Init
     
-    init(type:ExpenseTypeCollectionViewCell.ExpenseType) {
+    init(type:ExpenseTypeCollectionViewCell.ExpenseType,balance:Double) {
         self.type = type
+        self.balance = balance
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,7 +54,6 @@ final class TransactionExpenseTypeListViewController: UIViewController {
         view.addSubviews(tableView,chartView,emptyView)
         tableView.dataSource = self
         tableView.delegate = self
-        chartView.backgroundColor = .systemOrange
         tableView.tableHeaderView = chartView
         fetchTransactions()
     }
@@ -72,6 +78,16 @@ final class TransactionExpenseTypeListViewController: UIViewController {
     private func fetchTransactions() {
         if let transactions = transactionManager.fetchTransaction(by: type) {
             self.transactions = transactions
+            transactions.forEach({
+                if let val = pieDataEntries[$0.category ?? ""] {
+                    pieDataEntries.updateValue($0.amount+val, forKey: $0.category ?? "")
+                } else {
+                    pieDataEntries.updateValue($0.amount, forKey: $0.category ?? "")
+                }
+            })
+            chartView.configure(with: .init(type: type.title,
+                                            balance: balance,
+                                            entries: pieDataEntries))
         }
         DispatchQueue.main.async { [weak self] in
             self?.updateUI()

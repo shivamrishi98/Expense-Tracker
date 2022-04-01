@@ -81,6 +81,9 @@ struct TransactionDataRepository: TransactionRepository {
         let fetchRequest = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
         let predicate = NSPredicate(format: "type==%@",type.title)
         fetchRequest.predicate = predicate
+        let sortDescriptor =  [NSSortDescriptor(key: "transactionDate",
+                                                ascending: false)]
+        fetchRequest.sortDescriptors = sortDescriptor
         
         do {
             let result = try PersistentStorage.shared.context.fetch(fetchRequest)
