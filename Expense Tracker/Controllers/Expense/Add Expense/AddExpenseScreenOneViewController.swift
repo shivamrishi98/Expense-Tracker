@@ -19,16 +19,6 @@ struct Transaction {
     let updatedAt:Date?
 }
 
-struct AddExpenseModel {
-    let title:String
-    let type:String
-    let category:String
-    let amount:Double
-    let note:String
-    let createdAt:Date
-    let updatedAt:Date
-}
-
 struct AddExpenseScreenOneModel {
     let title:String
     let type:String
@@ -49,6 +39,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
     private var selectedIncomeCategory:ExpenseCategoryCollectionViewCell.Category.Income = .none
     private var selectedExpenseCategory:ExpenseCategoryCollectionViewCell.Category.Expense = .none
     
+    private let transaction:Transaction?
     
     // MARK: - UI
     private let collectionView: UICollectionView = {
@@ -73,6 +64,17 @@ final class AddExpenseScreenOneViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: - Init
+    
+    init(transaction:Transaction? = nil) {
+        self.transaction = transaction
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -83,6 +85,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         setupBarButtonItems()
+        fillValuesIfRecordExists()
     }
     
     override func viewDidLayoutSubviews() {
@@ -122,8 +125,40 @@ final class AddExpenseScreenOneViewController: UIViewController {
                                              type: selectedType.title,
                                              category: category,
                                              iconName: categoryIconName)
-        let vc = AddExpenseScreenTwoViewController(addExpenseScreenOneModel: model)
+        let vc = AddExpenseScreenTwoViewController(
+            addExpenseScreenOneModel: model,
+            transaction: transaction ?? nil)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func fillValuesIfRecordExists() {
+        if let transaction = transaction {
+            titleString = transaction.title
+            
+            let incomeTypeSelected = transaction.type == ExpenseTypeCollectionViewCell.ExpenseType.income.title
+            selectedType = incomeTypeSelected ? .income : .expense
+            
+            switch selectedType {
+            case .income:
+                var item:Int = -1
+                for (index,value) in incomeCategories.enumerated() where value.title == transaction.category {
+                    item = index
+                }
+                let indexPath = IndexPath(item: item, section: 2)
+                selectedIncomeCategory = incomeCategories[indexPath.item]
+                collectionView.selectItem(at: indexPath,
+                                          animated: true,scrollPosition:.top)
+            case .expense:
+                var item:Int = -1
+                for (index,value) in expenseCategories.enumerated() where value.title == transaction.category {
+                    item = index
+                }
+                let indexPath = IndexPath(item: item, section: 2)
+                selectedExpenseCategory = expenseCategories[indexPath.item]
+                collectionView.selectItem(at: indexPath,
+                                          animated: true,scrollPosition:.top)
+            }
+        }
     }
 }
 

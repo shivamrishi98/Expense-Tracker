@@ -81,13 +81,15 @@ class ExpenseDetailedViewController: UIViewController {
                     HapticsManager.shared.vibrate(for: .success)
                     NotificationCenter.default.post(name: .refreshTransactions,
                                                     object: nil)
-                    self?.navigationController?.popViewController(animated: true)
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }), .dismiss,
             from: self)
         
     }
     
     @objc private func didTapEdit() {
+            let vc = AddExpenseScreenOneViewController(transaction: transaction)
+            navigationController?.pushViewController(vc, animated: true)
     }
     
     private func createViewModels() {

@@ -19,8 +19,8 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     
     private let addExpenseScreenOneModel:AddExpenseScreenOneModel
     private var sections = [[AddExpenseScreenTwoFormModel]]()
-    
     private let transactionManager = TransactionManager()
+    private let transaction:Transaction?
     
     // MARK: - UI
     
@@ -35,8 +35,9 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     
     // MARK: - Init
     
-    init(addExpenseScreenOneModel:AddExpenseScreenOneModel) {
+    init(addExpenseScreenOneModel:AddExpenseScreenOneModel, transaction:Transaction?) {
         self.addExpenseScreenOneModel = addExpenseScreenOneModel
+        self.transaction = transaction
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,9 +51,10 @@ final class AddExpenseScreenTwoViewController: UIViewController {
         super.viewDidLoad()
         title = "Add Transaction"
         view.backgroundColor = .systemBackground
+        setupBarButtonItems()
         setupTableview()
         configureSections()
-        setupBarButtonItems()
+        fillValuesIfRecordExists()
     }
     
     override func viewDidLayoutSubviews() {
@@ -83,21 +85,28 @@ final class AddExpenseScreenTwoViewController: UIViewController {
         HapticsManager.shared.vibrate(for: .success)
         let screenTwoSectionOneModel = sections[0]
         let screenTwoSectionTwoModel = sections[1]
-        let model = Transaction(
-            id: UUID(),
+        let transaction = Transaction(
+            id: transaction?.id ?? UUID(),
             title: addExpenseScreenOneModel.title,
             type: addExpenseScreenOneModel.type,
             category: addExpenseScreenOneModel.category,
             amount: Double(screenTwoSectionOneModel[0].value ?? "") ?? 0.0,
             note: screenTwoSectionOneModel[1].value ?? nil,
             transactionDate: Date.formattString(date: screenTwoSectionTwoModel[0].value ?? ""),
-            createdAt: Date(),
+            createdAt: transaction?.createdAt ?? Date(),
             updatedAt: Date())
         UserDefaults.standard.set(addExpenseScreenOneModel.iconName, forKey: addExpenseScreenOneModel.category)
-        transactionManager.create(transaction: model)
+        if let _ = self.transaction {
+            if transactionManager.update(transaction: transaction) {
+                navigationController?.popToRootViewController(animated: true)
+            }
+        } else {
+            transactionManager.create(transaction: transaction)
+            navigationController?.popToRootViewController(animated: true)
+        }
         NotificationCenter.default.post(name: .refreshTransactions,
                                         object: nil)
-        navigationController?.popToRootViewController(animated: true)
+
     }
     
     private func configureSections() {
@@ -113,6 +122,14 @@ final class AddExpenseScreenTwoViewController: UIViewController {
             section2.append(.init(placeholder: ""))
         }
         sections.append(section2)
+    }
+    
+    private func fillValuesIfRecordExists() {
+        if let transaction = transaction {
+            sections[0][0].value = "\(transaction.amount)"
+            sections[0][1].value = transaction.note
+            sections[1][0].value = String.formattedToOriginal(date: transaction.transactionDate ?? Date())
+        }
     }
 }
 

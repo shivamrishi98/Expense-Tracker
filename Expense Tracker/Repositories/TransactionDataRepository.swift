@@ -137,7 +137,7 @@ struct TransactionDataRepository: TransactionRepository {
         cdTransaction?.category = transaction.category
         cdTransaction?.amount = transaction.amount
         cdTransaction?.note = transaction.note
-        cdTransaction?.createdAt = transaction.createdAt
+        cdTransaction?.transactionDate = transaction.transactionDate
         cdTransaction?.updatedAt = transaction.updatedAt
         
         PersistentStorage.shared.saveContext()
