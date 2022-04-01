@@ -205,7 +205,7 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
                 return UICollectionViewCell()
             }
             cell.delegate = self
-            cell.expenseTypeView.backgroundColor = (selectedType == types[indexPath.item]) ? .secondarySystemFill : .secondarySystemBackground
+            cell.expenseTypeView.backgroundColor = (selectedType == types[indexPath.item]) ? .link : .secondaryLabel
             switch indexPath.item {
             case 0:
                 cell.configure(with: .income)

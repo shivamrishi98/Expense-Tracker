@@ -31,7 +31,7 @@ class ExpenseTypeLabel: UILabel {
     private func configureUI() {
         numberOfLines = 1
         textAlignment = .center
-        textColor = .label
+        textColor = .white
         font = .systemFont(ofSize: 16,
                            weight: .medium)
     }
