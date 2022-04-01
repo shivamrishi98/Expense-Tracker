@@ -26,14 +26,14 @@ struct AlertManager {
 
 extension AlertManager {
     enum Action {
-        case signOut(handler: (() -> Void)?)
+        case delete(handler: (() -> Void)?)
         case dismiss
         case cancel
         
         private var title:String {
             switch self {
-            case .signOut:
-                return "Sign Out"
+            case .delete:
+                return "Delete"
             case .dismiss:
                 return "dismiss"
             case .cancel:
@@ -43,7 +43,7 @@ extension AlertManager {
         
         private var style:UIAlertAction.Style {
             switch self {
-            case .signOut:
+            case .delete:
                 return .destructive
             case .dismiss,.cancel:
                 return .cancel
@@ -54,7 +54,7 @@ extension AlertManager {
         
         private var handler:(() -> Void)? {
             switch self {
-            case .signOut(let handler):
+            case .delete(let handler):
                 return handler
             case .dismiss,.cancel:
                 return nil

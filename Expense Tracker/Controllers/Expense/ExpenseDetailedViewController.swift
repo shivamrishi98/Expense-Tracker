@@ -67,14 +67,24 @@ class ExpenseDetailedViewController: UIViewController {
     }
     
     @objc private func didTapDelete() {
-        guard transactionManager.delete(with: transaction.id!) else {
-            HapticsManager.shared.vibrate(for: .error)
-            return
-        }
-        HapticsManager.shared.vibrate(for: .success)
-        NotificationCenter.default.post(name: .refreshTransactions,
-                                        object: nil)
-        navigationController?.popViewController(animated: true)
+        AlertManager.present(
+            title: "Delete Transaction",
+            message: "Are you sure you want to delete this transaction?",
+            style: .actionSheet,
+            actions: .delete(
+                handler: { [weak self] in
+                    guard let strongSelf = self,
+                          strongSelf.transactionManager.delete(with: strongSelf.transaction.id!)  else {
+                        HapticsManager.shared.vibrate(for: .error)
+                        return
+                    }
+                    HapticsManager.shared.vibrate(for: .success)
+                    NotificationCenter.default.post(name: .refreshTransactions,
+                                                    object: nil)
+                    self?.navigationController?.popViewController(animated: true)
+                }), .dismiss,
+            from: self)
+        
     }
     
     @objc private func didTapEdit() {
