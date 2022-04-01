@@ -80,6 +80,7 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     }
     
     @objc private func didTapSave() {
+        HapticsManager.shared.vibrate(for: .success)
         let screenTwoSectionOneModel = sections[0]
         let screenTwoSectionTwoModel = sections[1]
         let model = Transaction(

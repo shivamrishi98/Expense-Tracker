@@ -68,8 +68,10 @@ class ExpenseDetailedViewController: UIViewController {
     
     @objc private func didTapDelete() {
         guard transactionManager.delete(with: transaction.id!) else {
+            HapticsManager.shared.vibrate(for: .error)
             return
         }
+        HapticsManager.shared.vibrate(for: .success)
         NotificationCenter.default.post(name: .refreshTransactions,
                                         object: nil)
         navigationController?.popViewController(animated: true)

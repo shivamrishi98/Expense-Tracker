@@ -200,6 +200,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticsManager.shared.vibrateForSelection()
         switch indexPath.section {
         case 0:
             let viewModel = balanceViewModels[indexPath.item]

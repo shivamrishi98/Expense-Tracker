@@ -140,6 +140,7 @@ extension TransactionExpenseTypeListViewController: UITableViewDataSource,UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
         let transaction = transactions[indexPath.row]
         let vc = ExpenseDetailedViewController(transaction: transaction)
         navigationController?.pushViewController(vc, animated: true)

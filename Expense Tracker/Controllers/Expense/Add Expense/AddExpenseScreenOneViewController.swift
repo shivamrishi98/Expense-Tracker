@@ -104,8 +104,10 @@ final class AddExpenseScreenOneViewController: UIViewController {
         guard let title = titleString,
               !title.trimmingCharacters(in: .whitespaces).isEmpty,
               selectedIncomeCategory != .none || selectedExpenseCategory != .none else {
+            HapticsManager.shared.vibrate(for: .error)
             return
         }
+        HapticsManager.shared.vibrate(for: .success)
         var category = ""
         var categoryIconName = ""
         switch selectedType {
@@ -212,6 +214,7 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        HapticsManager.shared.vibrateForSelection()
         switch indexPath.section {
         case 2:
             switch selectedType {
