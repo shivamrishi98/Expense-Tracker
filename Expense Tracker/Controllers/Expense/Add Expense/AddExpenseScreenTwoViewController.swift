@@ -82,20 +82,31 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     }
     
     @objc private func didTapSave() {
-        HapticsManager.shared.vibrate(for: .success)
         let screenTwoSectionOneModel = sections[0]
         let screenTwoSectionTwoModel = sections[1]
+        
+        guard let amount:Double = Double(screenTwoSectionOneModel[0].value ?? "")  else {
+            HapticsManager.shared.vibrate(for: .error)
+            AlertManager.present(title: "Woops",
+                                 message: "Please fill the amount",
+                                 actions: .ok,
+                                 from: self)
+            return
+        }
+        HapticsManager.shared.vibrate(for: .success)
         let transaction = Transaction(
             id: transaction?.id ?? UUID(),
             title: addExpenseScreenOneModel.title,
             type: addExpenseScreenOneModel.type,
             category: addExpenseScreenOneModel.category,
-            amount: Double(screenTwoSectionOneModel[0].value ?? "") ?? 0.0,
+            amount: amount,
             note: screenTwoSectionOneModel[1].value ?? nil,
             transactionDate: Date.formattString(date: screenTwoSectionTwoModel[0].value ?? ""),
             createdAt: transaction?.createdAt ?? Date(),
             updatedAt: Date())
+        
         UserDefaults.standard.set(addExpenseScreenOneModel.iconName, forKey: addExpenseScreenOneModel.category)
+        
         if let _ = self.transaction {
             if transactionManager.update(transaction: transaction) {
                 navigationController?.popToRootViewController(animated: true)
@@ -106,7 +117,6 @@ final class AddExpenseScreenTwoViewController: UIViewController {
         }
         NotificationCenter.default.post(name: .refreshTransactions,
                                         object: nil)
-
     }
     
     private func configureSections() {

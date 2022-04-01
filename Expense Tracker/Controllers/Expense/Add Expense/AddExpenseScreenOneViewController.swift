@@ -108,6 +108,10 @@ final class AddExpenseScreenOneViewController: UIViewController {
               !title.trimmingCharacters(in: .whitespaces).isEmpty,
               selectedIncomeCategory != .none || selectedExpenseCategory != .none else {
             HapticsManager.shared.vibrate(for: .error)
+            AlertManager.present(title: "Woops",
+                                 message: "Please fill all the details",
+                                 actions: .ok,
+                                 from: self)
             return
         }
         HapticsManager.shared.vibrate(for: .success)

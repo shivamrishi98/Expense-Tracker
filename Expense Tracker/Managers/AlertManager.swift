@@ -28,6 +28,7 @@ extension AlertManager {
     enum Action {
         case delete(handler: (() -> Void)?)
         case dismiss
+        case ok
         case cancel
         
         private var title:String {
@@ -36,6 +37,8 @@ extension AlertManager {
                 return "Delete"
             case .dismiss:
                 return "dismiss"
+            case .ok:
+                return "Ok"
             case .cancel:
                 return "Cancel"
             }
@@ -45,7 +48,7 @@ extension AlertManager {
             switch self {
             case .delete:
                 return .destructive
-            case .dismiss,.cancel:
+            case .dismiss,.cancel,.ok:
                 return .cancel
 //            default:
 //                return .default
@@ -56,7 +59,7 @@ extension AlertManager {
             switch self {
             case .delete(let handler):
                 return handler
-            case .dismiss,.cancel:
+            case .dismiss,.cancel,.ok:
                 return nil
             }
         }
