@@ -64,7 +64,7 @@ struct TransactionDataRepository: TransactionRepository {
             return transactions
         } catch {
             debugPrint(error)
-            return nil
+            return []
         }
     }
     

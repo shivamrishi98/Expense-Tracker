@@ -76,15 +76,26 @@ final class HomeViewController: UIViewController {
     
     /// Sets up navigation bar button items
     private func setupBarButtonItems() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "plus.circle"),
-            style: .plain,
-            target: self,
-            action: #selector(didTapAdd))
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(systemName: "plus.circle"),
+                style: .plain,
+                target: self,
+                action: #selector(didTapAdd)),
+            UIBarButtonItem(
+                image: UIImage(systemName: "gear"),
+                style: .plain,
+                target: self,
+                action: #selector(didTapSettings))]
     }
     
     @objc private func didTapAdd() {
         let vc = AddExpenseScreenOneViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func didTapSettings() {
+        let vc = SettingsViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     

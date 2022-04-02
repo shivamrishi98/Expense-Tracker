@@ -39,6 +39,10 @@
 		964770B327EDD32C005DB20D /* AddExpenseScreenOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */; };
 		964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B727EDD7DF005DB20D /* InputTextField.swift */; };
 		96870E1127F47ED8006EDB53 /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870E1027F47ED8006EDB53 /* PersistentStorage.swift */; };
+		96A2DD0227F822D20022BFEE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2DD0127F822D20022BFEE /* SettingsViewController.swift */; };
+		96A2DD0427F835AC0022BFEE /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2DD0327F835AC0022BFEE /* SettingsTableViewCell.swift */; };
+		96A2DD0727F835CD0022BFEE /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2DD0627F835CD0022BFEE /* SettingsSection.swift */; };
+		96A2DD0927F835DD0022BFEE /* SettingsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2DD0827F835DD0022BFEE /* SettingsOption.swift */; };
 		96BEA31927F4D8E800A8D1B9 /* TransactionDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BEA31827F4D8E800A8D1B9 /* TransactionDataRepository.swift */; };
 		96BEA31B27F4E1CE00A8D1B9 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BEA31A27F4E1CE00A8D1B9 /* TransactionManager.swift */; };
 		96BEA31E27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BEA31C27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift */; };
@@ -84,6 +88,10 @@
 		964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseScreenOneViewController.swift; sourceTree = "<group>"; };
 		964770B727EDD7DF005DB20D /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 		96870E1027F47ED8006EDB53 /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
+		96A2DD0127F822D20022BFEE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		96A2DD0327F835AC0022BFEE /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		96A2DD0627F835CD0022BFEE /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
+		96A2DD0827F835DD0022BFEE /* SettingsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOption.swift; sourceTree = "<group>"; };
 		96BEA31827F4D8E800A8D1B9 /* TransactionDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDataRepository.swift; sourceTree = "<group>"; };
 		96BEA31A27F4E1CE00A8D1B9 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
 		96BEA31C27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTransaction+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -214,6 +222,7 @@
 			children = (
 				96870E1027F47ED8006EDB53 /* PersistentStorage.swift */,
 				964770A227EDD10A005DB20D /* Resources */,
+				96A2DD0527F835C50022BFEE /* Models */,
 				96BEA31227F4D77E00A8D1B9 /* Repositories */,
 				964770A727EDD151005DB20D /* Managers */,
 				964770A427EDD12B005DB20D /* Views */,
@@ -267,6 +276,7 @@
 				964770B427EDD34C005DB20D /* Expense */,
 				964770AA27EDD281005DB20D /* HomeViewController.swift */,
 				964770B027EDD2FF005DB20D /* AboutViewController.swift */,
+				96A2DD0127F822D20022BFEE /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -305,8 +315,18 @@
 				961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */,
 				96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */,
 				96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */,
+				96A2DD0327F835AC0022BFEE /* SettingsTableViewCell.swift */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		96A2DD0527F835C50022BFEE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				96A2DD0627F835CD0022BFEE /* SettingsSection.swift */,
+				96A2DD0827F835DD0022BFEE /* SettingsOption.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		96BEA31227F4D77E00A8D1B9 /* Repositories */ = {
@@ -445,10 +465,13 @@
 				961BEEF927F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift in Sources */,
 				961BEEFF27F23969003A1D11 /* ExpenseTypeView.swift in Sources */,
 				96D7C5D827F4257300C1F22B /* ChartView.swift in Sources */,
+				96A2DD0427F835AC0022BFEE /* SettingsTableViewCell.swift in Sources */,
+				96A2DD0227F822D20022BFEE /* SettingsViewController.swift in Sources */,
 				961BEEF027F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift in Sources */,
 				961BEEFB27F1A617003A1D11 /* ExpenseTypeLabel.swift in Sources */,
 				964770AB27EDD281005DB20D /* HomeViewController.swift in Sources */,
 				9619ACE427F30C9600CB0F40 /* TableHeaderViewLabel.swift in Sources */,
+				96A2DD0927F835DD0022BFEE /* SettingsOption.swift in Sources */,
 				961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */,
 				9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */,
 				96BEA31E27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift in Sources */,
@@ -476,6 +499,7 @@
 				96870E1127F47ED8006EDB53 /* PersistentStorage.swift in Sources */,
 				964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */,
 				9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */,
+				96A2DD0727F835CD0022BFEE /* SettingsSection.swift in Sources */,
 				9605036427F36C640081EAC6 /* TransactionListCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
