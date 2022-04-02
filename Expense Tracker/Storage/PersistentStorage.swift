@@ -12,7 +12,7 @@ final class PersistentStorage {
     
     private init() { }
     
-    static let shared = PersistentStorage()
+    static let shared:PersistentStorage = PersistentStorage()
     
     // MARK: - Core Data stack
 
@@ -28,7 +28,7 @@ final class PersistentStorage {
 
     // MARK: - Core Data Saving support
 
-    lazy var context = persistentContainer.viewContext
+    lazy var context:NSManagedObjectContext = persistentContainer.viewContext
     
     func saveContext () {
         if context.hasChanges {

@@ -7,11 +7,11 @@
 
 import UIKit
 
-class HomeHeaderCollectionReusableView: UICollectionReusableView {
+final class HomeHeaderCollectionReusableView: UICollectionReusableView {
     
     // MARK: - Properties
     
-    static let identifier = "HomeHeaderCollectionReusableView"
+    static let identifier:String = "HomeHeaderCollectionReusableView"
     
    // MARK: - UI
    

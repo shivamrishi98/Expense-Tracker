@@ -11,13 +11,12 @@ final class SettingsTableViewCell:UITableViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "SettingsTableViewCell"
+    static let identifier:String = "SettingsTableViewCell"
     
     // MARK: - UI
     
     private let titleLabel:UILabel = {
        let label = UILabel()
-        
        return label
     }()
     

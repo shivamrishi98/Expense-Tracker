@@ -11,12 +11,12 @@ import UniformTypeIdentifiers
 final class SettingsViewController: UIViewController {
 
     // MARK: - Properties
-    private var sections = [SettingsSection]()
-    private let transactionManager = TransactionManager()
+    private var sections:[SettingsSection] = [SettingsSection]()
+    private let transactionManager:TransactionManager = TransactionManager()
     
     // MARK: - UI
     
-    private let tableView: UITableView = {
+    private let tableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(SettingsTableViewCell.self,
                            forCellReuseIdentifier: SettingsTableViewCell.identifier)
@@ -62,13 +62,13 @@ final class SettingsViewController: UIViewController {
     }
     
     private func exportToCSV() {
-        let transactions = transactionManager.fetchTransactions()
-        let unixTimestamp = Date().timeIntervalSince1970
-        let fileName = "expense_\(unixTimestamp).csv"
+        let transactions:[Transaction]? = transactionManager.fetchTransactions()
+        let unixTimestamp:TimeInterval = Date().timeIntervalSince1970
+        let fileName:String = "expense_\(unixTimestamp).csv"
         
-        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-        var csvHead = "S.no,Title,Type,Category,Amount,Note,Transaction Date,Created At,Updated At\n"
-        
+        let path:URL? = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        var csvHead:String = "S.no,Title,Type,Category,Amount,Note,Transaction Date,Created At,Updated At\n"
+
         guard let transactions = transactions,
               !transactions.isEmpty else {
             AlertManager.present(title: "Can't Export",
@@ -93,7 +93,7 @@ final class SettingsViewController: UIViewController {
         do {
             try csvHead.write(to: path!, atomically: true, encoding: .utf8)
             HapticsManager.shared.vibrate(for: .success)
-            let exportSheet = UIActivityViewController(activityItems: [path as Any],
+            let exportSheet:UIActivityViewController = UIActivityViewController(activityItems: [path as Any],
                                                        applicationActivities: nil)
             present(exportSheet, animated: true)
         } catch {
@@ -115,21 +115,22 @@ final class SettingsViewController: UIViewController {
     }
     
     private func openDocumentPicker() {
-        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [
-            .text,
-            .content,
-            .item,
-            .data
-        ])
+        let documentPicker:UIDocumentPickerViewController = UIDocumentPickerViewController(
+            forOpeningContentTypes: [
+                .text,
+                .content,
+                .item,
+                .data
+            ])
         documentPicker.delegate = self
         present(documentPicker, animated: true)
     }
     
     private func convert(data:String) -> [[String]]? {
         var result:[[String]] = []
-        let rows = data.components(separatedBy: "\n")
+        let rows:[String] = data.components(separatedBy: "\n")
         for row in rows {
-            let columns = row.components(separatedBy: ",")
+            let columns:[String] = row.components(separatedBy: ",")
             result.append(columns)
         }
         guard rows[0].contains("S.no,Title,Type,Category,Amount,Note,Transaction Date,Created At,Updated At") else {
@@ -163,12 +164,12 @@ extension SettingsViewController:UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
+        guard let cell:SettingsTableViewCell = tableView.dequeueReusableCell(
             withIdentifier: SettingsTableViewCell.identifier,
             for: indexPath) as? SettingsTableViewCell else {
             return UITableViewCell()
         }
-        let option = sections[indexPath.section].options[indexPath.row]
+        let option:SettingsOption = sections[indexPath.section].options[indexPath.row]
         cell.configure(with: option.title)
         return cell
     }
@@ -176,7 +177,7 @@ extension SettingsViewController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         HapticsManager.shared.vibrateForSelection()
-        let option = sections[indexPath.section].options[indexPath.row]
+        let option:SettingsOption = sections[indexPath.section].options[indexPath.row]
         option.handler()
     }
     
@@ -191,26 +192,26 @@ extension SettingsViewController:UIDocumentPickerDelegate {
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let filePath = urls.first else {
+        guard let filePath:URL = urls.first else {
             return
         }
         if filePath.startAccessingSecurityScopedResource() {
             do {
-                let content = try String(contentsOf: filePath,encoding: .utf8)
-                let table = convert(data: content)
+                let content:String = try String(contentsOf: filePath,encoding: .utf8)
+                let table:[[String]]? = convert(data: content)
                 if let table = table {
                     transactionManager.deleteAllTransactions()
                     for row in table {
-                        let transaction = Transaction(
+                        let transaction:Transaction = Transaction(
                             id: UUID(),
                             title: row[1],
                             type: row[2],
                             category: row[3],
                             amount: Double(row[4]) ?? 0.0,
                             note: row[5],
-                            transactionDate: Date.formattString(date: row[6]),
-                            createdAt: Date.formattString(date: row[7]),
-                            updatedAt: Date.formattString(date: row[8]))
+                            transactionDate: Date.formatString(date: row[6]),
+                            createdAt: Date.formatString(date: row[7]),
+                            updatedAt: Date.formatString(date: row[8]))
                         transactionManager.create(transaction: transaction)
                     }
                     HapticsManager.shared.vibrate(for: .success)

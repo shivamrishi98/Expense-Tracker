@@ -10,7 +10,7 @@ import UIKit
 class ExpenseDetailedViewController: UIViewController {
 
     // MARK: - Properties
-    private let transactionManager = TransactionManager()
+    private let transactionManager:TransactionManager = TransactionManager()
     private let transaction:Transaction
     private var viewModels = [ExpenseDetailedTableViewCell.ViewModel]()
     
@@ -88,8 +88,8 @@ class ExpenseDetailedViewController: UIViewController {
     }
     
     @objc private func didTapEdit() {
-            let vc = AddExpenseScreenOneViewController(transaction: transaction)
-            navigationController?.pushViewController(vc, animated: true)
+        let vc:AddExpenseScreenOneViewController = AddExpenseScreenOneViewController(transaction: transaction)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func createViewModels() {
@@ -112,12 +112,12 @@ extension ExpenseDetailedViewController: UITableViewDelegate,UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
+        guard let cell:ExpenseDetailedTableViewCell = tableView.dequeueReusableCell(
             withIdentifier: ExpenseDetailedTableViewCell.identifier,
             for: indexPath) as? ExpenseDetailedTableViewCell else {
             return UITableViewCell()
         }
-        let viewModel = viewModels[indexPath.row]
+        let viewModel:ExpenseDetailedTableViewCell.ViewModel = viewModels[indexPath.row]
         cell.configure(with: viewModel)
         return cell
     }

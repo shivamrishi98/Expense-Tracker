@@ -15,7 +15,7 @@ final class HeaderTitleCollectionReusableView: UICollectionReusableView {
  
     // MARK: - Properties
     
-    static let identifier = "HeaderTitleCollectionReusableView"
+    static let identifier:String = "HeaderTitleCollectionReusableView"
     weak var delegate:HeaderTitleCollectionReusableViewDelegate?
     
     // MARK: - UI

@@ -11,7 +11,7 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "ExpenseCategoryCollectionViewCell"
+    static let identifier:String = "ExpenseCategoryCollectionViewCell"
     
     enum Category {
         enum Income: CaseIterable  {
@@ -175,7 +175,6 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    
     override var isSelected: Bool {
        didSet{
            if self.isSelected {
@@ -197,7 +196,7 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI
     
-    private let iconImageView: UIImageView = {
+    private let iconImageView:UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()

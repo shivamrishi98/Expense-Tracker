@@ -51,16 +51,16 @@ final class ChartView:UIView,ChartViewDelegate {
     // MARK: - Public
     
     public func configure(with viewModel:ViewModel) {
-        var entries = [PieChartDataEntry]()
+        var entries:[PieChartDataEntry] = [PieChartDataEntry]()
         
         for (label,value) in viewModel.entries {
             entries.append(.init(value: value, label: label))
         }
-        let balance = String.formatted(number: viewModel.balance)
-        let set = PieChartDataSet(entries: entries, label: "Total \(viewModel.type) = \(balance)")
+        let balance:String = String.formatted(number: viewModel.balance)
+        let set:PieChartDataSet = PieChartDataSet(entries: entries, label: "Total \(viewModel.type) = \(balance)")
         set.colors = ChartColorTemplates.colorful()
         set.sliceSpace = 1
-        let data = PieChartData(dataSet: set)
+        let data:PieChartData = PieChartData(dataSet: set)
         data.setValueFormatter(DefaultValueFormatter(formatter: NumberFormatter.currencyFormatter))
         chartView.data = data
     }

@@ -64,12 +64,12 @@ extension TransactionListViewController: UITableViewDataSource,UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
+        guard let cell:TransactionListTableViewCell = tableView.dequeueReusableCell(
             withIdentifier: TransactionListTableViewCell.identifier,
             for: indexPath) as? TransactionListTableViewCell else {
             fatalError()
         }
-        let transaction = transactions[indexPath.row]
+        let transaction:Transaction = transactions[indexPath.row]
         cell.configure(with: transaction)
         return cell
     }
@@ -85,8 +85,8 @@ extension TransactionListViewController: UITableViewDataSource,UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         HapticsManager.shared.vibrateForSelection()
-        let transaction = transactions[indexPath.row]
-        let vc = ExpenseDetailedViewController(transaction: transaction)
+        let transaction:Transaction = transactions[indexPath.row]
+        let vc:ExpenseDetailedViewController = ExpenseDetailedViewController(transaction: transaction)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

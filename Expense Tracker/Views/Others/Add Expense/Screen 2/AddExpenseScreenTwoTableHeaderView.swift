@@ -14,9 +14,9 @@ class AddExpenseScreenTwoTableHeaderView: UIView {
     private let model: AddExpenseScreenOneModel
   
     // MARK: - UI
-    private let titleLabel = TableHeaderViewLabel(fontSize: 18, weight: .bold)
-    private let typeLabel = TableHeaderViewLabel(textColor:.secondaryLabel,fontSize: 16, weight: .semibold)
-    private let categoryLabel = TableHeaderViewLabel(textColor:.systemGray2,fontSize: 16, weight: .bold)
+    private let titleLabel:TableHeaderViewLabel = TableHeaderViewLabel(fontSize: 18, weight: .bold)
+    private let typeLabel:TableHeaderViewLabel = TableHeaderViewLabel(textColor:.secondaryLabel,fontSize: 16, weight: .semibold)
+    private let categoryLabel:TableHeaderViewLabel = TableHeaderViewLabel(textColor:.systemGray2,fontSize: 16, weight: .bold)
     
     // MARK: - Init
     

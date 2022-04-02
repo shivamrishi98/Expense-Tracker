@@ -16,13 +16,13 @@ final class ExpenseTextfieldCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "ExpenseTitleCollectionViewCell"
+    static let identifier:String = "ExpenseTitleCollectionViewCell"
     weak var delegate:ExpenseTextfieldCollectionViewCellDelegate?
     private var title:String?
     
     // MARK: - UI
     
-    private let titleTextfield = InputTextField(type: .title)
+    private let titleTextfield:InputTextField = InputTextField(type: .title)
     
     // MARK: - Init
     

@@ -23,7 +23,7 @@ protocol TransactionRepository {
 struct TransactionDataRepository: TransactionRepository {
     
     func create(transaction:Transaction) {
-        let cdTransaction = CDTransaction(context: PersistentStorage.shared.context)
+        let cdTransaction:CDTransaction = CDTransaction(context: PersistentStorage.shared.context)
         cdTransaction.id = transaction.id
         cdTransaction.title = transaction.title
         cdTransaction.type = transaction.type
@@ -49,13 +49,13 @@ struct TransactionDataRepository: TransactionRepository {
 //    }
     
     func getAll() -> [Transaction]? {
-        let fetchRequest = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
-        let sortDescriptor =  [NSSortDescriptor(key: "transactionDate",
+        let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
+        let sortDescriptor:[NSSortDescriptor] = [NSSortDescriptor(key: "transactionDate",
                                                 ascending: false)]
         fetchRequest.sortDescriptors = sortDescriptor
         
         do {
-            let result = try PersistentStorage.shared.context.fetch(fetchRequest)
+            let result:[CDTransaction] = try PersistentStorage.shared.context.fetch(fetchRequest)
             
             var transactions:[Transaction] = []
             
@@ -70,7 +70,7 @@ struct TransactionDataRepository: TransactionRepository {
     }
     
     func get(by id: UUID) -> Transaction? {
-        let result = getCDTransaction(by: id)
+        let result:CDTransaction? = getCDTransaction(by: id)
         
         guard result != nil else {
             return nil
@@ -79,15 +79,15 @@ struct TransactionDataRepository: TransactionRepository {
     }
     
     func get(by type: ExpenseTypeCollectionViewCell.ExpenseType) -> [Transaction]? {
-        let fetchRequest = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
-        let predicate = NSPredicate(format: "type==%@",type.title)
+        let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
+        let predicate:NSPredicate = NSPredicate(format: "type==%@",type.title)
         fetchRequest.predicate = predicate
-        let sortDescriptor =  [NSSortDescriptor(key: "transactionDate",
+        let sortDescriptor:[NSSortDescriptor] =  [NSSortDescriptor(key: "transactionDate",
                                                 ascending: false)]
         fetchRequest.sortDescriptors = sortDescriptor
         
         do {
-            let result = try PersistentStorage.shared.context.fetch(fetchRequest)
+            let result:[CDTransaction] = try PersistentStorage.shared.context.fetch(fetchRequest)
             
             var transactions:[Transaction] = []
             
@@ -102,8 +102,8 @@ struct TransactionDataRepository: TransactionRepository {
     }
     
     func getTotalBalance() -> Double {
-        let transactions = getAll()
-        var balance = 0.0
+        let transactions:[Transaction]? = getAll()
+        var balance:Double = 0.0
         transactions?.forEach({
             switch $0.type {
             case ExpenseTypeCollectionViewCell.ExpenseType.expense.title:
@@ -118,8 +118,8 @@ struct TransactionDataRepository: TransactionRepository {
     }
     
     func getBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType) -> Double {
-        let transactions = get(by: type)
-        var balance = 0.0
+        let transactions:[Transaction]? = get(by: type)
+        var balance:Double = 0.0
         transactions?.forEach({
             balance += $0.amount
         })
@@ -128,7 +128,8 @@ struct TransactionDataRepository: TransactionRepository {
     
     func update(transaction: Transaction) -> Bool {
         
-        let cdTransaction = getCDTransaction(by: transaction.id!)
+        let cdTransaction:CDTransaction? = getCDTransaction(by: transaction.id!)
+        
         guard cdTransaction != nil else {
             return false
         }
@@ -146,7 +147,7 @@ struct TransactionDataRepository: TransactionRepository {
     }
     
     func delete(with id: UUID) -> Bool {
-        let cdTransaction = getCDTransaction(by: id)
+        let cdTransaction:CDTransaction? = getCDTransaction(by: id)
         guard let cdTransaction = cdTransaction else {
             return false
         }
@@ -156,7 +157,7 @@ struct TransactionDataRepository: TransactionRepository {
     }
     
     func deleteAll() {
-        let result = PersistentStorage.shared.fetchManagedObject(
+        let result:[CDTransaction]? = PersistentStorage.shared.fetchManagedObject(
             managedObject: CDTransaction.self)
         
         result?.forEach({ cdTransaction in
@@ -166,11 +167,11 @@ struct TransactionDataRepository: TransactionRepository {
     }
     
     private func getCDTransaction(by id:UUID) -> CDTransaction? {
-        let fetchRequest = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
-        let predicate = NSPredicate(format: "id==%@", id as CVarArg )
+        let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
+        let predicate:NSPredicate = NSPredicate(format: "id==%@", id as CVarArg )
         fetchRequest.predicate = predicate
         do {
-            let result = try PersistentStorage.shared.context.fetch(fetchRequest).first
+            let result:CDTransaction? = try PersistentStorage.shared.context.fetch(fetchRequest).first
         
             guard result != nil else {
                 return nil

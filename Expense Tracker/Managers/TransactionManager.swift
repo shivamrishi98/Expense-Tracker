@@ -9,7 +9,7 @@ import Foundation
 
 struct TransactionManager {
     
-    private let transactionDataRepository = TransactionDataRepository()
+    private let transactionDataRepository:TransactionDataRepository = TransactionDataRepository()
     
     func create(transaction: Transaction) {
         transactionDataRepository.create(transaction: transaction)

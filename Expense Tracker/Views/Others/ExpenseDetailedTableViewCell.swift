@@ -11,7 +11,7 @@ final class ExpenseDetailedTableViewCell: UITableViewCell {
 
     // MARK: - Properties
     
-    static let identifier = "ExpenseDetailedTableViewCell"
+    static let identifier:String = "ExpenseDetailedTableViewCell"
     
     struct ViewModel {
         let name:String

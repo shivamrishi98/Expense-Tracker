@@ -16,7 +16,7 @@ protocol ExpenseDatePickerTableViewCellDelegate: AnyObject {
 
 class ExpenseDatePickerTableViewCell:UITableViewCell {
     
-    static let identifier = "ExpenseDatePickerTableViewCell"
+    static let identifier:String = "ExpenseDatePickerTableViewCell"
     static let rowHeight:CGFloat = 50
     
     public weak var delegate:ExpenseDatePickerTableViewCellDelegate?
@@ -65,7 +65,7 @@ class ExpenseDatePickerTableViewCell:UITableViewCell {
     
     public func configure(model: AddExpenseScreenTwoFormModel) {
         self.model = model
-        datePicker.date = Date.formattString(date: model.value ?? "")
+        datePicker.date = Date.formatString(date: model.value ?? "")
     }
     
 }

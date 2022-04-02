@@ -11,14 +11,14 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var transactions = [Transaction]()
-    private let transactionManager = TransactionManager()
-    private var balanceViewModels = [BalanceCollectionViewCell.ViewModel]()
+    private var transactions:[Transaction] = [Transaction]()
+    private let transactionManager:TransactionManager = TransactionManager()
+    private var balanceViewModels:[BalanceCollectionViewCell.ViewModel] = [BalanceCollectionViewCell.ViewModel]()
     private var transactionsObserver:NSObjectProtocol?
     
     // MARK: - UI
     
-    private let emptyView = EmptyView()
+    private let emptyView:EmptyView = EmptyView()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewCompositionalLayout { section, _ in
@@ -90,17 +90,17 @@ final class HomeViewController: UIViewController {
     }
     
     @objc private func didTapAdd() {
-        let vc = AddExpenseScreenOneViewController()
+        let vc:AddExpenseScreenOneViewController = AddExpenseScreenOneViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func didTapSettings() {
-        let vc = SettingsViewController()
+        let vc:SettingsViewController = SettingsViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupObserver() {
-        transactionsObserver = NotificationCenter.default.addObserver(
+    transactionsObserver = NotificationCenter.default.addObserver(
             forName: .refreshTransactions,
             object: nil,
             queue: .main) { [weak self] _ in
@@ -157,7 +157,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = collectionView.dequeueReusableCell(
+            guard let cell:BalanceCollectionViewCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: BalanceCollectionViewCell.identifier,
                 for: indexPath) as? BalanceCollectionViewCell else {
                 return UICollectionViewCell()
@@ -165,7 +165,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             cell.configure(with: balanceViewModels[indexPath.item])
             return cell
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(
+            guard let cell:TransactionListCollectionViewCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: TransactionListCollectionViewCell.identifier,
                 for: indexPath) as? TransactionListCollectionViewCell else {
                 return UICollectionViewCell()
@@ -174,7 +174,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             cell.configure(with: transaction)
             return cell
         default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+            let cell:UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
             cell.backgroundColor = .systemOrange
             return cell
         }
@@ -214,13 +214,13 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         HapticsManager.shared.vibrateForSelection()
         switch indexPath.section {
         case 0:
-            let viewModel = balanceViewModels[indexPath.item]
-            let vc = TransactionExpenseTypeListViewController(type: viewModel.type,
+            let viewModel:BalanceCollectionViewCell.ViewModel = balanceViewModels[indexPath.item]
+            let vc:TransactionExpenseTypeListViewController = TransactionExpenseTypeListViewController(type: viewModel.type,
                                                               balance: viewModel.balance)
             navigationController?.pushViewController(vc, animated: true)
         case 1:
-            let transaction = transactions[indexPath.item]
-            let vc = ExpenseDetailedViewController(transaction: transaction)
+            let transaction:Transaction  = transactions[indexPath.item]
+            let vc:ExpenseDetailedViewController = ExpenseDetailedViewController(transaction: transaction)
             navigationController?.pushViewController(vc, animated: true)
         default:
             break
@@ -234,7 +234,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
 extension HomeViewController: HeaderTitleCollectionReusableViewDelegate {
 
     func headerTitleCollectionReusableViewDidTapViewAll(_ cell: HeaderTitleCollectionReusableView) {
-        let vc = TransactionListViewController(transactions: transactions)
+        let vc:TransactionListViewController = TransactionListViewController(transactions: transactions)
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -249,28 +249,28 @@ extension HomeViewController {
         heightDimension: NSCollectionLayoutDimension,
         count:Int
     ) -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: widthDimension,
+        let itemSize:NSCollectionLayoutSize = NSCollectionLayoutSize(widthDimension: widthDimension,
                                              heightDimension: heightDimension)
-       let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let item:NSCollectionLayoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
        
        item.contentInsets = NSDirectionalEdgeInsets(top: 2,
                                                     leading: 2,
                                                     bottom: 2,
                                                     trailing: 2)
        
-       let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+        let groupSize:NSCollectionLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                               heightDimension: heightDimension)
-       let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+        let group:NSCollectionLayoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                       subitem: item,
                                                       count: count)
        
-       let section = NSCollectionLayoutSection(group: group)
+        let section:NSCollectionLayoutSection = NSCollectionLayoutSection(group: group)
        return section
    }
    
    private static func layout(for section: Int) -> NSCollectionLayoutSection {
        
-       let sectionOneSupplementaryViews = [
+       let sectionOneSupplementaryViews:[NSCollectionLayoutBoundarySupplementaryItem] = [
            NSCollectionLayoutBoundarySupplementaryItem(
                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                   heightDimension: .absolute(100)),
@@ -279,7 +279,7 @@ extension HomeViewController {
            )
        ]
        
-       let supplementaryViews = [
+       let supplementaryViews:[NSCollectionLayoutBoundarySupplementaryItem] = [
            NSCollectionLayoutBoundarySupplementaryItem(
                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                   heightDimension: .absolute(40)),
@@ -290,19 +290,19 @@ extension HomeViewController {
        
        switch section {
        case 0:
-           let section = createSection(with: .fractionalWidth(0.5),
+           let section:NSCollectionLayoutSection = createSection(with: .fractionalWidth(0.5),
                                        heightDimension: .absolute(150),
                                        count: 2)
            section.boundarySupplementaryItems = sectionOneSupplementaryViews
            return section
        case 1:
-           let section = createSection(with: .fractionalWidth(1),
+           let section:NSCollectionLayoutSection = createSection(with: .fractionalWidth(1),
                                        heightDimension: .absolute(70),
                                        count: 1)
            section.boundarySupplementaryItems = supplementaryViews
            return section
        default:
-           let section = createSection(with: .fractionalWidth(0.5),
+           let section:NSCollectionLayoutSection = createSection(with: .fractionalWidth(0.5),
                                        heightDimension: .absolute(50),
                                        count: 1)
            return section

@@ -16,14 +16,14 @@ class ExpenseTextfieldTableViewCell:UITableViewCell,UITextFieldDelegate {
     
     // MARK: - Properties
     
-    static let identifier = "ExpenseTextfieldTableViewCell"
+    static let identifier:String = "ExpenseTextfieldTableViewCell"
     static let rowHeight:CGFloat = 50
     public weak var delegate:ExpenseTextfieldTableViewCellDelegate?
     private var model:AddExpenseScreenTwoFormModel?
     
     // MARK: - UI
     
-    private var textfield = InputTextField(type: .none)
+    private var textfield:InputTextField = InputTextField(type: .none)
     
     // MARK: - Init
     
@@ -98,7 +98,7 @@ class ExpenseTextfieldTableViewCell:UITableViewCell,UITextFieldDelegate {
         textfield.placeholder = model.placeholder
         textfield.text = model.value
         textfield.keyboardType = (model.placeholder == "Amount") ? .decimalPad : .default
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: contentView.width, height: 50))
+        let toolBar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: contentView.width, height: 50))
         toolBar.items = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil),
             UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapKeyboardDone))

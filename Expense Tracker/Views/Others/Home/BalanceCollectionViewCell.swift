@@ -11,7 +11,7 @@ final class BalanceCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "BalanceCollectionViewCell"
+    static let identifier:String = "BalanceCollectionViewCell"
     
     struct ViewModel {
         let type:ExpenseTypeCollectionViewCell.ExpenseType

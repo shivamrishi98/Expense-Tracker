@@ -11,7 +11,7 @@ final class TransactionListCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "TransactionListCollectionViewCell"
+    static let identifier:String = "TransactionListCollectionViewCell"
     
     // MARK: - UI
     
@@ -115,12 +115,12 @@ final class TransactionListCollectionViewCell: UICollectionViewCell {
     // MARK: - Public
     
     public func configure(with transaction:Transaction) {
-        let iconName = UserDefaults.standard.string(forKey: transaction.category ?? "")
+        let iconName:String? = UserDefaults.standard.string(forKey: transaction.category ?? "")
         iconImageView.image = UIImage(systemName: iconName ?? "")
         titleLabel.text = transaction.title
         categoryLabel.text = transaction.category
         let expenseType:Bool = (transaction.type == ExpenseTypeCollectionViewCell.ExpenseType.expense.title)
-        let balancePrefix = expenseType ? "-" : "+"
+        let balancePrefix:String = expenseType ? "-" : "+"
         totalBalanceLabel.textColor = expenseType ? .systemRed : .systemGreen
         totalBalanceLabel.text = balancePrefix + String.formatted(number: transaction.amount)
         createdAtLabel.text = String.formatted(date: transaction.transactionDate ?? Date())

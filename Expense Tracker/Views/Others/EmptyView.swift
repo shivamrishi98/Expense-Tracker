@@ -17,8 +17,8 @@ class EmptyView: UIView {
     
     // MARK: - UI
     
-    private let titleLabel = EmptyViewLabel(type: .title)
-    private let messageLabel = EmptyViewLabel(type: .message)
+    private let titleLabel:EmptyViewLabel = EmptyViewLabel(type: .title)
+    private let messageLabel:EmptyViewLabel = EmptyViewLabel(type: .message)
     
     private let iconImageView:UIImageView = {
         let imageView = UIImageView()

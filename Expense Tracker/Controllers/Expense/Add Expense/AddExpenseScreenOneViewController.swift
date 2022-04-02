@@ -29,11 +29,11 @@ struct AddExpenseScreenOneModel {
 final class AddExpenseScreenOneViewController: UIViewController {
 
     // MARK: - Properties
-    private let sections = ["","Type","Category"]
+    private let sections:[String] = ["","Type","Category"]
     private var titleString:String? = nil
-    private let types = ExpenseTypeCollectionViewCell.ExpenseType.allCases
-    private let expenseCategories = ExpenseCategoryCollectionViewCell.Category.Expense.allCases.filter({ $0 != .none })
-    private let incomeCategories = ExpenseCategoryCollectionViewCell.Category.Income.allCases.filter({ $0 != .none })
+    private let types:[ExpenseTypeCollectionViewCell.ExpenseType] = ExpenseTypeCollectionViewCell.ExpenseType.allCases
+    private let expenseCategories:[ExpenseCategoryCollectionViewCell.Category.Expense] = ExpenseCategoryCollectionViewCell.Category.Expense.allCases.filter({ $0 != .none })
+    private let incomeCategories:[ExpenseCategoryCollectionViewCell.Category.Income] = ExpenseCategoryCollectionViewCell.Category.Income.allCases.filter({ $0 != .none })
     private var selectedType:ExpenseTypeCollectionViewCell.ExpenseType = .income
     
     private var selectedIncomeCategory:ExpenseCategoryCollectionViewCell.Category.Income = .none
@@ -43,10 +43,10 @@ final class AddExpenseScreenOneViewController: UIViewController {
     
     // MARK: - UI
     private let collectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout { section, _ in
+        let layout:UICollectionViewCompositionalLayout = UICollectionViewCompositionalLayout { section, _ in
             return AddExpenseScreenOneViewController.layout(for: section)
         }
-        let collectionView = UICollectionView(frame: .zero,
+        let collectionView:UICollectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.register(
             ExpenseTextfieldCollectionViewCell.self,
@@ -104,7 +104,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
     }
     
     @objc private func didTapNext() {
-        guard let title = titleString,
+        guard let title:String = titleString,
               !title.trimmingCharacters(in: .whitespaces).isEmpty,
               selectedIncomeCategory != .none || selectedExpenseCategory != .none else {
             HapticsManager.shared.vibrate(for: .error)
@@ -115,31 +115,31 @@ final class AddExpenseScreenOneViewController: UIViewController {
             return
         }
         HapticsManager.shared.vibrate(for: .success)
-        var category = ""
-        var categoryIconName = ""
+        var category:String = ""
+        var categoryIconName:String = ""
         switch selectedType {
         case .income:
-            category = selectedIncomeCategory.title
-            categoryIconName = selectedIncomeCategory.iconName
+        category = selectedIncomeCategory.title
+        categoryIconName = selectedIncomeCategory.iconName
         case .expense:
-            category = selectedExpenseCategory.title
-            categoryIconName = selectedExpenseCategory.iconName
+        category = selectedExpenseCategory.title
+        categoryIconName = selectedExpenseCategory.iconName
         }
-        let model = AddExpenseScreenOneModel(title: title,
+        let model:AddExpenseScreenOneModel = AddExpenseScreenOneModel(title: title,
                                              type: selectedType.title,
                                              category: category,
                                              iconName: categoryIconName)
-        let vc = AddExpenseScreenTwoViewController(
+        let vc:AddExpenseScreenTwoViewController = AddExpenseScreenTwoViewController(
             addExpenseScreenOneModel: model,
             transaction: transaction ?? nil)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     private func fillValuesIfRecordExists() {
-        if let transaction = transaction {
+        if let transaction:Transaction = transaction {
             titleString = transaction.title
             
-            let incomeTypeSelected = transaction.type == ExpenseTypeCollectionViewCell.ExpenseType.income.title
+            let incomeTypeSelected:Bool = transaction.type == ExpenseTypeCollectionViewCell.ExpenseType.income.title
             selectedType = incomeTypeSelected ? .income : .expense
             
             switch selectedType {
@@ -148,7 +148,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
                 for (index,value) in incomeCategories.enumerated() where value.title == transaction.category {
                     item = index
                 }
-                let indexPath = IndexPath(item: item, section: 2)
+                let indexPath:IndexPath = IndexPath(item: item, section: 2)
                 selectedIncomeCategory = incomeCategories[indexPath.item]
                 collectionView.selectItem(at: indexPath,
                                           animated: true,scrollPosition:.top)
@@ -157,7 +157,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
                 for (index,value) in expenseCategories.enumerated() where value.title == transaction.category {
                     item = index
                 }
-                let indexPath = IndexPath(item: item, section: 2)
+                let indexPath:IndexPath = IndexPath(item: item, section: 2)
                 selectedExpenseCategory = expenseCategories[indexPath.item]
                 collectionView.selectItem(at: indexPath,
                                           animated: true,scrollPosition:.top)
@@ -190,7 +190,7 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = collectionView.dequeueReusableCell(
+            guard let cell:ExpenseTextfieldCollectionViewCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ExpenseTextfieldCollectionViewCell.identifier,
                 for: indexPath) as? ExpenseTextfieldCollectionViewCell else {
                 return UICollectionViewCell()
@@ -199,7 +199,7 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
             cell.configure(with: titleString ?? "")
             return cell
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(
+            guard let cell:ExpenseTypeCollectionViewCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ExpenseTypeCollectionViewCell.identifier,
                 for: indexPath) as? ExpenseTypeCollectionViewCell else {
                 return UICollectionViewCell()
@@ -217,18 +217,18 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
                 return UICollectionViewCell()
             }
         case 2:
-            guard let cell = collectionView.dequeueReusableCell(
+            guard let cell:ExpenseCategoryCollectionViewCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ExpenseCategoryCollectionViewCell.identifier,
                 for: indexPath) as? ExpenseCategoryCollectionViewCell else {
                 return UICollectionViewCell()
             }
             switch selectedType {
             case .income:
-                let category = incomeCategories[indexPath.item]
+                let category:ExpenseCategoryCollectionViewCell.Category.Income = incomeCategories[indexPath.item]
                 cell.configure(with: category.title,
                                iconName: category.iconName)
             case .expense:
-                let category = expenseCategories[indexPath.item]
+                let category:ExpenseCategoryCollectionViewCell.Category.Expense = expenseCategories[indexPath.item]
                 cell.configure(with: category.title,
                                iconName: category.iconName)
             }
@@ -241,13 +241,13 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         guard kind == UICollectionView.elementKindSectionHeader,
-              let header = collectionView.dequeueReusableSupplementaryView(
+              let header:HeaderTitleCollectionReusableView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: HeaderTitleCollectionReusableView.identifier,
                 for: indexPath) as? HeaderTitleCollectionReusableView else {
             return UICollectionReusableView()
         }
-        let title = sections[indexPath.section]
+        let title:String = sections[indexPath.section]
         header.configure(with: title)
         return header
     }
@@ -301,28 +301,28 @@ extension AddExpenseScreenOneViewController {
         heightDimension: NSCollectionLayoutDimension,
         count:Int
     ) -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: widthDimension,
+        let itemSize:NSCollectionLayoutSize = NSCollectionLayoutSize(widthDimension: widthDimension,
                                               heightDimension: heightDimension)
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let item:NSCollectionLayoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
         
         item.contentInsets = NSDirectionalEdgeInsets(top: 2,
                                                      leading: 2,
                                                      bottom: 2,
                                                      trailing: 2)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+        let groupSize:NSCollectionLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                heightDimension: heightDimension)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+        let group:NSCollectionLayoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem: item,
                                                        count: count)
         
-        let section = NSCollectionLayoutSection(group: group)
+        let section:NSCollectionLayoutSection = NSCollectionLayoutSection(group: group)
         return section
     }
     
     private static func layout(for section: Int) -> NSCollectionLayoutSection {
         
-        let supplementaryViews = [
+        let supplementaryViews:[NSCollectionLayoutBoundarySupplementaryItem] = [
             NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                    heightDimension: .absolute(40)),
@@ -337,19 +337,19 @@ extension AddExpenseScreenOneViewController {
                                  heightDimension: .absolute(50),
                                  count: 1)
         case 1:
-            let section = createSection(with: .fractionalWidth(0.5),
+            let section:NSCollectionLayoutSection = createSection(with: .fractionalWidth(0.5),
                                         heightDimension: .absolute(50),
                                         count: 2)
             section.boundarySupplementaryItems = supplementaryViews
             return section
         case 2:
-            let section = createSection(with: .fractionalWidth(0.3),
+            let section:NSCollectionLayoutSection = createSection(with: .fractionalWidth(0.3),
                                         heightDimension: .absolute(100),
                                         count: 3)
             section.boundarySupplementaryItems = supplementaryViews
             return section
         default:
-            let section = createSection(with: .fractionalWidth(0.5),
+            let section:NSCollectionLayoutSection = createSection(with: .fractionalWidth(0.5),
                                         heightDimension: .absolute(50),
                                         count: 1)
             return section

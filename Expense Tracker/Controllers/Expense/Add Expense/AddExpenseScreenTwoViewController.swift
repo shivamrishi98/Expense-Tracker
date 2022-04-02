@@ -18,8 +18,8 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     // MARK: - Properties
     
     private let addExpenseScreenOneModel:AddExpenseScreenOneModel
-    private var sections = [[AddExpenseScreenTwoFormModel]]()
-    private let transactionManager = TransactionManager()
+    private var sections:[[AddExpenseScreenTwoFormModel]] = [[AddExpenseScreenTwoFormModel]]()
+    private let transactionManager:TransactionManager = TransactionManager()
     private let transaction:Transaction?
     
     // MARK: - UI
@@ -82,9 +82,9 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     }
     
     @objc private func didTapSave() {
-        let screenTwoSectionOneModel = sections[0]
-        let screenTwoSectionTwoModel = sections[1]
-        
+        let screenTwoSectionOneModel:[AddExpenseScreenTwoFormModel] = sections[0]
+        let screenTwoSectionTwoModel:[AddExpenseScreenTwoFormModel] = sections[1]
+  
         guard let amount:Double = Double(screenTwoSectionOneModel[0].value ?? "")  else {
             HapticsManager.shared.vibrate(for: .error)
             AlertManager.present(title: "Woops",
@@ -94,14 +94,14 @@ final class AddExpenseScreenTwoViewController: UIViewController {
             return
         }
         HapticsManager.shared.vibrate(for: .success)
-        let transaction = Transaction(
+        let transaction:Transaction = Transaction(
             id: transaction?.id ?? UUID(),
             title: addExpenseScreenOneModel.title,
             type: addExpenseScreenOneModel.type,
             category: addExpenseScreenOneModel.category,
             amount: amount,
             note: screenTwoSectionOneModel[1].value ?? nil,
-            transactionDate: Date.formattString(date: screenTwoSectionTwoModel[0].value ?? ""),
+            transactionDate: Date.formatString(date: screenTwoSectionTwoModel[0].value ?? ""),
             createdAt: transaction?.createdAt ?? Date(),
             updatedAt: Date())
         
@@ -120,14 +120,14 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     }
     
     private func configureSections() {
-        let sectionOne = ["Amount","Note"]
-        var section1 = [AddExpenseScreenTwoFormModel]()
+        let sectionOne:[String] = ["Amount","Note"]
+        var section1:[AddExpenseScreenTwoFormModel] = [AddExpenseScreenTwoFormModel]()
         for placeholder in sectionOne {
             section1.append(.init(placeholder: placeholder))
         }
         sections.append(section1)
-        let sectionTwo = ["Created on"]
-        var section2 = [AddExpenseScreenTwoFormModel]()
+        let sectionTwo:[String] = ["Created on"]
+        var section2:[AddExpenseScreenTwoFormModel] = [AddExpenseScreenTwoFormModel]()
         for _ in sectionTwo {
             section2.append(.init(placeholder: ""))
         }
@@ -135,7 +135,7 @@ final class AddExpenseScreenTwoViewController: UIViewController {
     }
     
     private func fillValuesIfRecordExists() {
-        if let transaction = transaction {
+        if let transaction:Transaction = transaction {
             sections[0][0].value = "\(transaction.amount)"
             sections[0][1].value = transaction.note
             sections[1][0].value = String.formattedToOriginal(date: transaction.transactionDate ?? Date())
@@ -157,22 +157,22 @@ extension AddExpenseScreenTwoViewController:UITableViewDelegate,UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(
+            guard let cell:ExpenseTextfieldTableViewCell = tableView.dequeueReusableCell(
                 withIdentifier: ExpenseTextfieldTableViewCell.identifier,
                 for: indexPath) as? ExpenseTextfieldTableViewCell else {
                 return UITableViewCell()
             }
-            let model = sections[indexPath.section][indexPath.row]
+            let model:AddExpenseScreenTwoFormModel = sections[indexPath.section][indexPath.row]
             cell.configure(model: model)
             cell.delegate = self
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(
+            guard let cell:ExpenseDatePickerTableViewCell = tableView.dequeueReusableCell(
                 withIdentifier: ExpenseDatePickerTableViewCell.identifier,
                 for: indexPath) as? ExpenseDatePickerTableViewCell else {
                 return UITableViewCell()
             }
-            let model = sections[indexPath.section][indexPath.row]
+            let model:AddExpenseScreenTwoFormModel = sections[indexPath.section][indexPath.row]
             cell.configure(model: model)
             cell.delegate = self
             return cell
@@ -204,7 +204,7 @@ extension AddExpenseScreenTwoViewController:ExpenseTextfieldTableViewCellDelegat
     
     func expenseTextfieldTableViewCell(_ cell: ExpenseTextfieldTableViewCell,
                                        didUpdateField updatedModel: AddExpenseScreenTwoFormModel) {
-        guard let indexPath = tableView.indexPath(for: cell) else {
+        guard let indexPath:IndexPath = tableView.indexPath(for: cell) else {
             return
         }
         sections[indexPath.section][indexPath.row] = updatedModel
@@ -219,7 +219,7 @@ extension AddExpenseScreenTwoViewController:ExpenseDatePickerTableViewCellDelega
     
     func expenseDatePickerTableViewCell(_ cell: ExpenseDatePickerTableViewCell,
                                         didUpdateField updatedModel: AddExpenseScreenTwoFormModel) {
-        guard let indexPath = tableView.indexPath(for: cell) else {
+        guard let indexPath:IndexPath = tableView.indexPath(for: cell) else {
             return
         }
         sections[indexPath.section][indexPath.row] = updatedModel

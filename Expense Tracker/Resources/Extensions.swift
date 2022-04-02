@@ -76,7 +76,7 @@ extension String {
 // MARK: - Extension - Date
 
 extension Date {
-    static func formattString(date:String) -> Date {
+    static func formatString(date:String) -> Date {
         return DateFormatter.dateFormatter.date(from: date) ?? Date()
     }
 }
@@ -84,7 +84,7 @@ extension Date {
 // MARK: - Extension - Notification.Name
 
 extension Notification.Name {
-    static let refreshTransactions = Notification.Name("refreshTransactions")
+    static let refreshTransactions:Notification.Name = Notification.Name("refreshTransactions")
 }
 
 // MARK: - Extension - NumberFormatter

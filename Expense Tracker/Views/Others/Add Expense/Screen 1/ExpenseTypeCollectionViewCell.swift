@@ -16,7 +16,7 @@ class ExpenseTypeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier = "ExpenseTypeCollectionViewCell"
+    static let identifier:String = "ExpenseTypeCollectionViewCell"
     
     weak var delegate:ExpenseTypeCollectionViewCellDelegate?
     
@@ -38,8 +38,8 @@ class ExpenseTypeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI
     
-    let expenseTypeView = ExpenseTypeView()
-    private let typeLabel = ExpenseTypeLabel()
+    let expenseTypeView:ExpenseTypeView = ExpenseTypeView()
+    private let typeLabel:ExpenseTypeLabel = ExpenseTypeLabel()
     
     // MARK: - Init
     
@@ -48,7 +48,7 @@ class ExpenseTypeCollectionViewCell: UICollectionViewCell {
         contentView.addSubviews(expenseTypeView)
         expenseTypeView.addSubview(typeLabel)
         
-        let tapGesture = UITapGestureRecognizer(target: self,
+        let tapGesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                 action: #selector(didTapTypeView))
         expenseTypeView.addGestureRecognizer(tapGesture)
     }

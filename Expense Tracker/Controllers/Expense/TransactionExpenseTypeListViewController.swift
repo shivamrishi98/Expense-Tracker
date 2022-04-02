@@ -10,10 +10,10 @@ import UIKit
 final class TransactionExpenseTypeListViewController: UIViewController {
 
     // MARK: - Properties
-    private let transactionManager = TransactionManager()
+    private let transactionManager:TransactionManager = TransactionManager()
     private let type:ExpenseTypeCollectionViewCell.ExpenseType
     private let balance:Double
-    private var transactions = [Transaction]()
+    private var transactions:[Transaction] = [Transaction]()
     private var pieDataEntries:[String: Double] = [:]
     
     // MARK: - UI
@@ -23,7 +23,7 @@ final class TransactionExpenseTypeListViewController: UIViewController {
         chartView.backgroundColor = .secondarySystemBackground
         return chartView
     }()
-    private let emptyView = EmptyView()
+    private let emptyView:EmptyView = EmptyView()
     
     private let tableView:UITableView = {
        let tableView = UITableView()
@@ -76,10 +76,10 @@ final class TransactionExpenseTypeListViewController: UIViewController {
     // MARK: - Private
     
     private func fetchTransactions() {
-        if let transactions = transactionManager.fetchTransaction(by: type) {
+        if let transactions:[Transaction] = transactionManager.fetchTransaction(by: type) {
             self.transactions = transactions
             transactions.forEach({
-                if let val = pieDataEntries[$0.category ?? ""] {
+                if let val:Double = pieDataEntries[$0.category ?? ""] {
                     pieDataEntries.updateValue($0.amount+val, forKey: $0.category ?? "")
                 } else {
                     pieDataEntries.updateValue($0.amount, forKey: $0.category ?? "")
@@ -120,12 +120,12 @@ extension TransactionExpenseTypeListViewController: UITableViewDataSource,UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
+        guard let cell:TransactionListTableViewCell = tableView.dequeueReusableCell(
             withIdentifier: TransactionListTableViewCell.identifier,
             for: indexPath) as? TransactionListTableViewCell else {
             fatalError()
         }
-        let transaction = transactions[indexPath.row]
+        let transaction:Transaction = transactions[indexPath.row]
         cell.configure(with: transaction)
         return cell
     }
@@ -141,8 +141,8 @@ extension TransactionExpenseTypeListViewController: UITableViewDataSource,UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         HapticsManager.shared.vibrateForSelection()
-        let transaction = transactions[indexPath.row]
-        let vc = ExpenseDetailedViewController(transaction: transaction)
+        let transaction:Transaction = transactions[indexPath.row]
+        let vc:ExpenseDetailedViewController = ExpenseDetailedViewController(transaction: transaction)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
