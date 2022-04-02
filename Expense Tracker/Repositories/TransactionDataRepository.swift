@@ -17,6 +17,7 @@ protocol TransactionRepository {
     func getBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType) -> Double
     func update(transaction: Transaction) -> Bool
     func delete(with id: UUID) -> Bool
+    func deleteAll()
 }
 
 struct TransactionDataRepository: TransactionRepository {
@@ -152,6 +153,16 @@ struct TransactionDataRepository: TransactionRepository {
         PersistentStorage.shared.context.delete(cdTransaction)
         PersistentStorage.shared.saveContext()
         return true
+    }
+    
+    func deleteAll() {
+        let result = PersistentStorage.shared.fetchManagedObject(
+            managedObject: CDTransaction.self)
+        
+        result?.forEach({ cdTransaction in
+            PersistentStorage.shared.context.delete(cdTransaction)
+            PersistentStorage.shared.saveContext()
+        })
     }
     
     private func getCDTransaction(by id:UUID) -> CDTransaction? {

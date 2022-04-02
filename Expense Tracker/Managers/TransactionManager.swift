@@ -43,4 +43,7 @@ struct TransactionManager {
         return transactionDataRepository.delete(with: id)
     }
     
+    func deleteAllTransactions() {
+        return transactionDataRepository.deleteAll()
+    }
 }

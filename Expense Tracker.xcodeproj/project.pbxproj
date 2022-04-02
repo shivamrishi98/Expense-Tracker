@@ -220,7 +220,7 @@
 		9647708A27EDA956005DB20D /* Expense Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				96870E1027F47ED8006EDB53 /* PersistentStorage.swift */,
+				96A2DD0A27F838BB0022BFEE /* Storage */,
 				964770A227EDD10A005DB20D /* Resources */,
 				96A2DD0527F835C50022BFEE /* Models */,
 				96BEA31227F4D77E00A8D1B9 /* Repositories */,
@@ -327,6 +327,14 @@
 				96A2DD0827F835DD0022BFEE /* SettingsOption.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		96A2DD0A27F838BB0022BFEE /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				96870E1027F47ED8006EDB53 /* PersistentStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		96BEA31227F4D77E00A8D1B9 /* Repositories */ = {

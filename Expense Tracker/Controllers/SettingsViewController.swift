@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
 
 final class SettingsViewController: UIViewController {
 
@@ -44,14 +45,19 @@ final class SettingsViewController: UIViewController {
     private func configureSections() {
         sections = [
             SettingsSection(
-                title: "Share",
+                title: "Import/Export",
                 options: [
                     SettingsOption(
                         title: "Export to CSV",
                         handler: { [weak self] in
                             self?.exportToCSV()
+                        }),
+                    SettingsOption(
+                        title: "Import from CSV",
+                        handler: { [weak self] in
+                            self?.importFromCSV()
                         })
-                ])
+                ]),
         ]
     }
     
@@ -61,7 +67,7 @@ final class SettingsViewController: UIViewController {
         let fileName = "expense_\(unixTimestamp).csv"
         
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-        var csvHead = "S.no,Id,Title,Type,Category,Amount,Note,Transaction Date\n"
+        var csvHead = "S.no,Title,Type,Category,Amount,Note,Transaction Date,Created At,Updated At\n"
         
         guard let transactions = transactions,
               !transactions.isEmpty else {
@@ -74,13 +80,14 @@ final class SettingsViewController: UIViewController {
         
         for (index,transaction) in transactions.enumerated() {
             csvHead.append("\(index+1),")
-            csvHead.append("\(transaction.id!),")
             csvHead.append("\(transaction.title!),")
             csvHead.append("\(transaction.type!),")
             csvHead.append("\(transaction.category!),")
             csvHead.append("\(transaction.amount),")
             csvHead.append("\(transaction.note ?? "nil"),")
-            csvHead.append("\(transaction.transactionDate!)\n")
+            csvHead.append("\(transaction.transactionDate!),")
+            csvHead.append("\(transaction.createdAt!),")
+            csvHead.append("\(transaction.updatedAt!)\n")
         }
             
         do {
@@ -91,9 +98,52 @@ final class SettingsViewController: UIViewController {
         } catch {
             debugPrint(error)
         }
-        
+    }
+    
+    private func importFromCSV() {
+        AlertManager.present(title: "Import",
+                             message: "Are you sure you want to import data as that will override current data ?",
+                             style: .actionSheet,
+                             actions: .yes(
+                                handler: { [weak self] in
+                                    self?.openDocumentPicker()
+                                })
+                             ,.dismiss,
+                             from: self)
+    }
+    
+    private func openDocumentPicker() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [
+            .text,
+            .content,
+            .item,
+            .data
+        ])
+        documentPicker.delegate = self
+        present(documentPicker, animated: true)
+    }
+    
+    private func convert(data:String) -> [[String]]? {
+        var result:[[String]] = []
+        let rows = data.components(separatedBy: "\n")
+        for row in rows {
+            let columns = row.components(separatedBy: ",")
+            result.append(columns)
+        }
+        guard rows[0].contains("S.no,Title,Type,Category,Amount,Note,Transaction Date,Created At,Updated At") else {
+            AlertManager.present(title: "Can't Import",
+                                 message: "Please add CSV  of this app's transaction format",
+                                 actions: .ok,
+                                 from: self)
+            return nil
+        }
+        result.removeFirst()
+        result.removeLast()
+        return result
     }
 }
+
+ // MARK: - Extension - UITableView
 
 extension SettingsViewController:UITableViewDelegate, UITableViewDataSource {
     
@@ -126,4 +176,53 @@ extension SettingsViewController:UITableViewDelegate, UITableViewDataSource {
         option.handler()
     }
     
+}
+
+// MARK: - Extension - UIDocumentPickerDelegate
+
+extension SettingsViewController:UIDocumentPickerDelegate {
+
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        controller.dismiss(animated: true)
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let filePath = urls.first else {
+            return
+        }
+        if filePath.startAccessingSecurityScopedResource() {
+            do {
+                let content = try String(contentsOf: filePath,encoding: .utf8)
+                let table = convert(data: content)
+                if let table = table {
+                    transactionManager.deleteAllTransactions()
+                    for row in table {
+                        let transaction = Transaction(
+                            id: UUID(),
+                            title: row[1],
+                            type: row[2],
+                            category: row[3],
+                            amount: Double(row[4]) ?? 0.0,
+                            note: row[5],
+                            transactionDate: Date.formattString(date: row[6]),
+                            createdAt: Date.formattString(date: row[7]),
+                            updatedAt: Date.formattString(date: row[8]))
+                        transactionManager.create(transaction: transaction)
+                    }
+                    AlertManager.present(title: "Imported",
+                                         message: "Data Imported",
+                                         actions: .ok,
+                                         from: self)
+                    NotificationCenter.default.post(name: .refreshTransactions,
+                                                    object: nil)
+                }
+            } catch {
+                AlertManager.present(title: "Can't Import",
+                                     message: "This format is not supported",
+                                     actions: .ok,
+                                     from: self)
+            }
+        }
+        filePath.stopAccessingSecurityScopedResource()
+    }
 }
