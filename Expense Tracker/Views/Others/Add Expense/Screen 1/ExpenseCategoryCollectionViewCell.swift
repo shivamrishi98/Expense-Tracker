@@ -58,6 +58,7 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
         }
         enum Expense: CaseIterable  {
             case transportation
+            case rent
             case food
             case bills
             case entertainment
@@ -82,6 +83,8 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
                 switch self {
                 case .transportation:
                     return "Transportation"
+                case .rent:
+                    return "Rent"
                 case .food:
                     return "Food"
                 case .bills:
@@ -127,10 +130,12 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
                 switch self {
                 case .transportation:
                     return "bus"
+                case .rent:
+                    return "house.circle"
                 case .food:
                     return "fork.knife.circle"
                 case .bills:
-                    return "person.circle"
+                    return "creditcard.circle"
                 case .entertainment:
                     return "gamecontroller"
                 case .shopping:
@@ -150,19 +155,19 @@ class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
                 case .pet:
                     return "person.circle"
                 case .beauty:
-                    return "person.circle"
+                    return "eyebrow"
                 case .electronics:
-                    return "person.circle"
+                    return "tv.circle"
                 case .alcohol:
                     return "person.circle"
                 case .grocery:
-                    return "person.circle"
+                    return "cart.circle"
                 case .gift:
-                    return "person.circle"
+                    return "gift.circle"
                 case .education:
-                    return "person.circle"
+                    return "book.circle"
                 case .others:
-                    return "person.circle"
+                    return "square.grid.2x2"
                 case .none:
                     return ""
                 }
