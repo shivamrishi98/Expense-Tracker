@@ -92,11 +92,13 @@ final class SettingsViewController: UIViewController {
             
         do {
             try csvHead.write(to: path!, atomically: true, encoding: .utf8)
+            HapticsManager.shared.vibrate(for: .success)
             let exportSheet = UIActivityViewController(activityItems: [path as Any],
                                                        applicationActivities: nil)
             present(exportSheet, animated: true)
         } catch {
             debugPrint(error)
+            HapticsManager.shared.vibrate(for: .error)
         }
     }
     
@@ -131,6 +133,7 @@ final class SettingsViewController: UIViewController {
             result.append(columns)
         }
         guard rows[0].contains("S.no,Title,Type,Category,Amount,Note,Transaction Date,Created At,Updated At") else {
+            HapticsManager.shared.vibrate(for: .error)
             AlertManager.present(title: "Can't Import",
                                  message: "Please add CSV  of this app's transaction format",
                                  actions: .ok,
@@ -172,6 +175,7 @@ extension SettingsViewController:UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
         let option = sections[indexPath.section].options[indexPath.row]
         option.handler()
     }
@@ -209,6 +213,7 @@ extension SettingsViewController:UIDocumentPickerDelegate {
                             updatedAt: Date.formattString(date: row[8]))
                         transactionManager.create(transaction: transaction)
                     }
+                    HapticsManager.shared.vibrate(for: .success)
                     AlertManager.present(title: "Imported",
                                          message: "Data Imported",
                                          actions: .ok,
@@ -217,6 +222,7 @@ extension SettingsViewController:UIDocumentPickerDelegate {
                                                     object: nil)
                 }
             } catch {
+                HapticsManager.shared.vibrate(for: .error)
                 AlertManager.present(title: "Can't Import",
                                      message: "This format is not supported",
                                      actions: .ok,

@@ -131,7 +131,7 @@ extension TransactionExpenseTypeListViewController: UITableViewDataSource,UITabl
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "March"
+        return "Transactions"
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
