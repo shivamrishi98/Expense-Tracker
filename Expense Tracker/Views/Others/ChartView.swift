@@ -13,9 +13,11 @@ final class ChartView:UIView,ChartViewDelegate {
     // MARK: - Properties
     
     struct ViewModel {
-        let type:String
+        let type:String?
         let balance:Double
         let entries: [String: Double]
+        var showEntryLabel:Bool = true
+        var showValueLabels:Bool = true
     }
     
     // MARK: - UI
@@ -58,7 +60,10 @@ final class ChartView:UIView,ChartViewDelegate {
             entries.append(.init(value: value, label: label))
         }
         let balance:String = String.formatted(number: viewModel.balance)
-        let set:PieChartDataSet = PieChartDataSet(entries: entries, label: "Total \(viewModel.type) = \(balance)")
+        let set:PieChartDataSet = PieChartDataSet(entries: entries,
+                                                  label: "Total \(viewModel.type ?? "") = \(balance)")
+        set.label = viewModel.showEntryLabel ? set.label : nil
+        set.drawValuesEnabled = viewModel.showValueLabels
         set.colors = ChartColorTemplates.colorful()
         set.sliceSpace = 1
         set.xValuePosition = .outsideSlice

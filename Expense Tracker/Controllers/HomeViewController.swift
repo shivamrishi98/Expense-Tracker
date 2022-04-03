@@ -190,8 +190,13 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                     for: indexPath) as? HomeHeaderCollectionReusableView else {
                 return UICollectionReusableView()
             }
-            header.backgroundColor = .secondarySystemBackground
-            header.configure(with: transactionManager.fetchTotalBalance())
+            header.configure(
+                with: .init(
+                    balance: transactionManager.fetchTotalBalance(),
+                    entries: [
+                        ExpenseTypeCollectionViewCell.ExpenseType.expense.title:transactionManager.fetchBalance(of: .expense),
+                        ExpenseTypeCollectionViewCell.ExpenseType.income.title:transactionManager.fetchBalance(of: .income)
+                    ]))
             return header
         default:
             guard kind == UICollectionView.elementKindSectionHeader,
@@ -273,7 +278,7 @@ extension HomeViewController {
        let sectionOneSupplementaryViews:[NSCollectionLayoutBoundarySupplementaryItem] = [
            NSCollectionLayoutBoundarySupplementaryItem(
                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                                  heightDimension: .absolute(100)),
+                                                  heightDimension: .absolute(250)),
                elementKind: UICollectionView.elementKindSectionHeader,
                alignment: .top
            )
