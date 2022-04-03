@@ -38,6 +38,9 @@
 		964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B027EDD2FF005DB20D /* AboutViewController.swift */; };
 		964770B327EDD32C005DB20D /* AddExpenseScreenOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */; };
 		964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B727EDD7DF005DB20D /* InputTextField.swift */; };
+		9662302B27F9A93500FF8821 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9662302A27F9A93500FF8821 /* SwitchTableViewCell.swift */; };
+		9662302D27F9B48200FF8821 /* SettingsOptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9662302C27F9B48200FF8821 /* SettingsOptionType.swift */; };
+		9662302F27F9B49900FF8821 /* SettingsSwitchOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9662302E27F9B49900FF8821 /* SettingsSwitchOption.swift */; };
 		96870E1127F47ED8006EDB53 /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96870E1027F47ED8006EDB53 /* PersistentStorage.swift */; };
 		96A2DD0227F822D20022BFEE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2DD0127F822D20022BFEE /* SettingsViewController.swift */; };
 		96A2DD0427F835AC0022BFEE /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2DD0327F835AC0022BFEE /* SettingsTableViewCell.swift */; };
@@ -87,6 +90,9 @@
 		964770B027EDD2FF005DB20D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseScreenOneViewController.swift; sourceTree = "<group>"; };
 		964770B727EDD7DF005DB20D /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
+		9662302A27F9A93500FF8821 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		9662302C27F9B48200FF8821 /* SettingsOptionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOptionType.swift; sourceTree = "<group>"; };
+		9662302E27F9B49900FF8821 /* SettingsSwitchOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchOption.swift; sourceTree = "<group>"; };
 		96870E1027F47ED8006EDB53 /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		96A2DD0127F822D20022BFEE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		96A2DD0327F835AC0022BFEE /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -316,15 +322,26 @@
 				96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */,
 				96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */,
 				96A2DD0327F835AC0022BFEE /* SettingsTableViewCell.swift */,
+				9662302A27F9A93500FF8821 /* SwitchTableViewCell.swift */,
 			);
 			path = Others;
+			sourceTree = "<group>";
+		};
+		9662302927F9A64300FF8821 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				96A2DD0627F835CD0022BFEE /* SettingsSection.swift */,
+				9662302C27F9B48200FF8821 /* SettingsOptionType.swift */,
+				96A2DD0827F835DD0022BFEE /* SettingsOption.swift */,
+				9662302E27F9B49900FF8821 /* SettingsSwitchOption.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		96A2DD0527F835C50022BFEE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				96A2DD0627F835CD0022BFEE /* SettingsSection.swift */,
-				96A2DD0827F835DD0022BFEE /* SettingsOption.swift */,
+				9662302927F9A64300FF8821 /* Settings */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -481,6 +498,7 @@
 				9619ACE427F30C9600CB0F40 /* TableHeaderViewLabel.swift in Sources */,
 				96A2DD0927F835DD0022BFEE /* SettingsOption.swift in Sources */,
 				961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */,
+				9662302F27F9B49900FF8821 /* SettingsSwitchOption.swift in Sources */,
 				9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */,
 				96BEA31E27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift in Sources */,
 				9623F3D627F6E2D200C74235 /* AlertManager.swift in Sources */,
@@ -491,6 +509,7 @@
 				961BEEF727F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift in Sources */,
 				9605036227F367080081EAC6 /* HomeHeaderCollectionReusableView.swift in Sources */,
 				9623F3D527F6E2D200C74235 /* HapticsManager.swift in Sources */,
+				9662302B27F9A93500FF8821 /* SwitchTableViewCell.swift in Sources */,
 				961BEEE627EDE2C4003A1D11 /* Extensions.swift in Sources */,
 				961BEEEE27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift in Sources */,
 				9619ACE027F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift in Sources */,
@@ -506,6 +525,7 @@
 				961BEEF527F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift in Sources */,
 				96870E1127F47ED8006EDB53 /* PersistentStorage.swift in Sources */,
 				964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */,
+				9662302D27F9B48200FF8821 /* SettingsOptionType.swift in Sources */,
 				9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */,
 				96A2DD0727F835CD0022BFEE /* SettingsSection.swift in Sources */,
 				9605036427F36C640081EAC6 /* TransactionListCollectionViewCell.swift in Sources */,

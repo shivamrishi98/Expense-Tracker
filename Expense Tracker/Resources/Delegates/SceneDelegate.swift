@@ -10,8 +10,8 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    private var themeObserver:NSObjectProtocol?
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let sceneWindow = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: sceneWindow)
@@ -24,8 +24,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navVC
         self.window = window
         self.window?.makeKeyAndVisible()
+        changeTheme()
+        themeObserver = NotificationCenter.default.addObserver(forName: .changeTheme,
+                                                               object: nil,
+                                                               queue: .main,
+                                                               using: { [weak self] _ in
+            self?.changeTheme()
+        })
     }
 
+    private func changeTheme() {
+        let darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
+        self.window?.overrideUserInterfaceStyle = darkMode ? .dark : .unspecified
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

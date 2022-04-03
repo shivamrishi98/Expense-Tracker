@@ -9,5 +9,6 @@ import Foundation
 
 struct SettingsSection {
     let title:String
-    let options:[SettingsOption]
+    let options:[SettingsOptionType]
 }
+

@@ -85,6 +85,7 @@ extension Date {
 
 extension Notification.Name {
     static let refreshTransactions:Notification.Name = Notification.Name("refreshTransactions")
+    static let changeTheme:Notification.Name = Notification.Name("changeTheme")
 }
 
 // MARK: - Extension - NumberFormatter

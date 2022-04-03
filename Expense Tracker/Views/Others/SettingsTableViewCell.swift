@@ -49,8 +49,8 @@ final class SettingsTableViewCell:UITableViewCell {
     
     // MARK: - Public
     
-    public func configure(with title:String) {
-        titleLabel.text = title
+    public func configure(with model:SettingsOption) {
+        titleLabel.text = model.title
     }
     
 }

@@ -20,6 +20,8 @@ final class SettingsViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(SettingsTableViewCell.self,
                            forCellReuseIdentifier: SettingsTableViewCell.identifier)
+        tableView.register(SwitchTableViewCell.self,
+                           forCellReuseIdentifier: SwitchTableViewCell.identifier)
         return tableView
     }()
     
@@ -47,17 +49,27 @@ final class SettingsViewController: UIViewController {
             SettingsSection(
                 title: "Import/Export",
                 options: [
-                    SettingsOption(
-                        title: "Export to CSV",
-                        handler: { [weak self] in
-                            self?.exportToCSV()
-                        }),
-                    SettingsOption(
-                        title: "Import from CSV",
-                        handler: { [weak self] in
-                            self?.importFromCSV()
-                        })
+                    .staticCell(
+                        model:SettingsOption(
+                            title: "Export to CSV",
+                            handler: { [weak self] in
+                                self?.exportToCSV()
+                            })),
+                    .staticCell(
+                        model:SettingsOption(
+                            title: "Import from CSV",
+                            handler: { [weak self] in
+                                self?.importFromCSV()
+                            }))
                 ]),
+            SettingsSection(
+                title: "Theme appearance",
+                options: [
+                    .switchCell(
+                        model:SettingsSwitchOption(
+                            title: "Dark Mode:",
+                            isOn: UserDefaults.standard.bool(forKey: "dark_mode")))
+                ])
         ]
     }
     
@@ -164,21 +176,41 @@ extension SettingsViewController:UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell:SettingsTableViewCell = tableView.dequeueReusableCell(
-            withIdentifier: SettingsTableViewCell.identifier,
-            for: indexPath) as? SettingsTableViewCell else {
-            return UITableViewCell()
+        
+        let optionType:SettingsOptionType = sections[indexPath.section].options[indexPath.row]
+        
+        switch optionType {
+        case .staticCell(let model):
+            guard let cell:SettingsTableViewCell = tableView.dequeueReusableCell(
+                withIdentifier: SettingsTableViewCell.identifier,
+                for: indexPath) as? SettingsTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
+        case .switchCell(let model):
+            guard let cell:SwitchTableViewCell = tableView.dequeueReusableCell(
+                withIdentifier: SwitchTableViewCell.identifier,
+                for: indexPath) as? SwitchTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self
+            cell.configure(with: model)
+            return cell
         }
-        let option:SettingsOption = sections[indexPath.section].options[indexPath.row]
-        cell.configure(with: option.title)
-        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        HapticsManager.shared.vibrateForSelection()
-        let option:SettingsOption = sections[indexPath.section].options[indexPath.row]
-        option.handler()
+        let optionType:SettingsOptionType = sections[indexPath.section].options[indexPath.row]
+        switch optionType {
+        case .staticCell(let model):
+            HapticsManager.shared.vibrateForSelection()
+            model.handler()
+        default:
+            break
+        }
     }
     
 }
@@ -232,4 +264,16 @@ extension SettingsViewController:UIDocumentPickerDelegate {
         }
         filePath.stopAccessingSecurityScopedResource()
     }
+}
+
+// MARK: - Extension - UIDocumentPickerDelegate
+
+extension SettingsViewController:SwitchTableViewCellDelegate {
+    
+    func switchTableViewCell(_ cell: SwitchTableViewCell, didChangeSwitch value: Bool) {
+        HapticsManager.shared.vibrate(for: .success)
+        UserDefaults.standard.set(value, forKey: "dark_mode")
+        NotificationCenter.default.post(name: .changeTheme, object: nil)
+    }
+    
 }
