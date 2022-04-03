@@ -38,7 +38,7 @@ final class TransactionListViewController: UIViewController {
     
     private let searchBar:UISearchBar = {
        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search by title,type,category"
+        searchBar.placeholder = "Search by title,category..."
         searchBar.layer.cornerRadius = 8
         searchBar.layer.masksToBounds = true
         searchBar.autocorrectionType = .no

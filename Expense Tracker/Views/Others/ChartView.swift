@@ -25,6 +25,7 @@ final class ChartView:UIView,ChartViewDelegate {
         chartView.isUserInteractionEnabled = false
         chartView.holeRadiusPercent = 0.4
         chartView.transparentCircleRadiusPercent = 0.44
+        chartView.drawEntryLabelsEnabled = false
         return chartView
     }()
     
@@ -60,6 +61,10 @@ final class ChartView:UIView,ChartViewDelegate {
         let set:PieChartDataSet = PieChartDataSet(entries: entries, label: "Total \(viewModel.type) = \(balance)")
         set.colors = ChartColorTemplates.colorful()
         set.sliceSpace = 1
+        set.xValuePosition = .outsideSlice
+        set.yValuePosition = .outsideSlice
+        set.valueLineColor = .label
+        set.valueTextColor = .label
         let data:PieChartData = PieChartData(dataSet: set)
         data.setValueFormatter(DefaultValueFormatter(formatter: NumberFormatter.currencyFormatter))
         chartView.data = data

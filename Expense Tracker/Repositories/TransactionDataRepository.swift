@@ -170,12 +170,10 @@ struct TransactionDataRepository: TransactionRepository {
     func search(by value:String) -> [Transaction]? {
         let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
         let titlePredicate:NSPredicate = NSPredicate(format: "title CONTAINS[c] %@", value as CVarArg)
-        let typePredicate:NSPredicate = NSPredicate(format: "type ==[c] %@", value as CVarArg)
         let categoryPredicate:NSPredicate = NSPredicate(format: "category ==[c] %@", value as CVarArg)
         let compoundPredicate = NSCompoundPredicate(
             orPredicateWithSubpredicates: [
                 titlePredicate,
-                typePredicate,
                 categoryPredicate
             ])
         
