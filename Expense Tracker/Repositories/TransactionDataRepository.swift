@@ -18,6 +18,7 @@ protocol TransactionRepository {
     func update(transaction: Transaction) -> Bool
     func delete(with id: UUID) -> Bool
     func deleteAll()
+    func search(by value:String) -> [Transaction]?
 }
 
 struct TransactionDataRepository: TransactionRepository {
@@ -164,6 +165,38 @@ struct TransactionDataRepository: TransactionRepository {
             PersistentStorage.shared.context.delete(cdTransaction)
             PersistentStorage.shared.saveContext()
         })
+    }
+    
+    func search(by value:String) -> [Transaction]? {
+        let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
+        let titlePredicate:NSPredicate = NSPredicate(format: "title CONTAINS[c] %@", value as CVarArg)
+        let typePredicate:NSPredicate = NSPredicate(format: "type ==[c] %@", value as CVarArg)
+        let categoryPredicate:NSPredicate = NSPredicate(format: "category ==[c] %@", value as CVarArg)
+        let compoundPredicate = NSCompoundPredicate(
+            orPredicateWithSubpredicates: [
+                titlePredicate,
+                typePredicate,
+                categoryPredicate
+            ])
+        
+        let sortDescriptor:[NSSortDescriptor] = [NSSortDescriptor(key: "transactionDate",
+                                                ascending: false)]
+        fetchRequest.predicate = compoundPredicate
+        fetchRequest.sortDescriptors = sortDescriptor
+        
+        do {
+            let result:[CDTransaction] = try PersistentStorage.shared.context.fetch(fetchRequest)
+            
+            var transactions:[Transaction] = []
+            
+            result.forEach({ cdTransaction in
+                transactions.append(cdTransaction.convertToTransaction())
+            })
+            return transactions
+        } catch {
+            debugPrint(error)
+            return []
+        }
     }
     
     private func getCDTransaction(by id:UUID) -> CDTransaction? {

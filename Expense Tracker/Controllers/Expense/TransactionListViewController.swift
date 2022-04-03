@@ -7,11 +7,19 @@
 
 import UIKit
 
-class TransactionListViewController: UIViewController {
+final class TransactionListViewController: UIViewController {
 
     // MARK: - Properties
     
-    private let transactions:[Transaction]
+    private var transactions:[Transaction] {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.updateUI()
+            }
+        }
+    }
+    private let originalTransactions:[Transaction]
+    private let transactionManager:TransactionManager = TransactionManager()
     
     // MARK: - UI
     
@@ -22,10 +30,28 @@ class TransactionListViewController: UIViewController {
        return tableView
     }()
     
+    private let emptyView:EmptyView = {
+        let emptyView = EmptyView()
+        emptyView.isHidden = true
+        return emptyView
+    }()
+    
+    private let searchBar:UISearchBar = {
+       let searchBar = UISearchBar()
+        searchBar.placeholder = "Search by title,type,category"
+        searchBar.layer.cornerRadius = 8
+        searchBar.layer.masksToBounds = true
+        searchBar.autocorrectionType = .no
+        searchBar.autocapitalizationType = .none
+        searchBar.spellCheckingType = .no
+       return searchBar
+    }()
+    
     // MARK: - Init
     
     init(transactions:[Transaction]) {
         self.transactions = transactions
+        self.originalTransactions = transactions
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,14 +65,52 @@ class TransactionListViewController: UIViewController {
         super.viewDidLoad()
         title = "Transactions"
         view.backgroundColor = .systemBackground
-        view.addSubviews(tableView)
-        tableView.dataSource = self
-        tableView.delegate = self
+        view.addSubviews(tableView,searchBar,emptyView)
+        setupTableView()
+        setupSearchBar()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+        emptyView.frame = CGRect(
+            x: 0,
+            y: view.safeAreaInsets.top,
+            width: view.width,
+            height: view.height-view.safeAreaInsets.top)
+    }
+    
+    // MARK: - Private
+    
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    private func setupSearchBar() {
+        navigationItem.titleView = searchBar
+        searchBar.delegate = self
+    }
+    
+    private func fetchTransactions(by value:String) {
+        guard !value.isEmpty else {
+            self.transactions = originalTransactions
+            return
+        }
+        if let transactions = transactionManager.searchTransactions(by: value) {
+            self.transactions = transactions
+        }
+    }
+    
+    private func updateUI() {
+        if transactions.isEmpty {
+            tableView.isHidden = true
+            emptyView.isHidden = false
+        } else {
+            tableView.isHidden = false
+            emptyView.isHidden = true
+        }
+        tableView.reloadData()
     }
 
 }
@@ -89,4 +153,20 @@ extension TransactionListViewController: UITableViewDataSource,UITableViewDelega
         let vc:ExpenseDetailedViewController = ExpenseDetailedViewController(transaction: transaction)
         navigationController?.pushViewController(vc, animated: true)
     }
+}
+
+extension TransactionListViewController:UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            searchBar.resignFirstResponder()
+        }
+        fetchTransactions(by: searchText)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        fetchTransactions(by: searchBar.text ?? "")
+    }
+    
 }

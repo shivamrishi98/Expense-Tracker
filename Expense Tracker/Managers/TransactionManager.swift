@@ -46,4 +46,8 @@ struct TransactionManager {
     func deleteAllTransactions() {
         return transactionDataRepository.deleteAll()
     }
+    
+    func searchTransactions(by value:String) -> [Transaction]? {
+        return transactionDataRepository.search(by: value)
+    }
 }
