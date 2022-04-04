@@ -13,6 +13,7 @@ final class SettingsViewController: UIViewController {
     // MARK: - Properties
     private var sections:[SettingsSection] = [SettingsSection]()
     private let transactionManager:TransactionManager = TransactionManager()
+    private let biometricsManager = BiometricsManager()
     
     // MARK: - UI
     
@@ -69,6 +70,14 @@ final class SettingsViewController: UIViewController {
                         model:SettingsSwitchOption(
                             title: "Dark Mode:",
                             isOn: UserDefaults.standard.bool(forKey: "dark_mode")))
+                ]),
+            SettingsSection(
+                title: "Security",
+                options: [
+                    .switchCell(
+                        model:SettingsSwitchOption(
+                            title: "Biometrics:",
+                            isOn: UserDefaults.standard.bool(forKey: "bio_metrics")))
                 ])
         ]
     }
@@ -270,10 +279,36 @@ extension SettingsViewController:UIDocumentPickerDelegate {
 
 extension SettingsViewController:SwitchTableViewCellDelegate {
     
-    func switchTableViewCell(_ cell: SwitchTableViewCell, didChangeSwitch value: Bool) {
+    func switchTableViewCell(_ cell: SwitchTableViewCell, didChange mySwitch: UISwitch) {
         HapticsManager.shared.vibrate(for: .success)
-        UserDefaults.standard.set(value, forKey: "dark_mode")
-        NotificationCenter.default.post(name: .changeTheme, object: nil)
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        switch indexPath.section {
+        case 1:
+            UserDefaults.standard.set(mySwitch.isOn, forKey: "dark_mode")
+            NotificationCenter.default.post(name: .changeTheme, object: nil)
+        case 2:
+            guard mySwitch.isOn else {
+                mySwitch.setOn(false, animated: true)
+                UserDefaults.standard.set(mySwitch.isOn, forKey: "bio_metrics")
+                return
+            }
+            biometricsManager.canEvaluatePolicy { canEvaluate,_, canEvaluateError in
+                guard canEvaluate else {
+                    AlertManager.present(title: "Woops",
+                                         message: canEvaluateError?.errorDescription,
+                                         actions: .ok,
+                                         from: self)
+                    mySwitch.setOn(false, animated: true)
+                    return
+                }
+                mySwitch.setOn(true, animated: true)
+                UserDefaults.standard.set(mySwitch.isOn, forKey: "bio_metrics")
+            }
+        default:
+            break
+        }
     }
     
 }

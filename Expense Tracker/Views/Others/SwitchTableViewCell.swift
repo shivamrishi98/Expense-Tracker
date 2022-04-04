@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SwitchTableViewCellDelegate:AnyObject {
-    func switchTableViewCell(_ cell:SwitchTableViewCell,didChangeSwitch value:Bool)
+    func switchTableViewCell(_ cell:SwitchTableViewCell,didChange mySwitch:UISwitch)
 }
 
 final class SwitchTableViewCell:UITableViewCell {
@@ -73,7 +73,7 @@ final class SwitchTableViewCell:UITableViewCell {
     
     @objc private func switchValueChanged(_ sender:UISwitch) {
         delegate?.switchTableViewCell(self,
-                                      didChangeSwitch: sender.isOn)
+                                      didChange: sender)
     }
     
     // MARK: - Public

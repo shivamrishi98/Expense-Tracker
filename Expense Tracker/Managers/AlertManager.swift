@@ -28,6 +28,7 @@ extension AlertManager {
     enum Action {
         case yes(handler: (() -> Void)?)
         case delete(handler: (() -> Void)?)
+        case unlock(handler: (() -> Void)?)
         case dismiss
         case ok
         case cancel
@@ -38,6 +39,8 @@ extension AlertManager {
                 return "Yes"
             case .delete:
                 return "Delete"
+            case .unlock:
+                return "Unlock"
             case .dismiss:
                 return "dismiss"
             case .ok:
@@ -66,6 +69,8 @@ extension AlertManager {
                 return handler
             case .dismiss,.cancel,.ok:
                 return nil
+            case .unlock(let handler):
+                return handler
             }
         }
         

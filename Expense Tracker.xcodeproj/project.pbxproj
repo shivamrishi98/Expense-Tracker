@@ -27,6 +27,8 @@
 		961BEEFF27F23969003A1D11 /* ExpenseTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */; };
 		9623F3D527F6E2D200C74235 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623F3D327F6E2D200C74235 /* HapticsManager.swift */; };
 		9623F3D627F6E2D200C74235 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623F3D427F6E2D200C74235 /* AlertManager.swift */; };
+		96257AD827FADFB5002BB960 /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96257AD727FADFB5002BB960 /* BiometricsManager.swift */; };
+		96257ADA27FB629C002BB960 /* LockedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96257AD927FB629C002BB960 /* LockedViewController.swift */; };
 		9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708B27EDA956005DB20D /* AppDelegate.swift */; };
 		9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708D27EDA956005DB20D /* SceneDelegate.swift */; };
 		9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9647709427EDA956005DB20D /* Expense_Tracker.xcdatamodeld */; };
@@ -77,6 +79,8 @@
 		961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTypeView.swift; sourceTree = "<group>"; };
 		9623F3D327F6E2D200C74235 /* HapticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		9623F3D427F6E2D200C74235 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		96257AD727FADFB5002BB960 /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
+		96257AD927FB629C002BB960 /* LockedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedViewController.swift; sourceTree = "<group>"; };
 		9647708827EDA956005DB20D /* Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9647708B27EDA956005DB20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9647708D27EDA956005DB20D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				964770AA27EDD281005DB20D /* HomeViewController.swift */,
 				964770B027EDD2FF005DB20D /* AboutViewController.swift */,
 				96A2DD0127F822D20022BFEE /* SettingsViewController.swift */,
+				96257AD927FB629C002BB960 /* LockedViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 				96BEA31A27F4E1CE00A8D1B9 /* TransactionManager.swift */,
 				9623F3D427F6E2D200C74235 /* AlertManager.swift */,
 				9623F3D327F6E2D200C74235 /* HapticsManager.swift */,
+				96257AD727FADFB5002BB960 /* BiometricsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -507,6 +513,7 @@
 				964770B327EDD32C005DB20D /* AddExpenseScreenOneViewController.swift in Sources */,
 				964770AD27EDD2E0005DB20D /* ExpenseDetailedViewController.swift in Sources */,
 				961BEEF727F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift in Sources */,
+				96257ADA27FB629C002BB960 /* LockedViewController.swift in Sources */,
 				9605036227F367080081EAC6 /* HomeHeaderCollectionReusableView.swift in Sources */,
 				9623F3D527F6E2D200C74235 /* HapticsManager.swift in Sources */,
 				9662302B27F9A93500FF8821 /* SwitchTableViewCell.swift in Sources */,
@@ -514,6 +521,7 @@
 				961BEEEE27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift in Sources */,
 				9619ACE027F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift in Sources */,
 				96D7C5D627F4231400C1F22B /* TransactionListTableViewCell.swift in Sources */,
+				96257AD827FADFB5002BB960 /* BiometricsManager.swift in Sources */,
 				9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */,
 				96BEA31B27F4E1CE00A8D1B9 /* TransactionManager.swift in Sources */,
 				9619ACDE27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift in Sources */,

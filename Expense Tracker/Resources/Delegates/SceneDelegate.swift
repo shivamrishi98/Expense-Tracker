@@ -11,19 +11,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var themeObserver:NSObjectProtocol?
+    private let biometricsManager = BiometricsManager()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let sceneWindow = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: sceneWindow)
-        let navVC = UINavigationController(rootViewController: HomeViewController())
-        navVC.navigationBar.backgroundColor = .clear
-        navVC.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navVC.navigationBar.shadowImage = UIImage()
-        navVC.navigationBar.prefersLargeTitles = true
-        navVC.navigationBar.tintColor = .label
-        window.rootViewController = navVC
+        window.rootViewController = LockedViewController()
+        window.makeKeyAndVisible()
         self.window = window
-        self.window?.makeKeyAndVisible()
         changeTheme()
         themeObserver = NotificationCenter.default.addObserver(forName: .changeTheme,
                                                                object: nil,
@@ -36,6 +31,40 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func changeTheme() {
         let darkMode = UserDefaults.standard.bool(forKey: "dark_mode")
         self.window?.overrideUserInterfaceStyle = darkMode ? .dark : .unspecified
+    }
+        
+    private func promptBiometrics(viewController:UIViewController) {
+        biometricsManager.canEvaluatePolicy { canEvaluate,_, canEvaluateError in
+            guard canEvaluate else {
+                UserDefaults.standard.set(false, forKey: "bio_metrics")
+                return
+            }
+            biometricsManager.evaluatePolicy { [weak self] success, error in
+                if success {
+                    self?.setRootViewController()
+                } else {
+                    AlertManager.present(
+                        title: "App is Locked",
+                        message: "For your security, you can only use app when it's unlocked",
+                        actions: .unlock(
+                            handler: {
+                                self?.promptBiometrics(viewController: viewController)
+                            }),
+                        from: viewController)
+                }
+            }
+        }
+    }
+    
+    private func setRootViewController() {
+        let navVC = UINavigationController(rootViewController: HomeViewController())
+        navVC.navigationBar.backgroundColor = .clear
+        navVC.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navVC.navigationBar.shadowImage = UIImage()
+        navVC.navigationBar.prefersLargeTitles = true
+        navVC.navigationBar.tintColor = .label
+        window?.rootViewController = navVC
+        window?.makeKeyAndVisible()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -58,6 +87,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        guard UserDefaults.standard.bool(forKey: "bio_metrics") else {
+            setRootViewController()
+            return
+        }
+        if let window = window {
+            if let rootViewController = window.rootViewController {
+                promptBiometrics(viewController: rootViewController)
+            }
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

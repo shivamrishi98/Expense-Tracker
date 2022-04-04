@@ -15,20 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        let navVC = UINavigationController(rootViewController: HomeViewController())
-        navVC.navigationBar.backgroundColor = .clear
-        navVC.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navVC.navigationBar.shadowImage = UIImage()
-        navVC.navigationBar.prefersLargeTitles = true
-        navVC.navigationBar.tintColor = .label
-        window.rootViewController = navVC
-        self.window = window
-        self.window?.makeKeyAndVisible()
-        
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
