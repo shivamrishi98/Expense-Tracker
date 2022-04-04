@@ -76,7 +76,7 @@ final class SettingsViewController: UIViewController {
                 options: [
                     .switchCell(
                         model:SettingsSwitchOption(
-                            title: "Biometrics:",
+                            title: "Biometrics/Passcode:",
                             isOn: UserDefaults.standard.bool(forKey: "bio_metrics")))
                 ])
         ]
