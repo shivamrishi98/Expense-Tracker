@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: sceneWindow)
         self.window = window
         setLockedViewController()
-        NotificationsManager.shared.requestAuthForNotifications()
+        NotificationsManager.shared.requestAuthForLocalNotifications()
         changeTheme()
         themeObserver = NotificationCenter.default.addObserver(forName: .changeTheme,
                                                                object: nil,
@@ -88,7 +88,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         if let remindDate = Calendar.current.date(byAdding: .day, value: 2, to: Date()) {
-            NotificationsManager.shared.scheduleNotification(at: remindDate)
+            NotificationsManager.shared.scheduleLocalNotification(at: remindDate)
         }
         
     }

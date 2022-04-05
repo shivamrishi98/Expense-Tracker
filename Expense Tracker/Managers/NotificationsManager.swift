@@ -11,14 +11,14 @@ final class NotificationsManager {
     static let shared = NotificationsManager()
     private init() {}
 
-    private let notificationsRepository = LocalNotificationsRepository()
+    private let localNotificationsRepository = LocalNotificationsRepository()
     
-    public func requestAuthForNotifications() {
-        notificationsRepository.requestAuthForNotifications()
+    public func requestAuthForLocalNotifications() {
+        localNotificationsRepository.requestAuthForNotifications()
     }
     
-    public func scheduleNotification(at date:Date) {
-        notificationsRepository.scheduleNotification(at: date)
+    public func scheduleLocalNotification(at date:Date) {
+        localNotificationsRepository.scheduleNotification(at: date)
     }
     
 }
