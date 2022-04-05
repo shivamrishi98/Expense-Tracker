@@ -11,14 +11,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var themeObserver:NSObjectProtocol?
-    private let biometricsManager = BiometricsManager()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let sceneWindow = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: sceneWindow)
-        window.rootViewController = LockedViewController()
-        window.makeKeyAndVisible()
         self.window = window
+        setLockedViewController()
         changeTheme()
         themeObserver = NotificationCenter.default.addObserver(forName: .changeTheme,
                                                                object: nil,
@@ -34,12 +32,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
         
     private func promptBiometrics(viewController:UIViewController) {
-        biometricsManager.canEvaluatePolicy { canEvaluate,_, canEvaluateError in
+        BiometricsManager().canEvaluatePolicy { canEvaluate,_, canEvaluateError in
             guard canEvaluate else {
                 UserDefaults.standard.set(false, forKey: "bio_metrics")
+                setRootViewController()
                 return
             }
-            biometricsManager.evaluatePolicy { [weak self] success, error in
+            BiometricsManager().evaluatePolicy { [weak self] success, error in
                 if success {
                     self?.setRootViewController()
                 } else {
@@ -64,6 +63,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navVC.navigationBar.prefersLargeTitles = true
         navVC.navigationBar.tintColor = .label
         window?.rootViewController = navVC
+        window?.makeKeyAndVisible()
+    }
+    
+    private func setLockedViewController() {
+        window?.rootViewController = LockedViewController()
         window?.makeKeyAndVisible()
     }
     
@@ -106,6 +110,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
 //        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         PersistentStorage.shared.saveContext()
+        guard UserDefaults.standard.bool(forKey: "bio_metrics") else {
+            return
+        }
+        setLockedViewController()
     }
 
 
