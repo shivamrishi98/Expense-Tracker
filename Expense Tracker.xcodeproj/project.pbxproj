@@ -40,6 +40,8 @@
 		964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B027EDD2FF005DB20D /* AboutViewController.swift */; };
 		964770B327EDD32C005DB20D /* AddExpenseScreenOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */; };
 		964770B827EDD7DF005DB20D /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964770B727EDD7DF005DB20D /* InputTextField.swift */; };
+		9654896727FC389500E1DD39 /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654896627FC389500E1DD39 /* NotificationsManager.swift */; };
+		9654896927FC462000E1DD39 /* LocalNotificationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9654896827FC462000E1DD39 /* LocalNotificationsRepository.swift */; };
 		9662302B27F9A93500FF8821 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9662302A27F9A93500FF8821 /* SwitchTableViewCell.swift */; };
 		9662302D27F9B48200FF8821 /* SettingsOptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9662302C27F9B48200FF8821 /* SettingsOptionType.swift */; };
 		9662302F27F9B49900FF8821 /* SettingsSwitchOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9662302E27F9B49900FF8821 /* SettingsSwitchOption.swift */; };
@@ -94,6 +96,8 @@
 		964770B027EDD2FF005DB20D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		964770B227EDD32C005DB20D /* AddExpenseScreenOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseScreenOneViewController.swift; sourceTree = "<group>"; };
 		964770B727EDD7DF005DB20D /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
+		9654896627FC389500E1DD39 /* NotificationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
+		9654896827FC462000E1DD39 /* LocalNotificationsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsRepository.swift; sourceTree = "<group>"; };
 		9662302A27F9A93500FF8821 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		9662302C27F9B48200FF8821 /* SettingsOptionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOptionType.swift; sourceTree = "<group>"; };
 		9662302E27F9B49900FF8821 /* SettingsSwitchOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSwitchOption.swift; sourceTree = "<group>"; };
@@ -230,8 +234,8 @@
 		9647708A27EDA956005DB20D /* Expense Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				96A2DD0A27F838BB0022BFEE /* Storage */,
 				964770A227EDD10A005DB20D /* Resources */,
+				96A2DD0A27F838BB0022BFEE /* Storage */,
 				96A2DD0527F835C50022BFEE /* Models */,
 				96BEA31227F4D77E00A8D1B9 /* Repositories */,
 				964770A727EDD151005DB20D /* Managers */,
@@ -299,6 +303,7 @@
 				9623F3D427F6E2D200C74235 /* AlertManager.swift */,
 				9623F3D327F6E2D200C74235 /* HapticsManager.swift */,
 				96257AD727FADFB5002BB960 /* BiometricsManager.swift */,
+				9654896627FC389500E1DD39 /* NotificationsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -364,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				96BEA31827F4D8E800A8D1B9 /* TransactionDataRepository.swift */,
+				9654896827FC462000E1DD39 /* LocalNotificationsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -501,6 +507,7 @@
 				961BEEF027F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift in Sources */,
 				961BEEFB27F1A617003A1D11 /* ExpenseTypeLabel.swift in Sources */,
 				964770AB27EDD281005DB20D /* HomeViewController.swift in Sources */,
+				9654896927FC462000E1DD39 /* LocalNotificationsRepository.swift in Sources */,
 				9619ACE427F30C9600CB0F40 /* TableHeaderViewLabel.swift in Sources */,
 				96A2DD0927F835DD0022BFEE /* SettingsOption.swift in Sources */,
 				961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */,
@@ -520,6 +527,7 @@
 				961BEEE627EDE2C4003A1D11 /* Extensions.swift in Sources */,
 				961BEEEE27F1952F003A1D11 /* AddExpenseScreenTwoViewController.swift in Sources */,
 				9619ACE027F2E11E00CB0F40 /* ExpenseTextfieldTableViewCell.swift in Sources */,
+				9654896727FC389500E1DD39 /* NotificationsManager.swift in Sources */,
 				96D7C5D627F4231400C1F22B /* TransactionListTableViewCell.swift in Sources */,
 				96257AD827FADFB5002BB960 /* BiometricsManager.swift in Sources */,
 				9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */,
