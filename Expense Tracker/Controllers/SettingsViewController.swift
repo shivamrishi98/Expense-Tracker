@@ -116,6 +116,18 @@ final class SettingsViewController: UIViewController {
             HapticsManager.shared.vibrate(for: .success)
             let exportSheet:UIActivityViewController = UIActivityViewController(activityItems: [path as Any],
                                                        applicationActivities: nil)
+            exportSheet.excludedActivityTypes = []
+            // Support for ipad
+            if let popoverController = exportSheet.popoverPresentationController {
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(
+                    x: self.view.bounds.midX,
+                    y: self.view.bounds.midY,
+                    width: 0,
+                    height: 0)
+                popoverController.permittedArrowDirections = []
+            }
+            
             present(exportSheet, animated: true)
         } catch {
             debugPrint(error)

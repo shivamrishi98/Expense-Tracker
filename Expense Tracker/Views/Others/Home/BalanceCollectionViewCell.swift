@@ -67,15 +67,17 @@ final class BalanceCollectionViewCell: UICollectionViewCell {
                                      height: imageSize)
         typeLabel.sizeToFit()
         balanceLabel.sizeToFit()
+
+        balanceLabel.frame = CGRect(x: 10,
+                                    y: contentView.height-balanceLabel.height-5,
+                                    width: contentView.width-20,
+                                    height: balanceLabel.height)
         
         typeLabel.frame = CGRect(x: 10,
-                                 y: (contentView.width-typeLabel.height)/2,
+                                 y: balanceLabel.top - typeLabel.height - 5,
                                  width: contentView.width-20,
                                  height: typeLabel.height)
-        balanceLabel.frame = CGRect(x: 10,
-                                    y: typeLabel.bottom + 5,
-                                    width: contentView.width-20,
-                                    height: balanceLabel.height-5)
+
         
     }
     

@@ -20,6 +20,18 @@ struct AlertManager {
         for action in actions {
             alert.addAction(action.alertAction)
         }
+        
+        // Support for ipad
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = controller.view
+            popoverController.sourceRect = CGRect(
+                x: controller.view.bounds.midX,
+                y: controller.view.bounds.midY,
+                width: 0,
+                height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
         controller.present(alert, animated: true)
     }
 }
