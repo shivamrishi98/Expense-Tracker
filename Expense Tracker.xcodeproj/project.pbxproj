@@ -30,6 +30,8 @@
 		96257AD827FADFB5002BB960 /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96257AD727FADFB5002BB960 /* BiometricsManager.swift */; };
 		96257ADA27FB629C002BB960 /* LockedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96257AD927FB629C002BB960 /* LockedViewController.swift */; };
 		9639EA242800217500AF96DC /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA232800217500AF96DC /* IconTextButton.swift */; };
+		9639EA2728002D3D00AF96DC /* PickerViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA2628002D3D00AF96DC /* PickerViewPresenter.swift */; };
+		9639EA292800466200AF96DC /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA282800466200AF96DC /* PaymentMethod.swift */; };
 		9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708B27EDA956005DB20D /* AppDelegate.swift */; };
 		9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708D27EDA956005DB20D /* SceneDelegate.swift */; };
 		9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9647709427EDA956005DB20D /* Expense_Tracker.xcdatamodeld */; };
@@ -85,6 +87,8 @@
 		96257AD727FADFB5002BB960 /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
 		96257AD927FB629C002BB960 /* LockedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedViewController.swift; sourceTree = "<group>"; };
 		9639EA232800217500AF96DC /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
+		9639EA2628002D3D00AF96DC /* PickerViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresenter.swift; sourceTree = "<group>"; };
+		9639EA282800466200AF96DC /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		9647708827EDA956005DB20D /* Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9647708B27EDA956005DB20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9647708D27EDA956005DB20D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -223,6 +227,14 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		9639EA2528002D3400AF96DC /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9639EA2628002D3D00AF96DC /* PickerViewPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		9647707F27EDA955005DB20D = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +256,7 @@
 		9647708A27EDA956005DB20D /* Expense Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				9639EA2528002D3400AF96DC /* Presenter */,
 				964770A227EDD10A005DB20D /* Resources */,
 				96A2DD0A27F838BB0022BFEE /* Storage */,
 				96A2DD0527F835C50022BFEE /* Models */,
@@ -364,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				9662302927F9A64300FF8821 /* Settings */,
+				9639EA282800466200AF96DC /* PaymentMethod.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -511,6 +525,7 @@
 				964770AF27EDD2F2005DB20D /* TransactionExpenseTypeListViewController.swift in Sources */,
 				96D7C5DC27F4339F00C1F22B /* TransactionListViewController.swift in Sources */,
 				961BEEF927F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift in Sources */,
+				9639EA292800466200AF96DC /* PaymentMethod.swift in Sources */,
 				961BEEFF27F23969003A1D11 /* ExpenseTypeView.swift in Sources */,
 				96D7C5D827F4257300C1F22B /* ChartView.swift in Sources */,
 				96A2DD0427F835AC0022BFEE /* SettingsTableViewCell.swift in Sources */,
@@ -546,6 +561,7 @@
 				9619ACDE27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift in Sources */,
 				96BEA31F27F4EF9000A8D1B9 /* CDTransaction+CoreDataProperties.swift in Sources */,
 				964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */,
+				9639EA2728002D3D00AF96DC /* PickerViewPresenter.swift in Sources */,
 				96D7C5DA27F4279400C1F22B /* ExpenseDetailedTableViewCell.swift in Sources */,
 				961BEEEC27EF0901003A1D11 /* EmptyViewLabel.swift in Sources */,
 				96BEA31927F4D8E800A8D1B9 /* TransactionDataRepository.swift in Sources */,

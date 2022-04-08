@@ -30,7 +30,6 @@ final class IconTextButton:UIButton {
         super.init(frame: frame)
         setTitleColor(.label, for: .normal)
         titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        semanticContentAttribute = .forceRightToLeft
         addTarget(self,
                   action: #selector(didTap),
                   for: .touchUpInside)
@@ -44,6 +43,11 @@ final class IconTextButton:UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        sizeToFit()
+        frame = CGRect(x: 0,
+                       y: 0,
+                       width: width,
+                       height: height)
     }
     
     // MARK: - Private

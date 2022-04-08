@@ -16,7 +16,11 @@ final class HomeViewController: UIViewController {
     private var balanceViewModels:[BalanceCollectionViewCell.ViewModel] = [BalanceCollectionViewCell.ViewModel]()
     private var transactionsObserver:NSObjectProtocol?
     
+    private var selectedPaymentMethod: PaymentMethod = .all
+    
     // MARK: - UI
+    
+    private let choosePaymentMethodButton = IconTextButton(frame: .zero)
     
     private let emptyView:EmptyView = EmptyView()
     
@@ -48,6 +52,11 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var pickerViewPresenter: PickerViewPresenter = {
+        let pickerViewPresenter = PickerViewPresenter()
+        return pickerViewPresenter
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -55,9 +64,10 @@ final class HomeViewController: UIViewController {
         title = "Dashboard"
         view.backgroundColor = .systemBackground
         setupBarButtonItems()
-        view.addSubviews(emptyView,collectionView)
+        view.addSubviews(emptyView,collectionView,pickerViewPresenter)
         collectionView.delegate = self
         collectionView.dataSource = self
+        pickerViewPresenter.pickerDelegate = self
         setupObserver()
         fetchTransactions()
     }
@@ -76,11 +86,12 @@ final class HomeViewController: UIViewController {
         
     /// Sets up navigation bar button items
     private func setupBarButtonItems() {
-        
-        let button = IconTextButton(frame: .zero)
-        button.delegate = self
-        button.configure(with: .init(title: "Wallet"))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+        choosePaymentMethodButton.delegate = self
+        choosePaymentMethodButton.configure(
+            with: .init(
+                title: selectedPaymentMethod.title
+            ))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: choosePaymentMethodButton)
         
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(
@@ -325,7 +336,18 @@ extension HomeViewController {
 extension HomeViewController: IconTextButtonDelegate {
     
     func iconTextButtonTapped(_ button: IconTextButton) {
-        print("tapped!!!!")
+            pickerViewPresenter.showPicker()
     }
    
+}
+
+extension HomeViewController: PickerViewPresenterDelegate {
+    
+    func pickerViewPresenter(didSelect paymentMethod: PaymentMethod) {
+        selectedPaymentMethod = paymentMethod
+        choosePaymentMethodButton.configure(
+            with: .init(
+                title: paymentMethod.title))
+    }
+    
 }
