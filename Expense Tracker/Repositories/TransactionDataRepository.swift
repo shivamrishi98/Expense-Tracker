@@ -10,15 +10,15 @@ import CoreData
 
 protocol TransactionRepository {
     func create(transaction:Transaction) 
-    func getAll() -> [Transaction]?
+    func getAll(of paymentMethod:PaymentMethod) -> [Transaction]?
     func get(by id: UUID) -> Transaction?
-    func get(by type:ExpenseTypeCollectionViewCell.ExpenseType) -> [Transaction]?
-    func getTotalBalance() -> Double
-    func getBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType) -> Double
+    func get(by type:ExpenseTypeCollectionViewCell.ExpenseType,paymentMethod:PaymentMethod) -> [Transaction]?
+    func getTotalBalance(for paymentMethod:PaymentMethod) -> Double
+    func getBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType,paymentMethod:PaymentMethod) -> Double
     func update(transaction: Transaction) -> Bool
     func delete(with id: UUID) -> Bool
     func deleteAll()
-    func search(by value:String) -> [Transaction]?
+    func search(by value:String,paymentMethod:PaymentMethod) -> [Transaction]?
 }
 
 struct TransactionDataRepository: TransactionRepository {
@@ -27,6 +27,7 @@ struct TransactionDataRepository: TransactionRepository {
         let cdTransaction:CDTransaction = CDTransaction(context: PersistentStorage.shared.context)
         cdTransaction.id = transaction.id
         cdTransaction.title = transaction.title
+        cdTransaction.paymentMethod = transaction.paymentMethod
         cdTransaction.type = transaction.type
         cdTransaction.category = transaction.category
         cdTransaction.amount = transaction.amount
@@ -49,8 +50,14 @@ struct TransactionDataRepository: TransactionRepository {
 //        return transactions
 //    }
     
-    func getAll() -> [Transaction]? {
+    func getAll(of paymentMethod:PaymentMethod) -> [Transaction]? {
         let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
+        
+        if paymentMethod != .all {
+            let predicate:NSPredicate = NSPredicate(format: "paymentMethod==%@",paymentMethod.title)
+            fetchRequest.predicate = predicate
+        }
+        
         let sortDescriptor:[NSSortDescriptor] = [NSSortDescriptor(key: "transactionDate",
                                                 ascending: false)]
         fetchRequest.sortDescriptors = sortDescriptor
@@ -79,10 +86,25 @@ struct TransactionDataRepository: TransactionRepository {
         return result?.convertToTransaction()
     }
     
-    func get(by type: ExpenseTypeCollectionViewCell.ExpenseType) -> [Transaction]? {
+    func get(by type: ExpenseTypeCollectionViewCell.ExpenseType,
+             paymentMethod:PaymentMethod) -> [Transaction]? {
+        
         let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
-        let predicate:NSPredicate = NSPredicate(format: "type==%@",type.title)
-        fetchRequest.predicate = predicate
+        let typePredicate:NSPredicate = NSPredicate(format: "type==%@",type.title)
+        
+        if paymentMethod != .all {
+            let paymentMethodPredicate = NSPredicate(format: "paymentMethod==%@",paymentMethod.title)
+            let compoundPredicate = NSCompoundPredicate(
+                andPredicateWithSubpredicates: [
+                    typePredicate,
+                    paymentMethodPredicate
+                    
+                ])
+            fetchRequest.predicate = compoundPredicate
+        } else {
+            fetchRequest.predicate = typePredicate
+        }
+        
         let sortDescriptor:[NSSortDescriptor] =  [NSSortDescriptor(key: "transactionDate",
                                                 ascending: false)]
         fetchRequest.sortDescriptors = sortDescriptor
@@ -102,8 +124,8 @@ struct TransactionDataRepository: TransactionRepository {
         }
     }
     
-    func getTotalBalance() -> Double {
-        let transactions:[Transaction]? = getAll()
+    func getTotalBalance(for paymentMethod:PaymentMethod) -> Double {
+        let transactions:[Transaction]? = getAll(of: paymentMethod)
         var balance:Double = 0.0
         transactions?.forEach({
             switch $0.type {
@@ -118,8 +140,9 @@ struct TransactionDataRepository: TransactionRepository {
         return balance
     }
     
-    func getBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType) -> Double {
-        let transactions:[Transaction]? = get(by: type)
+    func getBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType,
+                    paymentMethod:PaymentMethod) -> Double {
+        let transactions:[Transaction]? = get(by: type,paymentMethod: paymentMethod)
         var balance:Double = 0.0
         transactions?.forEach({
             balance += $0.amount
@@ -129,13 +152,14 @@ struct TransactionDataRepository: TransactionRepository {
     
     func update(transaction: Transaction) -> Bool {
         
-        let cdTransaction:CDTransaction? = getCDTransaction(by: transaction.id!)
+        let cdTransaction:CDTransaction? = getCDTransaction(by: transaction.id)
         
         guard cdTransaction != nil else {
             return false
         }
         
         cdTransaction?.title = transaction.title
+        cdTransaction?.paymentMethod = transaction.paymentMethod
         cdTransaction?.type = transaction.type
         cdTransaction?.category = transaction.category
         cdTransaction?.amount = transaction.amount
@@ -167,7 +191,7 @@ struct TransactionDataRepository: TransactionRepository {
         })
     }
     
-    func search(by value:String) -> [Transaction]? {
+    func search(by value:String,paymentMethod:PaymentMethod) -> [Transaction]? {
         let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
         let titlePredicate:NSPredicate = NSPredicate(format: "title CONTAINS[c] %@", value as CVarArg)
         let categoryPredicate:NSPredicate = NSPredicate(format: "category ==[c] %@", value as CVarArg)
@@ -177,9 +201,21 @@ struct TransactionDataRepository: TransactionRepository {
                 categoryPredicate
             ])
         
+        if paymentMethod != .all {
+            let paymentMethodPredicate:NSPredicate = NSPredicate(
+                format: "paymentMethod==%@",
+                paymentMethod.title)
+            let compoundPredicates = NSCompoundPredicate(andPredicateWithSubpredicates: [
+                paymentMethodPredicate,
+                compoundPredicate
+            ])
+            fetchRequest.predicate = compoundPredicates
+        } else {
+            fetchRequest.predicate = compoundPredicate
+        }
+        
         let sortDescriptor:[NSSortDescriptor] = [NSSortDescriptor(key: "transactionDate",
                                                 ascending: false)]
-        fetchRequest.predicate = compoundPredicate
         fetchRequest.sortDescriptors = sortDescriptor
         
         do {

@@ -33,6 +33,8 @@
 		9639EA2728002D3D00AF96DC /* PickerViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA2628002D3D00AF96DC /* PickerViewPresenter.swift */; };
 		9639EA292800466200AF96DC /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA282800466200AF96DC /* PaymentMethod.swift */; };
 		9639EA2B28004B5700AF96DC /* ExpensePaymentMethodCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA2A28004B5700AF96DC /* ExpensePaymentMethodCollectionViewCell.swift */; };
+		9639EA33280053EA00AF96DC /* CDTransaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA31280053EA00AF96DC /* CDTransaction+CoreDataClass.swift */; };
+		9639EA34280053EA00AF96DC /* CDTransaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA32280053EA00AF96DC /* CDTransaction+CoreDataProperties.swift */; };
 		9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708B27EDA956005DB20D /* AppDelegate.swift */; };
 		9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708D27EDA956005DB20D /* SceneDelegate.swift */; };
 		9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9647709427EDA956005DB20D /* Expense_Tracker.xcdatamodeld */; };
@@ -56,8 +58,6 @@
 		96A2DD0927F835DD0022BFEE /* SettingsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A2DD0827F835DD0022BFEE /* SettingsOption.swift */; };
 		96BEA31927F4D8E800A8D1B9 /* TransactionDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BEA31827F4D8E800A8D1B9 /* TransactionDataRepository.swift */; };
 		96BEA31B27F4E1CE00A8D1B9 /* TransactionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BEA31A27F4E1CE00A8D1B9 /* TransactionManager.swift */; };
-		96BEA31E27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BEA31C27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift */; };
-		96BEA31F27F4EF9000A8D1B9 /* CDTransaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BEA31D27F4EF9000A8D1B9 /* CDTransaction+CoreDataProperties.swift */; };
 		96D7C5D627F4231400C1F22B /* TransactionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */; };
 		96D7C5D827F4257300C1F22B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D727F4257300C1F22B /* ChartView.swift */; };
 		96D7C5DA27F4279400C1F22B /* ExpenseDetailedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */; };
@@ -91,6 +91,9 @@
 		9639EA2628002D3D00AF96DC /* PickerViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewPresenter.swift; sourceTree = "<group>"; };
 		9639EA282800466200AF96DC /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		9639EA2A28004B5700AF96DC /* ExpensePaymentMethodCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensePaymentMethodCollectionViewCell.swift; sourceTree = "<group>"; };
+		9639EA2C280050A300AF96DC /* Expense_Tracker v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Expense_Tracker v2.xcdatamodel"; sourceTree = "<group>"; };
+		9639EA31280053EA00AF96DC /* CDTransaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTransaction+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9639EA32280053EA00AF96DC /* CDTransaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTransaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9647708827EDA956005DB20D /* Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9647708B27EDA956005DB20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9647708D27EDA956005DB20D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,8 +119,6 @@
 		96A2DD0827F835DD0022BFEE /* SettingsOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsOption.swift; sourceTree = "<group>"; };
 		96BEA31827F4D8E800A8D1B9 /* TransactionDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDataRepository.swift; sourceTree = "<group>"; };
 		96BEA31A27F4E1CE00A8D1B9 /* TransactionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManager.swift; sourceTree = "<group>"; };
-		96BEA31C27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTransaction+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		96BEA31D27F4EF9000A8D1B9 /* CDTransaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTransaction+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		96D7C5D527F4231400C1F22B /* TransactionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListTableViewCell.swift; sourceTree = "<group>"; };
 		96D7C5D727F4257300C1F22B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		96D7C5D927F4279400C1F22B /* ExpenseDetailedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailedTableViewCell.swift; sourceTree = "<group>"; };
@@ -405,8 +406,8 @@
 		96BEA31327F4D7B800A8D1B9 /* CoreData Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				96BEA31C27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift */,
-				96BEA31D27F4EF9000A8D1B9 /* CDTransaction+CoreDataProperties.swift */,
+				9639EA31280053EA00AF96DC /* CDTransaction+CoreDataClass.swift */,
+				9639EA32280053EA00AF96DC /* CDTransaction+CoreDataProperties.swift */,
 			);
 			path = "CoreData Support Files";
 			sourceTree = "<group>";
@@ -536,13 +537,13 @@
 				961BEEF027F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift in Sources */,
 				961BEEFB27F1A617003A1D11 /* ExpenseTypeLabel.swift in Sources */,
 				964770AB27EDD281005DB20D /* HomeViewController.swift in Sources */,
+				9639EA33280053EA00AF96DC /* CDTransaction+CoreDataClass.swift in Sources */,
 				9654896927FC462000E1DD39 /* LocalNotificationsRepository.swift in Sources */,
 				9619ACE427F30C9600CB0F40 /* TableHeaderViewLabel.swift in Sources */,
 				96A2DD0927F835DD0022BFEE /* SettingsOption.swift in Sources */,
 				961BEEE927EEEFB0003A1D11 /* EmptyView.swift in Sources */,
 				9662302F27F9B49900FF8821 /* SettingsSwitchOption.swift in Sources */,
 				9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */,
-				96BEA31E27F4EF9000A8D1B9 /* CDTransaction+CoreDataClass.swift in Sources */,
 				9623F3D627F6E2D200C74235 /* AlertManager.swift in Sources */,
 				9605036627F378590081EAC6 /* BalanceCollectionViewCell.swift in Sources */,
 				9619ACE227F30BE000CB0F40 /* AddExpenseScreenTwoTableHeaderView.swift in Sources */,
@@ -563,10 +564,10 @@
 				96BEA31B27F4E1CE00A8D1B9 /* TransactionManager.swift in Sources */,
 				9619ACDE27F2DE8D00CB0F40 /* ExpenseDatePickerTableViewCell.swift in Sources */,
 				9639EA2B28004B5700AF96DC /* ExpensePaymentMethodCollectionViewCell.swift in Sources */,
-				96BEA31F27F4EF9000A8D1B9 /* CDTransaction+CoreDataProperties.swift in Sources */,
 				964770B127EDD2FF005DB20D /* AboutViewController.swift in Sources */,
 				9639EA2728002D3D00AF96DC /* PickerViewPresenter.swift in Sources */,
 				96D7C5DA27F4279400C1F22B /* ExpenseDetailedTableViewCell.swift in Sources */,
+				9639EA34280053EA00AF96DC /* CDTransaction+CoreDataProperties.swift in Sources */,
 				961BEEEC27EF0901003A1D11 /* EmptyViewLabel.swift in Sources */,
 				96BEA31927F4D8E800A8D1B9 /* TransactionDataRepository.swift in Sources */,
 				961BEEF527F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift in Sources */,
@@ -799,9 +800,10 @@
 		9647709427EDA956005DB20D /* Expense_Tracker.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				9639EA2C280050A300AF96DC /* Expense_Tracker v2.xcdatamodel */,
 				9647709527EDA956005DB20D /* Expense_Tracker.xcdatamodel */,
 			);
-			currentVersion = 9647709527EDA956005DB20D /* Expense_Tracker.xcdatamodel */;
+			currentVersion = 9639EA2C280050A300AF96DC /* Expense_Tracker v2.xcdatamodel */;
 			path = Expense_Tracker.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

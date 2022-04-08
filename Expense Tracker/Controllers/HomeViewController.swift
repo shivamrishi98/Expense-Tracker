@@ -128,12 +128,16 @@ final class HomeViewController: UIViewController {
     private func fetchTransactions() {
         transactions.removeAll()
         balanceViewModels.removeAll()
-        if let transactions = transactionManager.fetchTransactions() {
+        if let transactions = transactionManager.fetchTransactions(by: selectedPaymentMethod) {
             self.transactions = transactions
             balanceViewModels.append(.init(type: ExpenseTypeCollectionViewCell.ExpenseType.income,
-                                           balance: transactionManager.fetchBalance(of: .income)))
+                                           balance: transactionManager.fetchBalance(
+                                            of: .income,
+                                            paymentMethod: selectedPaymentMethod)))
             balanceViewModels.append(.init(type: ExpenseTypeCollectionViewCell.ExpenseType.expense,
-                                           balance: transactionManager.fetchBalance(of: .expense)))
+                                           balance: transactionManager.fetchBalance(
+                                            of: .expense,
+                                            paymentMethod: selectedPaymentMethod)))
         }
         DispatchQueue.main.async { [weak self] in
             self?.updateUI()
@@ -209,10 +213,10 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             }
             header.configure(
                 with: .init(
-                    balance: transactionManager.fetchTotalBalance(),
+                    balance: transactionManager.fetchTotalBalance(of: selectedPaymentMethod),
                     entries: [
-                        ExpenseTypeCollectionViewCell.ExpenseType.expense.title:transactionManager.fetchBalance(of: .expense),
-                        ExpenseTypeCollectionViewCell.ExpenseType.income.title:transactionManager.fetchBalance(of: .income)
+                        ExpenseTypeCollectionViewCell.ExpenseType.expense.title:transactionManager.fetchBalance(of: .expense, paymentMethod: selectedPaymentMethod),
+                        ExpenseTypeCollectionViewCell.ExpenseType.income.title:transactionManager.fetchBalance(of: .income,paymentMethod: selectedPaymentMethod)
                     ]))
             return header
         default:
@@ -237,8 +241,10 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
         switch indexPath.section {
         case 0:
             let viewModel:BalanceCollectionViewCell.ViewModel = balanceViewModels[indexPath.item]
-            let vc:TransactionExpenseTypeListViewController = TransactionExpenseTypeListViewController(type: viewModel.type,
-                                                              balance: viewModel.balance)
+            let vc:TransactionExpenseTypeListViewController = TransactionExpenseTypeListViewController(
+                type: viewModel.type,
+                balance: viewModel.balance,
+                paymentMethod: selectedPaymentMethod)
             navigationController?.pushViewController(vc, animated: true)
         case 1:
             let transaction:Transaction  = transactions[indexPath.item]
@@ -254,9 +260,11 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
 // MARK: - Extension - HeaderTitleCollectionReusableViewDelegate
 
 extension HomeViewController: HeaderTitleCollectionReusableViewDelegate {
-
+    
     func headerTitleCollectionReusableViewDidTapViewAll(_ cell: HeaderTitleCollectionReusableView) {
-        let vc:TransactionListViewController = TransactionListViewController(transactions: transactions)
+        let vc:TransactionListViewController = TransactionListViewController(
+            transactions: transactions,
+            paymentMethod: selectedPaymentMethod)
         navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -348,6 +356,7 @@ extension HomeViewController: PickerViewPresenterDelegate {
         choosePaymentMethodButton.configure(
             with: .init(
                 title: paymentMethod.title))
+        fetchTransactions()
     }
     
 }

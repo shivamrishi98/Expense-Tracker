@@ -15,24 +15,26 @@ struct TransactionManager {
         transactionDataRepository.create(transaction: transaction)
     }
     
-    func fetchTransactions() -> [Transaction]? {
-        return transactionDataRepository.getAll()
+    func fetchTransactions(by paymentMethod:PaymentMethod) -> [Transaction]? {
+        return transactionDataRepository.getAll(of: paymentMethod)
     }
     
     func fetchTransaction(by id: UUID) -> Transaction? {
         return transactionDataRepository.get(by: id)
     }
     
-    func fetchTransaction(by type:ExpenseTypeCollectionViewCell.ExpenseType) -> [Transaction]? {
-        return transactionDataRepository.get(by: type)
+    func fetchTransaction(by type:ExpenseTypeCollectionViewCell.ExpenseType,
+                          paymentMethod:PaymentMethod) -> [Transaction]? {
+        return transactionDataRepository.get(by: type,paymentMethod: paymentMethod)
     }
     
-    func fetchTotalBalance() -> Double {
-        return transactionDataRepository.getTotalBalance()
+    func fetchTotalBalance(of paymentMethod:PaymentMethod) -> Double {
+        return transactionDataRepository.getTotalBalance(for: paymentMethod)
     }
     
-    func fetchBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType) -> Double {
-        return transactionDataRepository.getBalance(of: type)
+    func fetchBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType,
+                      paymentMethod:PaymentMethod) -> Double {
+        return transactionDataRepository.getBalance(of: type,paymentMethod: paymentMethod)
     }
     
     func update(transaction: Transaction) -> Bool {
@@ -47,7 +49,7 @@ struct TransactionManager {
         return transactionDataRepository.deleteAll()
     }
     
-    func searchTransactions(by value:String) -> [Transaction]? {
-        return transactionDataRepository.search(by: value)
+    func searchTransactions(by value:String,paymentMethod:PaymentMethod) -> [Transaction]? {
+        return transactionDataRepository.search(by: value, paymentMethod: paymentMethod)
     }
 }

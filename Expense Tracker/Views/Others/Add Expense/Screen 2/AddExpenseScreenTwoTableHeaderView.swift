@@ -15,6 +15,7 @@ class AddExpenseScreenTwoTableHeaderView: UIView {
   
     // MARK: - UI
     private let titleLabel:TableHeaderViewLabel = TableHeaderViewLabel(fontSize: 18, weight: .bold)
+    private let paymentMethodLabel:TableHeaderViewLabel = TableHeaderViewLabel(textColor:.secondaryLabel,fontSize: 16, weight: .semibold)
     private let typeLabel:TableHeaderViewLabel = TableHeaderViewLabel(textColor:.secondaryLabel,fontSize: 16, weight: .semibold)
     private let categoryLabel:TableHeaderViewLabel = TableHeaderViewLabel(textColor:.systemGray2,fontSize: 16, weight: .bold)
     
@@ -23,9 +24,9 @@ class AddExpenseScreenTwoTableHeaderView: UIView {
     init(model: AddExpenseScreenOneModel) {
         self.model = model
         super.init(frame: .zero)
-        frame = CGRect(x: 0, y: 0, width: width, height: 100)
+        frame = CGRect(x: 0, y: 0, width: width, height: 130)
         backgroundColor = .systemBackground
-        addSubviews(titleLabel,typeLabel,categoryLabel)
+        addSubviews(titleLabel,paymentMethodLabel,typeLabel,categoryLabel)
         configureUI(with: model)
     }
     
@@ -42,8 +43,12 @@ class AddExpenseScreenTwoTableHeaderView: UIView {
                                   y: 5,
                                   width: width-10,
                                   height: 25)
+        paymentMethodLabel.frame = CGRect(x: 5,
+                                          y: titleLabel.bottom + 5,
+                                          width: width-10,
+                                          height: 25)
         typeLabel.frame = CGRect(x: 5,
-                                 y: titleLabel.bottom + 5,
+                                 y: paymentMethodLabel.bottom + 5,
                                  width: width-10,
                                  height: 25)
         categoryLabel.frame = CGRect(x: 5,
@@ -57,6 +62,7 @@ class AddExpenseScreenTwoTableHeaderView: UIView {
     
     private func configureUI(with model:AddExpenseScreenOneModel) {
         titleLabel.text = model.title
+        paymentMethodLabel.text = "Payment Method: \(model.paymentMethod)"
         typeLabel.text = "Type: \(model.type)"
         categoryLabel.text = "Category: \(model.category)"
     }

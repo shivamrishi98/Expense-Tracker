@@ -83,7 +83,7 @@ final class SettingsViewController: UIViewController {
     }
     
     private func exportToCSV() {
-        let transactions:[Transaction]? = transactionManager.fetchTransactions()
+        let transactions:[Transaction]? = transactionManager.fetchTransactions(by: .all)
         let unixTimestamp:TimeInterval = Date().timeIntervalSince1970
         let fileName:String = "expense_\(unixTimestamp).csv"
         
@@ -101,14 +101,15 @@ final class SettingsViewController: UIViewController {
         
         for (index,transaction) in transactions.enumerated() {
             csvHead.append("\(index+1),")
-            csvHead.append("\(transaction.title!),")
-            csvHead.append("\(transaction.type!),")
-            csvHead.append("\(transaction.category!),")
+            csvHead.append("\(transaction.title),")
+            csvHead.append("\(transaction.paymentMethod),")
+            csvHead.append("\(transaction.type),")
+            csvHead.append("\(transaction.category),")
             csvHead.append("\(transaction.amount),")
             csvHead.append("\(transaction.note ?? "nil"),")
-            csvHead.append("\(transaction.transactionDate!),")
-            csvHead.append("\(transaction.createdAt!),")
-            csvHead.append("\(transaction.updatedAt!)\n")
+            csvHead.append("\(transaction.transactionDate),")
+            csvHead.append("\(transaction.createdAt),")
+            csvHead.append("\(transaction.updatedAt)\n")
         }
             
         do {
@@ -166,7 +167,7 @@ final class SettingsViewController: UIViewController {
             let columns:[String] = row.components(separatedBy: ",")
             result.append(columns)
         }
-        guard rows[0].contains("S.no,Title,Type,Category,Amount,Note,Transaction Date,Created At,Updated At") else {
+        guard rows[0].contains("S.no,Title,Payment Method,Type,Category,Amount,Note,Transaction Date,Created At,Updated At") else {
             HapticsManager.shared.vibrate(for: .error)
             AlertManager.present(title: "Can't Import",
                                  message: "Please add CSV  of this app's transaction format",
@@ -258,13 +259,14 @@ extension SettingsViewController:UIDocumentPickerDelegate {
                         let transaction:Transaction = Transaction(
                             id: UUID(),
                             title: row[1],
-                            type: row[2],
-                            category: row[3],
-                            amount: Double(row[4]) ?? 0.0,
-                            note: row[5],
-                            transactionDate: Date.formatString(date: row[6]),
-                            createdAt: Date.formatString(date: row[7]),
-                            updatedAt: Date.formatString(date: row[8]))
+                            paymentMethod: row[2],
+                            type: row[3],
+                            category: row[4],
+                            amount: Double(row[5]) ?? 0.0,
+                            note: row[6],
+                            transactionDate: Date.formatString(date: row[7]),
+                            createdAt: Date.formatString(date: row[8]),
+                            updatedAt: Date.formatString(date: row[9]))
                         transactionManager.create(transaction: transaction)
                     }
                     HapticsManager.shared.vibrate(for: .success)

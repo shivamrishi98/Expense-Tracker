@@ -12,6 +12,7 @@ final class TransactionExpenseTypeListViewController: UIViewController {
     // MARK: - Properties
     private let transactionManager:TransactionManager = TransactionManager()
     private let type:ExpenseTypeCollectionViewCell.ExpenseType
+    private let paymentMethod:PaymentMethod
     private let balance:Double
     private var transactions:[Transaction] = [Transaction]()
     private var pieDataEntries:[String: Double] = [:]
@@ -35,9 +36,10 @@ final class TransactionExpenseTypeListViewController: UIViewController {
     
     // MARK: - Init
     
-    init(type:ExpenseTypeCollectionViewCell.ExpenseType,balance:Double) {
+    init(type:ExpenseTypeCollectionViewCell.ExpenseType,balance:Double,paymentMethod:PaymentMethod) {
         self.type = type
         self.balance = balance
+        self.paymentMethod = paymentMethod
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -76,13 +78,16 @@ final class TransactionExpenseTypeListViewController: UIViewController {
     // MARK: - Private
     
     private func fetchTransactions() {
-        if let transactions:[Transaction] = transactionManager.fetchTransaction(by: type) {
+        if let transactions:[Transaction] = transactionManager.fetchTransaction(
+            by: type,
+            paymentMethod: paymentMethod
+        ) {
             self.transactions = transactions
             transactions.forEach({
-                if let val:Double = pieDataEntries[$0.category ?? ""] {
-                    pieDataEntries.updateValue($0.amount+val, forKey: $0.category ?? "")
+                if let val:Double = pieDataEntries[$0.category] {
+                    pieDataEntries.updateValue($0.amount+val, forKey: $0.category)
                 } else {
-                    pieDataEntries.updateValue($0.amount, forKey: $0.category ?? "")
+                    pieDataEntries.updateValue($0.amount, forKey: $0.category)
                 }
             })
             chartView.configure(with: .init(type: type.title,

@@ -8,19 +8,21 @@
 import UIKit
 
 struct Transaction {
-    let id:UUID?
-    let title:String?
-    let type:String?
-    let category:String?
+    let id:UUID
+    let title:String
+    let paymentMethod:String
+    let type:String
+    let category:String
     let amount:Double
     let note:String?
-    let transactionDate:Date?
-    let createdAt:Date?
-    let updatedAt:Date?
+    let transactionDate:Date
+    let createdAt:Date
+    let updatedAt:Date
 }
 
 struct AddExpenseScreenOneModel {
     let title:String
+    let paymentMethod:String
     let type:String
     let category:String
     let iconName:String
@@ -131,10 +133,12 @@ final class AddExpenseScreenOneViewController: UIViewController {
         category = selectedExpenseCategory.title
         categoryIconName = selectedExpenseCategory.iconName
         }
-        let model:AddExpenseScreenOneModel = AddExpenseScreenOneModel(title: title,
-                                             type: selectedType.title,
-                                             category: category,
-                                             iconName: categoryIconName)
+        let model:AddExpenseScreenOneModel = AddExpenseScreenOneModel(
+            title: title,
+            paymentMethod: selectedPaymentMethod.title,
+            type: selectedType.title,
+            category: category,
+            iconName: categoryIconName)
         let vc:AddExpenseScreenTwoViewController = AddExpenseScreenTwoViewController(
             addExpenseScreenOneModel: model,
             transaction: transaction ?? nil)
@@ -144,17 +148,18 @@ final class AddExpenseScreenOneViewController: UIViewController {
     private func fillValuesIfRecordExists() {
         if let transaction:Transaction = transaction {
             titleString = transaction.title
+            let cashPaymentMethodSelected:Bool = transaction.paymentMethod == PaymentMethod.cash.title
+            selectedPaymentMethod = cashPaymentMethodSelected ? .cash : .online
             
             let incomeTypeSelected:Bool = transaction.type == ExpenseTypeCollectionViewCell.ExpenseType.income.title
             selectedType = incomeTypeSelected ? .income : .expense
-            
             switch selectedType {
             case .income:
                 var item:Int = -1
                 for (index,value) in incomeCategories.enumerated() where value.title == transaction.category {
                     item = index
                 }
-                let indexPath:IndexPath = IndexPath(item: item, section: 2)
+                let indexPath:IndexPath = IndexPath(item: item, section: 3)
                 selectedIncomeCategory = incomeCategories[indexPath.item]
                 collectionView.selectItem(at: indexPath,
                                           animated: true,scrollPosition:.top)
@@ -163,7 +168,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
                 for (index,value) in expenseCategories.enumerated() where value.title == transaction.category {
                     item = index
                 }
-                let indexPath:IndexPath = IndexPath(item: item, section: 2)
+                let indexPath:IndexPath = IndexPath(item: item, section: 3)
                 selectedExpenseCategory = expenseCategories[indexPath.item]
                 collectionView.selectItem(at: indexPath,
                                           animated: true,scrollPosition:.top)

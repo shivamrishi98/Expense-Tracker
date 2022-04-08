@@ -115,7 +115,7 @@ final class TransactionListTableViewCell: UITableViewCell {
     // MARK: - Public
     
     public func configure(with transaction: Transaction) {
-        let iconName:String? = UserDefaults.standard.string(forKey: transaction.category ?? "")
+        let iconName:String? = UserDefaults.standard.string(forKey: transaction.category)
         iconImageView.image = UIImage(systemName: iconName ?? "")
         titleLabel.text = transaction.title
         categoryLabel.text = transaction.category
@@ -123,7 +123,7 @@ final class TransactionListTableViewCell: UITableViewCell {
         let balancePrefix:String = expenseType ? "-" : "+"
         totalBalanceLabel.textColor = expenseType ? .systemRed : .systemGreen
         totalBalanceLabel.text =  balancePrefix + String.formatted(number: transaction.amount)
-        createdAtLabel.text = String.formatted(date: transaction.transactionDate ?? Date())
+        createdAtLabel.text = String.formatted(date: transaction.transactionDate)
     }
     
 

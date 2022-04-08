@@ -19,6 +19,7 @@ final class TransactionListViewController: UIViewController {
         }
     }
     private let originalTransactions:[Transaction]
+    private let paymentMethod:PaymentMethod
     private let transactionManager:TransactionManager = TransactionManager()
     
     // MARK: - UI
@@ -49,9 +50,10 @@ final class TransactionListViewController: UIViewController {
     
     // MARK: - Init
     
-    init(transactions:[Transaction]) {
+    init(transactions:[Transaction],paymentMethod:PaymentMethod) {
         self.transactions = transactions
         self.originalTransactions = transactions
+        self.paymentMethod = paymentMethod
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -97,7 +99,8 @@ final class TransactionListViewController: UIViewController {
             self.transactions = originalTransactions
             return
         }
-        if let transactions = transactionManager.searchTransactions(by: value) {
+        if let transactions = transactionManager.searchTransactions(by: value,
+                                                                    paymentMethod: paymentMethod) {
             self.transactions = transactions
         }
     }

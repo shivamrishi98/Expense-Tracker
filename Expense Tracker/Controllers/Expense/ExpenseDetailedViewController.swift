@@ -74,7 +74,7 @@ class ExpenseDetailedViewController: UIViewController {
             actions: .delete(
                 handler: { [weak self] in
                     guard let strongSelf = self,
-                          strongSelf.transactionManager.delete(with: strongSelf.transaction.id!)  else {
+                          strongSelf.transactionManager.delete(with: strongSelf.transaction.id)  else {
                         HapticsManager.shared.vibrate(for: .error)
                         return
                     }
@@ -94,12 +94,13 @@ class ExpenseDetailedViewController: UIViewController {
     
     private func createViewModels() {
         viewModels.append(.init(name: "Title", value: transaction.title))
+        viewModels.append(.init(name: "Payment Method", value: transaction.paymentMethod))
         viewModels.append(.init(name: "Type", value: transaction.type))
         viewModels.append(.init(name: "Category", value: transaction.category))
         viewModels.append(.init(name: "Amount", value: String.formatted(number: transaction.amount)))
         viewModels.append(.init(name: "Note", value: transaction.note))
         viewModels.append(.init(name: "Transaction Date",
-                                value: String.formatted(date: transaction.transactionDate ?? Date())))
+                                value: String.formatted(date: transaction.transactionDate)))
     }
 }
 

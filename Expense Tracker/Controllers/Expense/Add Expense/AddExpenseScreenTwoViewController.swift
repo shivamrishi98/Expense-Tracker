@@ -97,6 +97,7 @@ final class AddExpenseScreenTwoViewController: UIViewController {
         let transaction:Transaction = Transaction(
             id: transaction?.id ?? UUID(),
             title: addExpenseScreenOneModel.title,
+            paymentMethod: addExpenseScreenOneModel.paymentMethod,
             type: addExpenseScreenOneModel.type,
             category: addExpenseScreenOneModel.category,
             amount: amount,
@@ -104,9 +105,8 @@ final class AddExpenseScreenTwoViewController: UIViewController {
             transactionDate: Date.formatString(date: screenTwoSectionTwoModel[0].value ?? ""),
             createdAt: transaction?.createdAt ?? Date(),
             updatedAt: Date())
-        
         UserDefaults.standard.set(addExpenseScreenOneModel.iconName, forKey: addExpenseScreenOneModel.category)
-        
+
         if let _ = self.transaction {
             if transactionManager.update(transaction: transaction) {
                 navigationController?.popToRootViewController(animated: true)
@@ -138,7 +138,7 @@ final class AddExpenseScreenTwoViewController: UIViewController {
         if let transaction:Transaction = transaction {
             sections[0][0].value = "\(transaction.amount)"
             sections[0][1].value = transaction.note
-            sections[1][0].value = String.formattedToOriginal(date: transaction.transactionDate ?? Date())
+            sections[1][0].value = String.formattedToOriginal(date: transaction.transactionDate)
         }
     }
 }
