@@ -1,40 +1,26 @@
 //
-//  ExpenseTypeCollectionViewCell.swift
+//  ExpensePaymentMethodCollectionViewCell.swift
 //  Expense Tracker
 //
-//  Created by Shivam Rishi on 28/03/22.
+//  Created by Shivam Rishi on 08/04/22.
 //
 
 import UIKit
 
-protocol ExpenseTypeCollectionViewCellDelegate: AnyObject {
-    func expenseTypeCollectionViewCell(_ cell:ExpenseTypeCollectionViewCell,
-                                       type:ExpenseTypeCollectionViewCell.ExpenseType)
+protocol ExpensePaymentMethodCollectionViewCellDelegate: AnyObject {
+    func expensePaymentMethodCollectionViewCell(_ cell:ExpensePaymentMethodCollectionViewCell,
+                                       paymentMethod:PaymentMethod)
 }
 
-final class ExpenseTypeCollectionViewCell: UICollectionViewCell {
+class ExpensePaymentMethodCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier:String = "ExpenseTypeCollectionViewCell"
+    static let identifier:String = "ExpensePaymentMethodCollectionViewCell"
     
-    weak var delegate:ExpenseTypeCollectionViewCellDelegate?
+    weak var delegate:ExpensePaymentMethodCollectionViewCellDelegate?
     
-    private var expenseType:ExpenseType = .income
-    
-    enum ExpenseType: CaseIterable {
-        case income
-        case expense
-    
-        var title:String {
-            switch self {
-            case .income:
-                return "Income"
-            case .expense:
-                return "Expense"
-            }
-        }
-    }
+    private var paymentMethod:PaymentMethod = .cash
     
     // MARK: - UI
     
@@ -81,15 +67,14 @@ final class ExpenseTypeCollectionViewCell: UICollectionViewCell {
     // MARK: - Private
     
     @objc private func didTapTypeView() {
-        delegate?.expenseTypeCollectionViewCell(self,
-                                                type: expenseType)
+        delegate?.expensePaymentMethodCollectionViewCell(self,paymentMethod: paymentMethod)
     }
     
     // MARK: - Public
     
-    public func configure(with type: ExpenseType) {
-        self.expenseType = type
-        typeLabel.text = type.title
+    public func configure(with paymentMethod: PaymentMethod) {
+        self.paymentMethod = paymentMethod
+        typeLabel.text = paymentMethod.title
     }
     
 }

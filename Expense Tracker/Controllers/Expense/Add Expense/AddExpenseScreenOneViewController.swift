@@ -29,16 +29,19 @@ struct AddExpenseScreenOneModel {
 final class AddExpenseScreenOneViewController: UIViewController {
 
     // MARK: - Properties
-    private let sections:[String] = ["","Type","Category"]
+    private let sections:[String] = ["","Payment Method","Type","Category"]
     private var titleString:String? = nil
+    private let paymentMethods:[PaymentMethod] = PaymentMethod.allCases.filter({ $0 != .all})
     private let types:[ExpenseTypeCollectionViewCell.ExpenseType] = ExpenseTypeCollectionViewCell.ExpenseType.allCases
     private let expenseCategories:[ExpenseCategoryCollectionViewCell.Category.Expense] = ExpenseCategoryCollectionViewCell.Category.Expense.allCases.filter({ $0 != .none })
     private let incomeCategories:[ExpenseCategoryCollectionViewCell.Category.Income] = ExpenseCategoryCollectionViewCell.Category.Income.allCases.filter({ $0 != .none })
+    
+    private var selectedPaymentMethod:PaymentMethod = .cash
+    
     private var selectedType:ExpenseTypeCollectionViewCell.ExpenseType = .income
     
     private var selectedIncomeCategory:ExpenseCategoryCollectionViewCell.Category.Income = .none
     private var selectedExpenseCategory:ExpenseCategoryCollectionViewCell.Category.Expense = .none
-    
     private let transaction:Transaction?
     
     // MARK: - UI
@@ -51,6 +54,9 @@ final class AddExpenseScreenOneViewController: UIViewController {
         collectionView.register(
             ExpenseTextfieldCollectionViewCell.self,
             forCellWithReuseIdentifier: ExpenseTextfieldCollectionViewCell.identifier)
+        collectionView.register(
+            ExpensePaymentMethodCollectionViewCell.self,
+            forCellWithReuseIdentifier: ExpensePaymentMethodCollectionViewCell.identifier)
         collectionView.register(
             ExpenseTypeCollectionViewCell.self,
             forCellWithReuseIdentifier: ExpenseTypeCollectionViewCell.identifier)
@@ -179,8 +185,10 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
         case 0:
             return 1
         case 1:
-            return types.count
+            return paymentMethods.count
         case 2:
+            return types.count
+        case 3:
             return (selectedType == .expense) ? expenseCategories.count : incomeCategories.count
         default: 
             return 0
@@ -199,6 +207,24 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
             cell.configure(with: titleString ?? "")
             return cell
         case 1:
+            guard let cell:ExpensePaymentMethodCollectionViewCell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ExpensePaymentMethodCollectionViewCell.identifier,
+                for: indexPath) as? ExpensePaymentMethodCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.delegate = self
+            cell.expenseTypeView.backgroundColor = (selectedPaymentMethod == paymentMethods[indexPath.item]) ? .link : .secondaryLabel
+            switch indexPath.item {
+            case 0:
+                cell.configure(with: .cash)
+                return cell
+            case 1:
+                cell.configure(with: .online)
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
+        case 2:
             guard let cell:ExpenseTypeCollectionViewCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ExpenseTypeCollectionViewCell.identifier,
                 for: indexPath) as? ExpenseTypeCollectionViewCell else {
@@ -216,7 +242,7 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
             default:
                 return UICollectionViewCell()
             }
-        case 2:
+        case 3:
             guard let cell:ExpenseCategoryCollectionViewCell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ExpenseCategoryCollectionViewCell.identifier,
                 for: indexPath) as? ExpenseCategoryCollectionViewCell else {
@@ -255,7 +281,7 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         HapticsManager.shared.vibrateForSelection()
         switch indexPath.section {
-        case 2:
+        case 3:
             switch selectedType {
             case .income:
                 selectedIncomeCategory = incomeCategories[indexPath.item]
@@ -282,7 +308,20 @@ extension AddExpenseScreenOneViewController: ExpenseTypeCollectionViewCellDelega
     }
 }
 
-// MARK: - Extension - ExpenseTypeCollectionViewCellDelegate
+// MARK: - Extension - ExpensePaymentMethodCollectionViewCellDelegate
+
+extension AddExpenseScreenOneViewController: ExpensePaymentMethodCollectionViewCellDelegate {
+    
+    func expensePaymentMethodCollectionViewCell(_ cell: ExpensePaymentMethodCollectionViewCell, paymentMethod: PaymentMethod) {
+        DispatchQueue.main.async { [weak self] in
+            self?.selectedPaymentMethod = paymentMethod
+            self?.collectionView.reloadData()
+        }
+    }
+
+}
+
+// MARK: - Extension - ExpenseTextfieldCollectionViewCellDelegate
 
 extension AddExpenseScreenOneViewController:ExpenseTextfieldCollectionViewCellDelegate {
     
@@ -336,13 +375,13 @@ extension AddExpenseScreenOneViewController {
             return createSection(with: .fractionalWidth(1),
                                  heightDimension: .absolute(50),
                                  count: 1)
-        case 1:
+        case 1,2:
             let section:NSCollectionLayoutSection = createSection(with: .fractionalWidth(0.5),
                                         heightDimension: .absolute(50),
                                         count: 2)
             section.boundarySupplementaryItems = supplementaryViews
             return section
-        case 2:
+        case 3:
             let section:NSCollectionLayoutSection = createSection(with: .fractionalWidth(0.3),
                                         heightDimension: .absolute(100),
                                         count: 3)
