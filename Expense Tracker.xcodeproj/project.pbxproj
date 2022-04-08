@@ -29,6 +29,7 @@
 		9623F3D627F6E2D200C74235 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623F3D427F6E2D200C74235 /* AlertManager.swift */; };
 		96257AD827FADFB5002BB960 /* BiometricsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96257AD727FADFB5002BB960 /* BiometricsManager.swift */; };
 		96257ADA27FB629C002BB960 /* LockedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96257AD927FB629C002BB960 /* LockedViewController.swift */; };
+		9639EA242800217500AF96DC /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9639EA232800217500AF96DC /* IconTextButton.swift */; };
 		9647708C27EDA956005DB20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708B27EDA956005DB20D /* AppDelegate.swift */; };
 		9647708E27EDA956005DB20D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647708D27EDA956005DB20D /* SceneDelegate.swift */; };
 		9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9647709427EDA956005DB20D /* Expense_Tracker.xcdatamodeld */; };
@@ -83,6 +84,7 @@
 		9623F3D427F6E2D200C74235 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		96257AD727FADFB5002BB960 /* BiometricsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsManager.swift; sourceTree = "<group>"; };
 		96257AD927FB629C002BB960 /* LockedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockedViewController.swift; sourceTree = "<group>"; };
+		9639EA232800217500AF96DC /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
 		9647708827EDA956005DB20D /* Expense Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Expense Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9647708B27EDA956005DB20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9647708D27EDA956005DB20D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -213,6 +215,14 @@
 			path = Labels;
 			sourceTree = "<group>";
 		};
+		9639EA222800216600AF96DC /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				9639EA232800217500AF96DC /* IconTextButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		9647707F27EDA955005DB20D = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +332,7 @@
 		964770B527EDD7AD005DB20D /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				9639EA222800216600AF96DC /* Buttons */,
 				9605036727F395990081EAC6 /* Home */,
 				9619ACD727F2D1EA00CB0F40 /* Add Expense */,
 				961BEEEA27EF08E0003A1D11 /* Labels */,
@@ -545,6 +556,7 @@
 				9647709627EDA956005DB20D /* Expense_Tracker.xcdatamodeld in Sources */,
 				96A2DD0727F835CD0022BFEE /* SettingsSection.swift in Sources */,
 				9605036427F36C640081EAC6 /* TransactionListCollectionViewCell.swift in Sources */,
+				9639EA242800217500AF96DC /* IconTextButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -73,9 +73,15 @@ final class HomeViewController: UIViewController {
     }
     
     // MARK: - Private
-    
+        
     /// Sets up navigation bar button items
     private func setupBarButtonItems() {
+        
+        let button = IconTextButton(frame: .zero)
+        button.delegate = self
+        button.configure(with: .init(title: "Wallet"))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
+        
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(
                 image: UIImage(systemName: "plus.circle"),
@@ -316,3 +322,10 @@ extension HomeViewController {
    
 }
 
+extension HomeViewController: IconTextButtonDelegate {
+    
+    func iconTextButtonTapped(_ button: IconTextButton) {
+        print("tapped!!!!")
+    }
+   
+}
