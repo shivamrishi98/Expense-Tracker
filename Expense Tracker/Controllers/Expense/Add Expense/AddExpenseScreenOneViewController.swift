@@ -318,9 +318,13 @@ extension AddExpenseScreenOneViewController: ExpenseTypeCollectionViewCellDelega
 extension AddExpenseScreenOneViewController: ExpensePaymentMethodCollectionViewCellDelegate {
     
     func expensePaymentMethodCollectionViewCell(_ cell: ExpensePaymentMethodCollectionViewCell, paymentMethod: PaymentMethod) {
+        guard let indexPath = collectionView.indexPath(for: cell) else {
+            return
+        }
         DispatchQueue.main.async { [weak self] in
             self?.selectedPaymentMethod = paymentMethod
-            self?.collectionView.reloadData()
+            let indexSet = IndexSet(integer: indexPath.section)
+            self?.collectionView.reloadSections(indexSet)
         }
     }
 
