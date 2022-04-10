@@ -12,11 +12,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     private var themeObserver:NSObjectProtocol?
     
+    private let blurEffectView:UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let view = UIVisualEffectView(effect: blurEffect)
+        return view
+    }()
+    
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let sceneWindow = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: sceneWindow)
         self.window = window
-        setLockedViewController()
+        setRootViewController()
         NotificationsManager.shared.requestAuthForLocalNotifications()
         changeTheme()
         themeObserver = NotificationCenter.default.addObserver(forName: .changeTheme,
@@ -33,15 +40,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
         
     private func promptBiometrics(viewController:UIViewController) {
-        BiometricsManager().canEvaluatePolicy { canEvaluate,_, canEvaluateError in
+        BiometricsManager().canEvaluatePolicy { [weak self] canEvaluate,_, canEvaluateError in
             guard canEvaluate else {
                 UserDefaults.standard.set(false, forKey: "bio_metrics")
-                setRootViewController()
+                self?.blurEffectView.removeFromSuperview()
                 return
             }
+            
             BiometricsManager().evaluatePolicy { [weak self] success, error in
                 if success {
-                    self?.setRootViewController()
+                    self?.blurEffectView.removeFromSuperview()
                 } else {
                     AlertManager.present(
                         title: "App is Locked",
@@ -64,11 +72,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navVC.navigationBar.prefersLargeTitles = true
         navVC.navigationBar.tintColor = .label
         window?.rootViewController = navVC
-        window?.makeKeyAndVisible()
-    }
-    
-    private func setLockedViewController() {
-        window?.rootViewController = LockedViewController()
         window?.makeKeyAndVisible()
     }
     
@@ -97,11 +100,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         guard UserDefaults.standard.bool(forKey: "bio_metrics") else {
-            setRootViewController()
             return
         }
         if let window = window {
             if let rootViewController = window.rootViewController {
+                blurEffectView.frame = rootViewController.view.frame
+                rootViewController.view.addSubview(blurEffectView)
                 promptBiometrics(viewController: rootViewController)
             }
         }
@@ -112,7 +116,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard UserDefaults.standard.bool(forKey: "bio_metrics") else {
             return
         }
-        setLockedViewController()
     }
 
 
