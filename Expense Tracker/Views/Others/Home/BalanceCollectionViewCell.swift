@@ -14,7 +14,7 @@ final class BalanceCollectionViewCell: UICollectionViewCell {
     static let identifier:String = "BalanceCollectionViewCell"
     
     struct ViewModel {
-        let type:ExpenseTypeCollectionViewCell.ExpenseType
+        let type:ExpenseType
         let balance:Double
     }
     
@@ -91,7 +91,7 @@ final class BalanceCollectionViewCell: UICollectionViewCell {
     // MARK: - Public
     
     public func configure(with viewModel:ViewModel) {
-        let expenseType:Bool = (viewModel.type.title == ExpenseTypeCollectionViewCell.ExpenseType.expense.title)
+        let expenseType:Bool = (viewModel.type.title == ExpenseType.expense.title)
         iconImageView.tintColor = expenseType ? .systemRed : .systemGreen
         iconImageView.image = viewModel.type == .income ? UIImage(systemName: "arrow.up.circle") : UIImage(systemName: "arrow.down.circle")
         typeLabel.text = viewModel.type.title.uppercased()

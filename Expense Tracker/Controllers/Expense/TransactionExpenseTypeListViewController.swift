@@ -11,7 +11,7 @@ final class TransactionExpenseTypeListViewController: UIViewController {
 
     // MARK: - Properties
     private let transactionManager:TransactionManager = TransactionManager()
-    private let type:ExpenseTypeCollectionViewCell.ExpenseType
+    private let type:ExpenseType
     private let paymentMethod:PaymentMethod
     private let balance:Double
     private var transactions:[Transaction] = [Transaction]()
@@ -36,7 +36,7 @@ final class TransactionExpenseTypeListViewController: UIViewController {
     
     // MARK: - Init
     
-    init(type:ExpenseTypeCollectionViewCell.ExpenseType,balance:Double,paymentMethod:PaymentMethod) {
+    init(type:ExpenseType,balance:Double,paymentMethod:PaymentMethod) {
         self.type = type
         self.balance = balance
         self.paymentMethod = paymentMethod

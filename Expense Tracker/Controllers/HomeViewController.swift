@@ -130,11 +130,11 @@ final class HomeViewController: UIViewController {
         balanceViewModels.removeAll()
         if let transactions = transactionManager.fetchTransactions(by: selectedPaymentMethod) {
             self.transactions = transactions
-            balanceViewModels.append(.init(type: ExpenseTypeCollectionViewCell.ExpenseType.income,
+            balanceViewModels.append(.init(type: ExpenseType.income,
                                            balance: transactionManager.fetchBalance(
                                             of: .income,
                                             paymentMethod: selectedPaymentMethod)))
-            balanceViewModels.append(.init(type: ExpenseTypeCollectionViewCell.ExpenseType.expense,
+            balanceViewModels.append(.init(type: ExpenseType.expense,
                                            balance: transactionManager.fetchBalance(
                                             of: .expense,
                                             paymentMethod: selectedPaymentMethod)))
@@ -215,8 +215,8 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
                 with: .init(
                     balance: transactionManager.fetchTotalBalance(of: selectedPaymentMethod),
                     entries: [
-                        ExpenseTypeCollectionViewCell.ExpenseType.expense.title:transactionManager.fetchBalance(of: .expense, paymentMethod: selectedPaymentMethod),
-                        ExpenseTypeCollectionViewCell.ExpenseType.income.title:transactionManager.fetchBalance(of: .income,paymentMethod: selectedPaymentMethod)
+                        ExpenseType.expense.title:transactionManager.fetchBalance(of: .expense, paymentMethod: selectedPaymentMethod),
+                       ExpenseType.income.title:transactionManager.fetchBalance(of: .income,paymentMethod: selectedPaymentMethod)
                     ]))
             return header
         default:

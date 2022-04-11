@@ -23,7 +23,7 @@ struct TransactionManager {
         return transactionDataRepository.get(by: id)
     }
     
-    func fetchTransaction(by type:ExpenseTypeCollectionViewCell.ExpenseType,
+    func fetchTransaction(by type:ExpenseType,
                           paymentMethod:PaymentMethod) -> [Transaction]? {
         return transactionDataRepository.get(by: type,paymentMethod: paymentMethod)
     }
@@ -32,7 +32,7 @@ struct TransactionManager {
         return transactionDataRepository.getTotalBalance(for: paymentMethod)
     }
     
-    func fetchBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType,
+    func fetchBalance(of type:ExpenseType,
                       paymentMethod:PaymentMethod) -> Double {
         return transactionDataRepository.getBalance(of: type,paymentMethod: paymentMethod)
     }

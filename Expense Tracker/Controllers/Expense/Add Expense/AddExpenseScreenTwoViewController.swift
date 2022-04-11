@@ -7,12 +7,6 @@
 
 import UIKit
 
-
-struct AddExpenseScreenTwoFormModel {
-    let placeholder:String
-    var value:String?
-}
-
 final class AddExpenseScreenTwoViewController: UIViewController {
 
     // MARK: - Properties

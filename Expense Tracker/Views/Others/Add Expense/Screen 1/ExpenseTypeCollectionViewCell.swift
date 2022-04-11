@@ -9,7 +9,7 @@ import UIKit
 
 protocol ExpenseTypeCollectionViewCellDelegate: AnyObject {
     func expenseTypeCollectionViewCell(_ cell:ExpenseTypeCollectionViewCell,
-                                       type:ExpenseTypeCollectionViewCell.ExpenseType)
+                                       type:ExpenseType)
 }
 
 final class ExpenseTypeCollectionViewCell: UICollectionViewCell {
@@ -21,20 +21,6 @@ final class ExpenseTypeCollectionViewCell: UICollectionViewCell {
     weak var delegate:ExpenseTypeCollectionViewCellDelegate?
     
     private var expenseType:ExpenseType = .income
-    
-    enum ExpenseType: CaseIterable {
-        case income
-        case expense
-    
-        var title:String {
-            switch self {
-            case .income:
-                return "Income"
-            case .expense:
-                return "Expense"
-            }
-        }
-    }
     
     // MARK: - UI
     

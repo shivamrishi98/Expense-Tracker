@@ -12,9 +12,9 @@ protocol TransactionRepository {
     func create(transaction:Transaction) 
     func getAll(of paymentMethod:PaymentMethod) -> [Transaction]?
     func get(by id: UUID) -> Transaction?
-    func get(by type:ExpenseTypeCollectionViewCell.ExpenseType,paymentMethod:PaymentMethod) -> [Transaction]?
+    func get(by type:ExpenseType,paymentMethod:PaymentMethod) -> [Transaction]?
     func getTotalBalance(for paymentMethod:PaymentMethod) -> Double
-    func getBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType,paymentMethod:PaymentMethod) -> Double
+    func getBalance(of type:ExpenseType,paymentMethod:PaymentMethod) -> Double
     func update(transaction: Transaction) -> Bool
     func delete(with id: UUID) -> Bool
     func deleteAll()
@@ -86,7 +86,7 @@ struct TransactionDataRepository: TransactionRepository {
         return result?.convertToTransaction()
     }
     
-    func get(by type: ExpenseTypeCollectionViewCell.ExpenseType,
+    func get(by type: ExpenseType,
              paymentMethod:PaymentMethod) -> [Transaction]? {
         
         let fetchRequest:NSFetchRequest<CDTransaction> = NSFetchRequest<CDTransaction>(entityName: "CDTransaction")
@@ -129,9 +129,9 @@ struct TransactionDataRepository: TransactionRepository {
         var balance:Double = 0.0
         transactions?.forEach({
             switch $0.type {
-            case ExpenseTypeCollectionViewCell.ExpenseType.expense.title:
+            case ExpenseType.expense.title:
                 balance -= $0.amount
-            case ExpenseTypeCollectionViewCell.ExpenseType.income.title:
+            case ExpenseType.income.title:
                 balance += $0.amount
             default:
                 break
@@ -140,7 +140,7 @@ struct TransactionDataRepository: TransactionRepository {
         return balance
     }
     
-    func getBalance(of type:ExpenseTypeCollectionViewCell.ExpenseType,
+    func getBalance(of type:ExpenseType,
                     paymentMethod:PaymentMethod) -> Double {
         let transactions:[Transaction]? = get(by: type,paymentMethod: paymentMethod)
         var balance:Double = 0.0

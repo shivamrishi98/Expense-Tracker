@@ -7,43 +7,22 @@
 
 import UIKit
 
-struct Transaction {
-    let id:UUID
-    let title:String
-    let paymentMethod:String
-    let type:String
-    let category:String
-    let amount:Double
-    let note:String?
-    let transactionDate:Date
-    let createdAt:Date
-    let updatedAt:Date
-}
-
-struct AddExpenseScreenOneModel {
-    let title:String
-    let paymentMethod:String
-    let type:String
-    let category:String
-    let iconName:String
-}
-
 final class AddExpenseScreenOneViewController: UIViewController {
 
     // MARK: - Properties
     private let sections:[String] = ["","Payment Method","Type","Category"]
     private var titleString:String? = nil
     private let paymentMethods:[PaymentMethod] = PaymentMethod.allCases.filter({ $0 != .all})
-    private let types:[ExpenseTypeCollectionViewCell.ExpenseType] = ExpenseTypeCollectionViewCell.ExpenseType.allCases
-    private let expenseCategories:[ExpenseCategoryCollectionViewCell.Category.Expense] = ExpenseCategoryCollectionViewCell.Category.Expense.allCases.filter({ $0 != .none })
-    private let incomeCategories:[ExpenseCategoryCollectionViewCell.Category.Income] = ExpenseCategoryCollectionViewCell.Category.Income.allCases.filter({ $0 != .none })
+    private let types:[ExpenseType] = ExpenseType.allCases
+    private let expenseCategories:[Category.Expense] = Category.Expense.allCases.filter({ $0 != .none })
+    private let incomeCategories:[Category.Income] = Category.Income.allCases.filter({ $0 != .none })
     
     private var selectedPaymentMethod:PaymentMethod = .cash
     
-    private var selectedType:ExpenseTypeCollectionViewCell.ExpenseType = .income
+    private var selectedType:ExpenseType = .income
     
-    private var selectedIncomeCategory:ExpenseCategoryCollectionViewCell.Category.Income = .none
-    private var selectedExpenseCategory:ExpenseCategoryCollectionViewCell.Category.Expense = .none
+    private var selectedIncomeCategory:Category.Income = .none
+    private var selectedExpenseCategory:Category.Expense = .none
     private let transaction:Transaction?
     
     // MARK: - UI
@@ -151,7 +130,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
             let cashPaymentMethodSelected:Bool = transaction.paymentMethod == PaymentMethod.cash.title
             selectedPaymentMethod = cashPaymentMethodSelected ? .cash : .online
             
-            let incomeTypeSelected:Bool = transaction.type == ExpenseTypeCollectionViewCell.ExpenseType.income.title
+            let incomeTypeSelected:Bool = transaction.type == ExpenseType.income.title
             selectedType = incomeTypeSelected ? .income : .expense
             switch selectedType {
             case .income:
@@ -255,11 +234,11 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
             }
             switch selectedType {
             case .income:
-                let category:ExpenseCategoryCollectionViewCell.Category.Income = incomeCategories[indexPath.item]
+                let category:Category.Income = incomeCategories[indexPath.item]
                 cell.configure(with: category.title,
                                iconName: category.iconName)
             case .expense:
-                let category:ExpenseCategoryCollectionViewCell.Category.Expense = expenseCategories[indexPath.item]
+                let category:Category.Expense = expenseCategories[indexPath.item]
                 cell.configure(with: category.title,
                                iconName: category.iconName)
             }
@@ -303,7 +282,7 @@ extension AddExpenseScreenOneViewController:UICollectionViewDelegate,UICollectio
 
 extension AddExpenseScreenOneViewController: ExpenseTypeCollectionViewCellDelegate {
     func expenseTypeCollectionViewCell(_ cell: ExpenseTypeCollectionViewCell,
-                                       type: ExpenseTypeCollectionViewCell.ExpenseType) {
+                                       type: ExpenseType) {
         DispatchQueue.main.async { [weak self] in
             self?.selectedType = type
             self?.selectedExpenseCategory = .none
