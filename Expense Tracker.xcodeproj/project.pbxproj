@@ -23,7 +23,6 @@
 		961BEEF527F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEF427F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift */; };
 		961BEEF727F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEF627F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift */; };
 		961BEEF927F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEF827F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift */; };
-		961BEEFB27F1A617003A1D11 /* ExpenseTypeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEFA27F1A617003A1D11 /* ExpenseTypeLabel.swift */; };
 		961BEEFF27F23969003A1D11 /* ExpenseTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */; };
 		9623F3D527F6E2D200C74235 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623F3D327F6E2D200C74235 /* HapticsManager.swift */; };
 		9623F3D627F6E2D200C74235 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9623F3D427F6E2D200C74235 /* AlertManager.swift */; };
@@ -85,7 +84,6 @@
 		961BEEF427F1A341003A1D11 /* ExpenseCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		961BEEF627F1A34A003A1D11 /* ExpenseTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		961BEEF827F1A353003A1D11 /* ExpenseTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTitleCollectionViewCell.swift; sourceTree = "<group>"; };
-		961BEEFA27F1A617003A1D11 /* ExpenseTypeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTypeLabel.swift; sourceTree = "<group>"; };
 		961BEEFE27F23969003A1D11 /* ExpenseTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTypeView.swift; sourceTree = "<group>"; };
 		9623F3D327F6E2D200C74235 /* HapticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		9623F3D427F6E2D200C74235 /* AlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
@@ -225,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				961BEEEB27EF0901003A1D11 /* EmptyViewLabel.swift */,
-				961BEEFA27F1A617003A1D11 /* ExpenseTypeLabel.swift */,
 				9619ACE327F30C9600CB0F40 /* TableHeaderViewLabel.swift */,
 			);
 			path = Labels;
@@ -547,7 +544,6 @@
 				96A2DD0427F835AC0022BFEE /* SettingsTableViewCell.swift in Sources */,
 				96A2DD0227F822D20022BFEE /* SettingsViewController.swift in Sources */,
 				961BEEF027F19D77003A1D11 /* HeaderTitleCollectionReusableView.swift in Sources */,
-				961BEEFB27F1A617003A1D11 /* ExpenseTypeLabel.swift in Sources */,
 				964770AB27EDD281005DB20D /* HomeViewController.swift in Sources */,
 				9639EA33280053EA00AF96DC /* CDTransaction+CoreDataClass.swift in Sources */,
 				9654896927FC462000E1DD39 /* LocalNotificationsRepository.swift in Sources */,

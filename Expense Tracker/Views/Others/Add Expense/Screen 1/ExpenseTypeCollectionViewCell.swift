@@ -25,7 +25,16 @@ final class ExpenseTypeCollectionViewCell: UICollectionViewCell {
     // MARK: - UI
     
     let expenseTypeView:ExpenseTypeView = ExpenseTypeView()
-    private let typeLabel:ExpenseTypeLabel = ExpenseTypeLabel()
+    
+    private let typeLabel:UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 16,
+                                 weight: .medium)
+        return label
+    }()
     
     // MARK: - Init
     
