@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmptyViewLabel: UILabel {
+final class EmptyViewLabel: UILabel {
 
     // MARK: - Properties
     

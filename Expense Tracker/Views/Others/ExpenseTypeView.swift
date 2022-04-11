@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ExpenseTypeView: UIView {
+final class ExpenseTypeView: UIView {
 
     // MARK: - Init
     

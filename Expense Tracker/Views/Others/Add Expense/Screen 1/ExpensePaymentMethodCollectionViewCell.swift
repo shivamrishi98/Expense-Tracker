@@ -12,7 +12,7 @@ protocol ExpensePaymentMethodCollectionViewCellDelegate: AnyObject {
                                        paymentMethod:PaymentMethod)
 }
 
-class ExpensePaymentMethodCollectionViewCell: UICollectionViewCell {
+final class ExpensePaymentMethodCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     

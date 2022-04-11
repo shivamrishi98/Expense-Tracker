@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddExpenseScreenTwoTableHeaderView: UIView {
+final class AddExpenseScreenTwoTableHeaderView: UIView {
     
     // MARK: - Properties
     

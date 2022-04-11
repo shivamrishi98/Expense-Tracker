@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExpenseDetailedViewController: UIViewController {
+final class ExpenseDetailedViewController: UIViewController {
 
     // MARK: - Properties
     private let transactionManager:TransactionManager = TransactionManager()

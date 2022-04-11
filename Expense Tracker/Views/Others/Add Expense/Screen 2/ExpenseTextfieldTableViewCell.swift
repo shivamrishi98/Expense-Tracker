@@ -12,7 +12,7 @@ protocol ExpenseTextfieldTableViewCellDelegate: AnyObject {
                                           didUpdateField updatedModel: AddExpenseScreenTwoFormModel)
 }
 
-class ExpenseTextfieldTableViewCell:UITableViewCell,UITextFieldDelegate {
+final class ExpenseTextfieldTableViewCell:UITableViewCell,UITextFieldDelegate {
     
     // MARK: - Properties
     

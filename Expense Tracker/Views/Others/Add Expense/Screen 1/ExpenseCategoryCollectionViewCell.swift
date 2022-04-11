@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
+final class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     

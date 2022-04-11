@@ -14,7 +14,7 @@ protocol ExpenseDatePickerTableViewCellDelegate: AnyObject {
 
 
 
-class ExpenseDatePickerTableViewCell:UITableViewCell {
+final class ExpenseDatePickerTableViewCell:UITableViewCell {
     
     static let identifier:String = "ExpenseDatePickerTableViewCell"
     static let rowHeight:CGFloat = 50

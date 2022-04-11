@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExpenseTypeLabel: UILabel {
+final class ExpenseTypeLabel: UILabel {
 
     // MARK: - INIT
     
