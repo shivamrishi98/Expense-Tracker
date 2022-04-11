@@ -14,7 +14,7 @@ final class HomeViewController: UIViewController {
     private var transactions:[Transaction] = [Transaction]()
     private var balanceViewModels:[BalanceCollectionViewCell.ViewModel] = [BalanceCollectionViewCell.ViewModel]()
     private var transactionsObserver:NSObjectProtocol?
-    private var selectedPaymentMethod: PaymentMethod = .all
+    private var selectedPaymentMethod: PaymentMethod = PickerViewPresenter().selectedPaymentMethod
     
     // MARK: - UI
     
@@ -83,7 +83,7 @@ final class HomeViewController: UIViewController {
         choosePaymentMethodButton.delegate = self
         choosePaymentMethodButton.configure(
             with: .init(
-                title: selectedPaymentMethod.title
+                title: pickerViewPresenter.paymentMethod
             ))
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: choosePaymentMethodButton)
         

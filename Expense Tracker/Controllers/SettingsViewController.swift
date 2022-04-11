@@ -26,16 +26,23 @@ final class SettingsViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var pickerViewPresenter: PickerViewPresenter = {
+        let pickerViewPresenter = PickerViewPresenter()
+        return pickerViewPresenter
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Settings"
         view.backgroundColor = .systemBackground
-        view.addSubview(tableView)
+        view.addSubviews(tableView,pickerViewPresenter)
         tableView.delegate = self
         tableView.dataSource = self
+        pickerViewPresenter.pickerDelegate = self
         configureSections()
+     
     }
     
     override func viewDidLayoutSubviews() {
@@ -61,6 +68,16 @@ final class SettingsViewController: UIViewController {
                             title: "Import from CSV",
                             handler: { [weak self] in
                                 self?.importFromCSV()
+                            }))
+                ]),
+            SettingsSection(
+                title: "Default payment method transactions to show",
+                options: [
+                    .staticCell(
+                        model: SettingsOption(
+                            title: pickerViewPresenter.paymentMethod,
+                            handler: { [weak self] in
+                                self?.pickerViewPresenter.showPicker()
                             }))
                 ]),
             SettingsSection(
@@ -331,6 +348,22 @@ extension SettingsViewController:SwitchTableViewCellDelegate {
             }
         default:
             break
+        }
+    }
+    
+}
+
+// MARK: - Extension - SettingsViewController
+
+extension SettingsViewController: PickerViewPresenterDelegate {
+    
+    func pickerViewPresenter(didSelect paymentMethod: PaymentMethod) {
+        HapticsManager.shared.vibrate(for: .success)
+        UserDefaults.standard.setValue(paymentMethod.title,
+                                       forKey: "payment_method")
+        DispatchQueue.main.async { [weak self] in
+            self?.configureSections()
+            self?.tableView.reloadData()
         }
     }
     

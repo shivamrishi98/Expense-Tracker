@@ -15,9 +15,13 @@ final class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerVi
     
     
     private let paymentMethods: [PaymentMethod] = PaymentMethod.allCases
-    private var selectedPaymentMethod: PaymentMethod = .all
+    var selectedPaymentMethod: PaymentMethod = .all
     
     weak var pickerDelegate:PickerViewPresenterDelegate?
+    
+    public var paymentMethod:String {
+        return UserDefaults.standard.string(forKey: "payment_method") ?? PaymentMethod.all.title
+    }
     
     private lazy var pickerView: UIPickerView = {
         let pickerView = UIPickerView()
@@ -43,6 +47,7 @@ final class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerVi
     init() {
         super.init(frame: .zero)
         setupView()
+        setSelectedPaymentMethod()
     }
 
     required init?(coder: NSCoder) {
@@ -77,5 +82,36 @@ final class PickerViewPresenter: UITextField, UIPickerViewDataSource, UIPickerVi
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedPaymentMethod = paymentMethods[row]
+    }
+    
+    private func selectRow(for title:String) {
+        var row = 0
+        switch title {
+        case "All":
+            row = 0
+        case "Cash":
+            row = 1
+        case "Online":
+            row = 2
+        default:
+            break
+        }
+        pickerView.selectRow(row,
+                             inComponent: 0,
+                             animated: true)
+    }
+    
+    private func setSelectedPaymentMethod() {
+        switch paymentMethod {
+        case PaymentMethod.all.title:
+            selectedPaymentMethod = .all
+        case PaymentMethod.cash.title:
+            selectedPaymentMethod = .cash
+        case PaymentMethod.online.title:
+            selectedPaymentMethod = .online
+        default:
+            break
+        }
+        selectRow(for: paymentMethod)
     }
 }
