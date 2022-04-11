@@ -344,6 +344,7 @@ extension HomeViewController {
 extension HomeViewController: IconTextButtonDelegate {
     
     func iconTextButtonTapped(_ button: IconTextButton) {
+        HapticsManager.shared.vibrateForSelection()
             pickerViewPresenter.showPicker()
     }
    
@@ -352,6 +353,7 @@ extension HomeViewController: IconTextButtonDelegate {
 extension HomeViewController: PickerViewPresenterDelegate {
     
     func pickerViewPresenter(didSelect paymentMethod: PaymentMethod) {
+        HapticsManager.shared.vibrate(for: .success)
         selectedPaymentMethod = paymentMethod
         choosePaymentMethodButton.configure(
             with: .init(
