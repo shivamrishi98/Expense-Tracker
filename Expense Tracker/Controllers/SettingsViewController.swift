@@ -84,12 +84,7 @@ final class SettingsViewController: UIViewController {
     
     private func exportToCSV() {
         let transactions:[Transaction]? = transactionManager.fetchTransactions(by: .all)
-        let unixTimestamp:TimeInterval = Date().timeIntervalSince1970
-        let fileName:String = "expense_\(unixTimestamp).csv"
         
-        let path:URL? = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-        var csvHead:String = "S.no,Title,Type,Category,Amount,Note,Transaction Date,Created At,Updated At\n"
-
         guard let transactions = transactions,
               !transactions.isEmpty else {
             AlertManager.present(title: "Can't Export",
@@ -99,21 +94,14 @@ final class SettingsViewController: UIViewController {
             return
         }
         
-        for (index,transaction) in transactions.enumerated() {
-            csvHead.append("\(index+1),")
-            csvHead.append("\(transaction.title),")
-            csvHead.append("\(transaction.paymentMethod),")
-            csvHead.append("\(transaction.type),")
-            csvHead.append("\(transaction.category),")
-            csvHead.append("\(transaction.amount),")
-            csvHead.append("\(transaction.note ?? "nil"),")
-            csvHead.append("\(transaction.transactionDate),")
-            csvHead.append("\(transaction.createdAt),")
-            csvHead.append("\(transaction.updatedAt)\n")
-        }
-            
+        let fileName:String = createFileName()
+        let path:URL? = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        let csvHead:String = "S.no,Title,Payment Method,Type,Category,Amount,Note,Transaction Date,Created At,Updated At\n"
+
+        let updatedCSV = updateCSVFile(csvHead: csvHead,
+                                       transactions: transactions)
         do {
-            try csvHead.write(to: path!, atomically: true, encoding: .utf8)
+            try updatedCSV.write(to: path!, atomically: true, encoding: .utf8)
             HapticsManager.shared.vibrate(for: .success)
             let exportSheet:UIActivityViewController = UIActivityViewController(activityItems: [path as Any],
                                                        applicationActivities: nil)
@@ -128,12 +116,28 @@ final class SettingsViewController: UIViewController {
                     height: 0)
                 popoverController.permittedArrowDirections = []
             }
-            
             present(exportSheet, animated: true)
         } catch {
             debugPrint(error)
             HapticsManager.shared.vibrate(for: .error)
         }
+    }
+    
+    private func updateCSVFile(csvHead:String,transactions:[Transaction]) -> String {
+        var csvFile = csvHead
+        for (index,transaction) in transactions.enumerated() {
+            csvFile.append("\(index+1),")
+            csvFile.append("\(transaction.title),")
+            csvFile.append("\(transaction.paymentMethod),")
+            csvFile.append("\(transaction.type),")
+            csvFile.append("\(transaction.category),")
+            csvFile.append("\(transaction.amount),")
+            csvFile.append("\(transaction.note ?? "nil"),")
+            csvFile.append("\(transaction.transactionDate),")
+            csvFile.append("\(transaction.createdAt),")
+            csvFile.append("\(transaction.updatedAt)\n")
+        }
+        return csvFile
     }
     
     private func importFromCSV() {
@@ -146,6 +150,11 @@ final class SettingsViewController: UIViewController {
                                 })
                              ,.dismiss,
                              from: self)
+    }
+    
+    private func createFileName() -> String {
+        let unixTimestamp:TimeInterval = Date().timeIntervalSince1970
+        return "expense_\(unixTimestamp).csv"
     }
     
     private func openDocumentPicker() {
@@ -289,7 +298,7 @@ extension SettingsViewController:UIDocumentPickerDelegate {
     }
 }
 
-// MARK: - Extension - UIDocumentPickerDelegate
+// MARK: - Extension - SwitchTableViewCellDelegate
 
 extension SettingsViewController:SwitchTableViewCellDelegate {
     

@@ -128,7 +128,7 @@ extension TransactionExpenseTypeListViewController: UITableViewDataSource,UITabl
         guard let cell:TransactionListTableViewCell = tableView.dequeueReusableCell(
             withIdentifier: TransactionListTableViewCell.identifier,
             for: indexPath) as? TransactionListTableViewCell else {
-            fatalError()
+            return UITableViewCell()
         }
         let transaction:Transaction = transactions[indexPath.row]
         cell.configure(with: transaction)

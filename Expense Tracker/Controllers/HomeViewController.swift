@@ -10,18 +10,15 @@ import UIKit
 final class HomeViewController: UIViewController {
     
     // MARK: - Properties
-    
-    private var transactions:[Transaction] = [Transaction]()
     private let transactionManager:TransactionManager = TransactionManager()
+    private var transactions:[Transaction] = [Transaction]()
     private var balanceViewModels:[BalanceCollectionViewCell.ViewModel] = [BalanceCollectionViewCell.ViewModel]()
     private var transactionsObserver:NSObjectProtocol?
-    
     private var selectedPaymentMethod: PaymentMethod = .all
     
     // MARK: - UI
     
     private let choosePaymentMethodButton = IconTextButton(frame: .zero)
-    
     private let emptyView:EmptyView = EmptyView()
     
     private let collectionView: UICollectionView = {
@@ -32,9 +29,6 @@ final class HomeViewController: UIViewController {
                                               collectionViewLayout: layout)
         collectionView.isHidden = true
         collectionView.backgroundColor = .secondarySystemBackground
-        collectionView.register(
-            UICollectionViewCell.self,
-            forCellWithReuseIdentifier: "cell")
         collectionView.register(
             BalanceCollectionViewCell.self,
             forCellWithReuseIdentifier: BalanceCollectionViewCell.identifier)
@@ -195,9 +189,7 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
             cell.configure(with: transaction)
             return cell
         default:
-            let cell:UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-            cell.backgroundColor = .systemOrange
-            return cell
+            return UICollectionViewCell()
         }
     }
     
@@ -268,6 +260,32 @@ extension HomeViewController: HeaderTitleCollectionReusableViewDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
 
+}
+
+// MARK: - Extension - IconTextButtonDelegate
+
+extension HomeViewController: IconTextButtonDelegate {
+    
+    func iconTextButtonTapped(_ button: IconTextButton) {
+        HapticsManager.shared.vibrateForSelection()
+        pickerViewPresenter.showPicker()
+    }
+    
+}
+
+// MARK: - Extension - PickerViewPresenterDelegate
+
+extension HomeViewController: PickerViewPresenterDelegate {
+    
+    func pickerViewPresenter(didSelect paymentMethod: PaymentMethod) {
+        HapticsManager.shared.vibrate(for: .success)
+        selectedPaymentMethod = paymentMethod
+        choosePaymentMethodButton.configure(
+            with: .init(
+                title: paymentMethod.title))
+        fetchTransactions()
+    }
+    
 }
 
 // MARK: - Extension - HomeViewController
@@ -341,24 +359,3 @@ extension HomeViewController {
    
 }
 
-extension HomeViewController: IconTextButtonDelegate {
-    
-    func iconTextButtonTapped(_ button: IconTextButton) {
-        HapticsManager.shared.vibrateForSelection()
-            pickerViewPresenter.showPicker()
-    }
-   
-}
-
-extension HomeViewController: PickerViewPresenterDelegate {
-    
-    func pickerViewPresenter(didSelect paymentMethod: PaymentMethod) {
-        HapticsManager.shared.vibrate(for: .success)
-        selectedPaymentMethod = paymentMethod
-        choosePaymentMethodButton.configure(
-            with: .init(
-                title: paymentMethod.title))
-        fetchTransactions()
-    }
-    
-}

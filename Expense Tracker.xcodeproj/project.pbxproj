@@ -268,8 +268,8 @@
 		9647708A27EDA956005DB20D /* Expense Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				9639EA2528002D3400AF96DC /* Presenter */,
 				964770A227EDD10A005DB20D /* Resources */,
+				9639EA2528002D3400AF96DC /* Presenter */,
 				96A2DD0A27F838BB0022BFEE /* Storage */,
 				96A2DD0527F835C50022BFEE /* Models */,
 				96BEA31227F4D77E00A8D1B9 /* Repositories */,
