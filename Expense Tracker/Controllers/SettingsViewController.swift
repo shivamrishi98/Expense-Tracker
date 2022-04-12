@@ -325,10 +325,10 @@ extension SettingsViewController:SwitchTableViewCellDelegate {
             return
         }
         switch indexPath.section {
-        case 1:
+        case 2:
             UserDefaults.standard.set(mySwitch.isOn, forKey: "dark_mode")
             NotificationCenter.default.post(name: .changeTheme, object: nil)
-        case 2:
+        case 3:
             guard mySwitch.isOn else {
                 mySwitch.setOn(false, animated: true)
                 UserDefaults.standard.set(mySwitch.isOn, forKey: "bio_metrics")
