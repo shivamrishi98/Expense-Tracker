@@ -8,6 +8,10 @@ disabled_rules:
  - unused_closure_parameter
  - comma
  - identifier_name
-
+ - function_body_length
+ 
+cyclomatic_complexity:
+ ignores_case_statements: true
+  
 excluded:
  - Pods

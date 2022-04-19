@@ -9,7 +9,7 @@ import UIKit
 
 protocol ExpenseTextfieldCollectionViewCellDelegate:AnyObject {
     func expenseTextfieldCollectionViewCell(_ cell:ExpenseTextfieldCollectionViewCell,
-                                        didUpdateField title:String)
+                                            didUpdateField title:String)
 }
 
 final class ExpenseTextfieldCollectionViewCell: UICollectionViewCell {
