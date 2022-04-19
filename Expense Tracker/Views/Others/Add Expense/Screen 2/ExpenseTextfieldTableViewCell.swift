@@ -9,7 +9,7 @@ import UIKit
 
 protocol ExpenseTextfieldTableViewCellDelegate: AnyObject {
     func expenseTextfieldTableViewCell(_ cell:ExpenseTextfieldTableViewCell,
-                                          didUpdateField updatedModel: AddExpenseScreenTwoFormModel)
+                                       didUpdateField updatedModel: AddExpenseScreenTwoFormModel)
 }
 
 final class ExpenseTextfieldTableViewCell:UITableViewCell,UITextFieldDelegate {

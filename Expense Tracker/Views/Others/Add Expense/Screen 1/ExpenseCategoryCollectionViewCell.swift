@@ -14,15 +14,14 @@ final class ExpenseCategoryCollectionViewCell: UICollectionViewCell {
     static let identifier:String = "ExpenseCategoryCollectionViewCell"
     
     override var isSelected: Bool {
-       didSet{
+       didSet {
            if self.isSelected {
                UIView.animate(withDuration: 0.3) {
                    self.backgroundColor = .link
                    self.iconImageView.tintColor = .white
                    self.categoryTitleLabel.textColor = .white
                }
-           }
-           else {
+           } else {
                UIView.animate(withDuration: 0.3) {
                    self.backgroundColor = .systemBackground
                    self.iconImageView.tintColor = .systemBlue

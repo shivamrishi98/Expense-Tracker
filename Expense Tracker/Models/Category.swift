@@ -8,7 +8,7 @@
 import Foundation
 
 enum Category {
-    enum Income: CaseIterable  {
+    enum Income: CaseIterable {
         case salary
         case refunds
         case rental
@@ -50,7 +50,7 @@ enum Category {
             }
         }
     }
-    enum Expense: CaseIterable  {
+    enum Expense: CaseIterable {
         case transportation
         case rent
         case food

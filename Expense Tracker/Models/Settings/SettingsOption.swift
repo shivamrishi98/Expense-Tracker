@@ -9,5 +9,5 @@ import Foundation
 
 struct SettingsOption {
     let title:String
-    let handler: (()->Void)
+    let handler: (() -> Void)
 }

@@ -26,7 +26,7 @@ final class LocalNotificationsRepository:NotificationsRepository {
     public func requestAuthForNotifications() {
         let options:UNAuthorizationOptions = [.alert,.badge,.sound]
         notificationCenter.requestAuthorization(options: options) { _, error in
-            guard let _ = error else {
+            guard error != nil else {
                 return
             }
         }
@@ -51,7 +51,7 @@ final class LocalNotificationsRepository:NotificationsRepository {
                     trigger: calendarTrigger)
                 
                 strongSelf.notificationCenter.add(request) { error in
-                    guard let _ = error else {
+                    guard error != nil else {
                         return
                     }
                 }
@@ -62,7 +62,7 @@ final class LocalNotificationsRepository:NotificationsRepository {
         }
     }
     
-    private func createNotificationContent(with content:NotificationContent) -> UNMutableNotificationContent{
+    private func createNotificationContent(with content:NotificationContent) -> UNMutableNotificationContent {
         let notification = UNMutableNotificationContent()
         notification.title = content.title
         notification.body = content.body

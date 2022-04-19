@@ -101,7 +101,7 @@ final class AddExpenseScreenTwoViewController: UIViewController {
             updatedAt: Date())
         UserDefaults.standard.set(addExpenseScreenOneModel.iconName, forKey: addExpenseScreenOneModel.category)
 
-        if let _ = self.transaction {
+        if self.transaction != nil {
             if transactionManager.update(transaction: transaction) {
                 navigationController?.popToRootViewController(animated: true)
             }

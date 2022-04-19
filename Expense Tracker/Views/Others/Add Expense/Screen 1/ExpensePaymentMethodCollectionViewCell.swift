@@ -9,7 +9,7 @@ import UIKit
 
 protocol ExpensePaymentMethodCollectionViewCellDelegate: AnyObject {
     func expensePaymentMethodCollectionViewCell(_ cell:ExpensePaymentMethodCollectionViewCell,
-                                       paymentMethod:PaymentMethod)
+                                                paymentMethod:PaymentMethod)
 }
 
 final class ExpensePaymentMethodCollectionViewCell: UICollectionViewCell {

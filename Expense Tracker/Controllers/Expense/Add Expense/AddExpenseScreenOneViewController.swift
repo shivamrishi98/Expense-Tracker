@@ -11,7 +11,7 @@ final class AddExpenseScreenOneViewController: UIViewController {
 
     // MARK: - Properties
     private let sections:[String] = ["","Payment Method","Type","Category"]
-    private var titleString:String? = nil
+    private var titleString:String?
     private let paymentMethods:[PaymentMethod] = PaymentMethod.allCases.filter({ $0 != .all})
     private let types:[ExpenseType] = ExpenseType.allCases
     private let expenseCategories:[Category.Expense] = Category.Expense.allCases.filter({ $0 != .none })
