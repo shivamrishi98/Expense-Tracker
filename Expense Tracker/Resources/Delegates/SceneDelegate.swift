@@ -67,8 +67,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setRootViewController() {
         let navVC = UINavigationController(rootViewController: HomeViewController())
         navVC.navigationBar.backgroundColor = .clear
-        navVC.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navVC.navigationBar.shadowImage = UIImage()
         navVC.navigationBar.prefersLargeTitles = true
         navVC.navigationBar.tintColor = .label
         window?.rootViewController = navVC
